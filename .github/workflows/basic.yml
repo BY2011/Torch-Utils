@@ -1,0 +1,11 @@
+name: Tests and Linter checks
+
+env:
+  CARGO_TERM_COLOR: always
+
+on:
+  pull_request:
+
+jobs:
+  test_and_lint:
+    name: Run unit test
