@@ -8,4 +8,11 @@ on:
 
 jobs:
   test_and_lint:
-    name: Run unit test
+    name: Run unit tests and linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path
