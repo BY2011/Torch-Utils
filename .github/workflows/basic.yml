@@ -15,4 +15,10 @@ jobs:
         uses: actions/checkout@v2
       - uses: actions/cache@v2
         with:
-          path
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/git/checkouts
+            ~/.cargo/git/db
+            ~/.cargo/registry/cache
+            ~/.cargo/registry/index
+     
