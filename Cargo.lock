@@ -408,3 +408,178 @@ dependencies = [
  "thiserror",
  "utils",
 ]
+
+[[package]]
+name = "mpc721_payable_mint"
+version = "1.1.0"
+dependencies = [
+ "contract-version-base",
+ "create_type_spec_derive",
+ "mpc20-base",
+ "mpc721-base",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "serde_json",
+ "utils",
+]
+
+[[package]]
+name = "num-traits"
+version = "0.2.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "578ede34cf02f8924ab9447f50c28075b4d3e5b269972345e7e0372b38c6cdcd"
+dependencies = [
+ "autocfg",
+]
+
+[[package]]
+name = "opaque-debug"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "624a8340c38c1b80fd549087862da4ba43e08858af025b236e509b6649fc13d5"
+
+[[package]]
+name = "ownable-base"
+version = "1.1.0"
+dependencies = [
+ "create_type_spec_derive",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "thiserror",
+]
+
+[[package]]
+name = "pausable-base"
+version = "1.1.0"
+dependencies = [
+ "create_type_spec_derive",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "thiserror",
+]
+
+[[package]]
+name = "pbc_contract_codegen"
+version = "0.1.0"
+source = "git+https://git@gitlab.com/partisiablockchain/language/contract-sdk.git?tag=9.1.1#d9a7844b78cb1bc8c1bdfc188090794c0307033e"
+dependencies = [
+ "pbc_contract_common",
+ "pbc_external",
+ "pbc_lib",
+ "pbc_traits",
+ "proc-macro2",
+ "quote",
+ "sha2",
+ "syn",
+]
+
+[[package]]
+name = "pbc_contract_common"
+version = "0.1.0"
+source = "git+https://git@gitlab.com/partisiablockchain/language/contract-sdk.git?tag=9.1.1#d9a7844b78cb1bc8c1bdfc188090794c0307033e"
+dependencies = [
+ "pbc_external",
+ "pbc_traits",
+ "quote",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "sha2",
+]
+
+[[package]]
+name = "pbc_external"
+version = "0.1.0"
+source = "git+https://git@gitlab.com/partisiablockchain/language/contract-sdk.git?tag=9.1.1#d9a7844b78cb1bc8c1bdfc188090794c0307033e"
+
+[[package]]
+name = "pbc_lib"
+version = "0.1.0"
+source = "git+https://git@gitlab.com/partisiablockchain/language/contract-sdk.git?tag=9.1.1#d9a7844b78cb1bc8c1bdfc188090794c0307033e"
+
+[[package]]
+name = "pbc_traits"
+version = "0.1.0"
+source = "git+https://git@gitlab.com/partisiablockchain/language/contract-sdk.git?tag=9.1.1#d9a7844b78cb1bc8c1bdfc188090794c0307033e"
+dependencies = [
+ "quote",
+]
+
+[[package]]
+name = "proc-macro2"
+version = "1.0.39"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c54b25569025b7fc9651de43004ae593a75ad88543b17178aa5e1b9c4f15f56f"
+dependencies = [
+ "unicode-ident",
+]
+
+[[package]]
+name = "quote"
+version = "1.0.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a1feb54ed693b93a84e14094943b84b7c4eae204c512b7ccb95ab0c66d278ad1"
+dependencies = [
+ "proc-macro2",
+]
+
+[[package]]
+name = "read_write_rpc_derive"
+version = "0.1.0"
+source = "git+https://git@gitlab.com/partisiablockchain/language/contract-sdk.git?tag=9.1.1#d9a7844b78cb1bc8c1bdfc188090794c0307033e"
+dependencies = [
+ "derive_commons",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "read_write_state_derive"
+version = "0.1.0"
+source = "git+https://git@gitlab.com/partisiablockchain/language/contract-sdk.git?tag=9.1.1#d9a7844b78cb1bc8c1bdfc188090794c0307033e"
+dependencies = [
+ "derive_commons",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "rpc-msg-derive"
+version = "1.1.0"
+dependencies = [
+ "create_type_spec_derive",
+ "darling",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "proc-macro2",
+ "quote",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "syn",
+]
+
+[[package]]
+name = "rust_decimal"
+version = "1.25.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "34a3bb58e85333f1ab191bf979104b586ebd77475bc6681882825f4532dfe87c"
+dependencies = [
+ "arrayvec",
+ "num-traits",
+ "serde",
+]
