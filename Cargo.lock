@@ -233,3 +233,178 @@ dependencies = [
  "serde_json",
  "utils",
 ]
+
+[[package]]
+name = "mpc1-multisig-base"
+version = "1.1.0"
+dependencies = [
+ "base64",
+ "create_type_spec_derive",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "rpc-msg-derive",
+ "serde_json",
+ "thiserror",
+ "utils",
+]
+
+[[package]]
+name = "mpc1155"
+version = "1.1.0"
+dependencies = [
+ "contract-version-base",
+ "create_type_spec_derive",
+ "mpc1155-base",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "serde_json",
+ "utils",
+]
+
+[[package]]
+name = "mpc1155-base"
+version = "1.1.0"
+dependencies = [
+ "create_type_spec_derive",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "rpc-msg-derive",
+ "serde_json",
+ "thiserror",
+ "utils",
+]
+
+[[package]]
+name = "mpc20"
+version = "1.1.0"
+dependencies = [
+ "contract-version-base",
+ "create_type_spec_derive",
+ "mpc20-base",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "serde_json",
+ "utils",
+]
+
+[[package]]
+name = "mpc20-base"
+version = "1.1.0"
+dependencies = [
+ "create_type_spec_derive",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "rpc-msg-derive",
+ "serde_json",
+ "thiserror",
+ "utils",
+]
+
+[[package]]
+name = "mpc20-byoc"
+version = "1.1.0"
+dependencies = [
+ "contract-version-base",
+ "create_type_spec_derive",
+ "mpc20-base",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "rpc-msg-derive",
+ "serde_json",
+ "utils",
+]
+
+[[package]]
+name = "mpc20-staking"
+version = "1.1.0"
+dependencies = [
+ "contract-version-base",
+ "create_type_spec_derive",
+ "mpc20-base",
+ "mpc20-staking-base",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "serde_json",
+ "utils",
+]
+
+[[package]]
+name = "mpc20-staking-base"
+version = "1.1.0"
+dependencies = [
+ "create_type_spec_derive",
+ "mpc20-base",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "rpc-msg-derive",
+ "rust_decimal",
+ "serde_json",
+ "thiserror",
+ "utils",
+]
+
+[[package]]
+name = "mpc721"
+version = "1.1.0"
+dependencies = [
+ "contract-version-base",
+ "create_type_spec_derive",
+ "mpc721-base",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "serde_json",
+ "utils",
+]
+
+[[package]]
+name = "mpc721-base"
+version = "1.1.0"
+dependencies = [
+ "create_type_spec_derive",
+ "pbc_contract_codegen",
+ "pbc_contract_common",
+ "pbc_lib",
+ "pbc_traits",
+ "read_write_rpc_derive",
+ "read_write_state_derive",
+ "rpc-msg-derive",
+ "serde_json",
+ "thiserror",
+ "utils",
+]
