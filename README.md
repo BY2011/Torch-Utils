@@ -7,4 +7,5 @@
 | Name                                                   | Description                                                               |
 | ------------------------------------------------------ | ------------------------------------------------------------------------- |
 | [`MPC20`](contracts/mpc20/)                            | Implementation of ERC20 Interface                                         |
-| [`
+| [`MPC721`](contracts/mpc721/)                          | Implementation of ERC721 Interface                                        |
+| [`MPC1155`](contracts/mpc1155/)                      
