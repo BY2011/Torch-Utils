@@ -19,4 +19,6 @@
 | Name                                                  | Description                                 |
 | ----------------------------------------------------- | ------------------------------------------- |
 | [`Access Control`](packages/access-control-base/)     | Access Control Smart Contract Extension Lib |
-| [`Contract Version`](packages/contract-versi
+| [`Contract Version`](packages/contract-version-base/) | Contract Versioning Lib                     |
+| [`Counter`](packages/counter-base/)                   | Counters Lib                                |
+| [`Ownable`](packages/ownable-b
