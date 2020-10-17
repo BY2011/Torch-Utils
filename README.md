@@ -23,4 +23,10 @@
 | [`Counter`](packages/counter-base/)                   | Counters Lib                                |
 | [`Ownable`](packages/ownable-base/)                   | Ownable Smart Contract Extension Lib        |
 | [`Pausable`](packages/pausable-base/)                 | Pausable Smart Contract Extension Lib       |
-| [`U
+| [`Utils`](packages/utils/)                            | Set of tool for Smart Contracts             |
+
+## Test
+
+Run `cargo test` to run all unit tests
+
+## How to build contracts
