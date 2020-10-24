@@ -30,3 +30,9 @@
 Run `cargo test` to run all unit tests
 
 ## How to build contracts
+
+Currently `partisia-contract` sdk doesn't support Rust Workspaces.
+So to build contracts from this repo on your own you will need to:
+
+1. Clone this repo
+2. Create a new contrac
