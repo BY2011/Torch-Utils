@@ -37,4 +37,7 @@ So to build contracts from this repo on your own you will need to:
 1. Clone this repo
 2. Create a new contract outside this folder
 3. Import {contract}-base package from `packages/` folder.
-4. Copy all the files from selected contract, for example from `c
+4. Copy all the files from selected contract, for example from `contracts/mpc20`
+5. Run `cargo partisia-contract build --release` command.
+
+Or you can download pre-compiled artifacts from [`here`](https://github.com
