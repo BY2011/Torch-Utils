@@ -40,4 +40,4 @@ So to build contracts from this repo on your own you will need to:
 4. Copy all the files from selected contract, for example from `contracts/mpc20`
 5. Run `cargo partisia-contract build --release` command.
 
-Or you can download pre-compiled artifacts from [`here`](https://github.com
+Or you can download pre-compiled artifacts from [`here`](https://github.com/partisiablockchainapplications/CoreContracts/releases)
