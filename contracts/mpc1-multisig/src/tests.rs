@@ -76,3 +76,43 @@ fn proper_vote_action_call() {
         .call(dest.clone(), Shortname::from_u32(VOTE))
         .argument(1u64)
         .argument(YES_VOTE)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_execute_proposal_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = ProposalExecuteMsg { proposal_id: 1 };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(EXECUTE_PROPOSAL))
+        .argument(1u64)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_close_proposal_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = ProposalCloseMsg { proposal_id: 1 };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(CLOSE_PROPOSAL))
+        .argument(1u64)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
