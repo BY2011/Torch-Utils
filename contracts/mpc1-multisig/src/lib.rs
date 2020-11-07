@@ -7,4 +7,4 @@ pub(crate) mod contract;
 pub mod state;
 
 #[cfg(test)]
-mod
+mod tests;
