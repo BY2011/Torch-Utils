@@ -74,3 +74,31 @@ pub fn vote(
 #[action(shortname = 0x05)]
 pub fn execute_proposal(
     ctx: ContractContext,
+    state: ContractState,
+    proposal_id: u64,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_execute_proposal(
+        &ctx,
+        &mut state.mpc1_multisig,
+        &ProposalExecuteMsg { proposal_id },
+    );
+
+    (state, events)
+}
+
+#[action(shortname = 0x07)]
+pub fn close_proposal(
+    ctx: ContractContext,
+    state: ContractState,
+    proposal_id: u64,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_close_proposal(
+        &ctx,
+        &mut state.mpc1_multisig,
+        &ProposalCloseMsg { proposal_id },
+    );
+
+    (state, events)
+}
