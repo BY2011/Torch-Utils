@@ -74,3 +74,116 @@ pub fn batch_transfer_from(
 
     (state, events)
 }
+
+#[action(shortname = 0x05)]
+pub fn approve_for_all(
+    ctx: ContractContext,
+    state: ContractState,
+    operator: Address,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_approve_for_all(&ctx, &mut state.mpc1155, &ApproveForAllMsg { operator });
+
+    (state, events)
+}
+
+#[action(shortname = 0x07)]
+pub fn set_uri(
+    ctx: ContractContext,
+    state: ContractState,
+    new_uri: String,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_set_uri(&ctx, &mut state.mpc1155, &SetUriMsg { new_uri });
+
+    (state, events)
+}
+
+#[action(shortname = 0x09)]
+pub fn mint(
+    ctx: ContractContext,
+    state: ContractState,
+    to: Address,
+    token_info: TokenMintInfoMsg,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_mint(&ctx, &mut state.mpc1155, &MintMsg { to, token_info });
+
+    (state, events)
+}
+
+#[action(shortname = 0x11)]
+pub fn batch_mint(
+    ctx: ContractContext,
+    state: ContractState,
+    to: Address,
+    token_infos: Vec<TokenMintInfoMsg>,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_batch_mint(&ctx, &mut state.mpc1155, &BatchMintMsg { to, token_infos });
+
+    (state, events)
+}
+
+#[action(shortname = 0x13)]
+pub fn burn(
+    ctx: ContractContext,
+    state: ContractState,
+    from: Address,
+    token_info: TokenTransferInfoMsg,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_burn(&ctx, &mut state.mpc1155, &BurnMsg { from, token_info });
+
+    (state, events)
+}
+
+#[action(shortname = 0x15)]
+pub fn batch_burn(
+    ctx: ContractContext,
+    state: ContractState,
+    from: Address,
+    token_infos: Vec<TokenTransferInfoMsg>,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_batch_burn(
+        &ctx,
+        &mut state.mpc1155,
+        &BatchBurnMsg { from, token_infos },
+    );
+
+    (state, events)
+}
+
+#[action(shortname = 0x17)]
+pub fn revoke_for_all(
+    ctx: ContractContext,
+    state: ContractState,
+    operator: Address,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_revoke_for_all(&ctx, &mut state.mpc1155, &RevokeForAllMsg { operator });
+
+    (state, events)
+}
+#[action(shortname = 0x18)]
+pub fn check_balances(
+    ctx: ContractContext,
+    state: ContractState,
+    owner: Address,
+    token_ids: Vec<u128>,
+    amounts: Vec<u128>,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_check_balances(
+        &ctx,
+        &mut state.mpc1155,
+        CheckBalancesMsg {
+            owner,
+            token_ids,
+            amounts,
+        },
+    );
+
+    (state, events)
+}
