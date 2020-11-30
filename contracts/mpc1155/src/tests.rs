@@ -20,4 +20,10 @@ fn mock_address(le: u8) -> Address {
 
 const TRANSFER_FROM: u32 = 0x01;
 const BATCH_TRANSFER_FROM: u32 = 0x03;
-con
+const APPROVE_FOR_ALL: u32 = 0x05;
+const SET_URI: u32 = 0x07;
+const MINT: u32 = 0x09;
+const BATCH_MINT: u32 = 0x11;
+const BURN: u32 = 0x13;
+const BATCH_BURN: u32 = 0x15;
+const REVOKE_FOR_A
