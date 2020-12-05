@@ -26,4 +26,11 @@ const MINT: u32 = 0x09;
 const BATCH_MINT: u32 = 0x11;
 const BURN: u32 = 0x13;
 const BATCH_BURN: u32 = 0x15;
-const REVOKE_FOR_A
+const REVOKE_FOR_ALL: u32 = 0x17;
+const CHECK_BALANCES: u32 = 0x18;
+
+#[test]
+fn proper_transfer_from_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = Tra
