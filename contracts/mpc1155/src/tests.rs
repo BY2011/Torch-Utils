@@ -39,4 +39,11 @@ fn proper_transfer_from_action_call() {
         token_info: TokenTransferInfoMsg {
             token_id: 1,
             amount: 100,
-   
+        },
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
