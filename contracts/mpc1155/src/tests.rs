@@ -50,4 +50,10 @@ fn proper_transfer_from_action_call() {
         .call(dest.clone(), Shortname::from_u32(TRANSFER_FROM))
         .argument(mock_address(1u8))
         .argument(mock_address(2u8))
-   
+        .argument(TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 100,
+        })
+        .done();
+
+    assert_eq!(event_group.build(), test_eve
