@@ -56,4 +56,11 @@ fn proper_transfer_from_action_call() {
         })
         .done();
 
-    assert_eq!(event_group.build(), test_eve
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_batch_transfer_from_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = BatchTransferFromMsg
