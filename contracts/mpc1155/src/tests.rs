@@ -63,4 +63,8 @@ fn proper_transfer_from_action_call() {
 fn proper_batch_transfer_from_action_call() {
     let dest = mock_address(30u8);
 
-    let msg = BatchTransferFromMsg
+    let msg = BatchTransferFromMsg {
+        from: mock_address(1u8),
+        to: mock_address(2u8),
+        token_infos: vec![TokenTransferInfoMsg {
+            token
