@@ -75,4 +75,7 @@ fn proper_batch_transfer_from_action_call() {
     let mut event_group = EventGroup::builder();
     msg.as_interaction(&mut event_group, &dest);
 
-    let mut t
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(BATCH_TRANSFER_FROM))
+        .argument(mock_address(1u8
