@@ -67,4 +67,12 @@ fn proper_batch_transfer_from_action_call() {
         from: mock_address(1u8),
         to: mock_address(2u8),
         token_infos: vec![TokenTransferInfoMsg {
-            token
+            token_id: 1,
+            amount: 100,
+        }],
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut t
