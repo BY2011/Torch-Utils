@@ -78,4 +78,12 @@ fn proper_batch_transfer_from_action_call() {
     let mut test_event_group = EventGroup::builder();
     test_event_group
         .call(dest.clone(), Shortname::from_u32(BATCH_TRANSFER_FROM))
-        .argument(mock_address(1u8
+        .argument(mock_address(1u8))
+        .argument(mock_address(2u8))
+        .argument(vec![TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 100,
+        }])
+        .done();
+
+    asser
