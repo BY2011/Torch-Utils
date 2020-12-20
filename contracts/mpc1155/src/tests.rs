@@ -86,4 +86,12 @@ fn proper_batch_transfer_from_action_call() {
         }])
         .done();
 
-    asser
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_approve_for_all_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = ApproveForAllMsg {
+      
