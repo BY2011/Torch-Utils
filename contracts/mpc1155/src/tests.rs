@@ -100,4 +100,8 @@ fn proper_approve_for_all_action_call() {
     let mut event_group = EventGroup::builder();
     msg.as_interaction(&mut event_group, &dest);
 
-   
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(APPROVE_FOR_ALL))
+        .argument(mock_address(1u8))
+        .do
