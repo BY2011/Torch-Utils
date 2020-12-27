@@ -94,4 +94,10 @@ fn proper_approve_for_all_action_call() {
     let dest = mock_address(30u8);
 
     let msg = ApproveForAllMsg {
-      
+        operator: mock_address(1u8),
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+   
