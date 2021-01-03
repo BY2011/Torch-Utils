@@ -104,4 +104,13 @@ fn proper_approve_for_all_action_call() {
     test_event_group
         .call(dest.clone(), Shortname::from_u32(APPROVE_FOR_ALL))
         .argument(mock_address(1u8))
-        .do
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_set_uri_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = Set
