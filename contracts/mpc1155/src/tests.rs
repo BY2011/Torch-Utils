@@ -113,4 +113,10 @@ fn proper_approve_for_all_action_call() {
 fn proper_set_uri_action_call() {
     let dest = mock_address(30u8);
 
-    let msg = Set
+    let msg = SetUriMsg {
+        new_uri: "new".to_string(),
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
