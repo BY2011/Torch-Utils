@@ -120,3 +120,7 @@ fn proper_set_uri_action_call() {
     let mut event_group = EventGroup::builder();
     msg.as_interaction(&mut event_group, &dest);
 
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(SET_URI))
+        .argument("new".to_string())
