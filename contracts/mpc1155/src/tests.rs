@@ -124,3 +124,11 @@ fn proper_set_uri_action_call() {
     test_event_group
         .call(dest.clone(), Shortname::from_u32(SET_URI))
         .argument("new".to_string())
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_mint_action_call() {
+    let dest = mock_address(30u
