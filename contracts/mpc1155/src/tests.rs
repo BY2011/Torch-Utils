@@ -131,4 +131,11 @@ fn proper_set_uri_action_call() {
 
 #[test]
 fn proper_mint_action_call() {
-    let dest = mock_address(30u
+    let dest = mock_address(30u8);
+
+    let msg = MintMsg {
+        to: mock_address(1u8),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 100,
+            token_uri: Some("uri".to_stri
