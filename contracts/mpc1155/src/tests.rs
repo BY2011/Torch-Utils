@@ -150,4 +150,10 @@ fn proper_mint_action_call() {
         .call(dest.clone(), Shortname::from_u32(MINT))
         .argument(mock_address(1u8))
         .argument(TokenMintInfoMsg {
-            t
+            token_id: 1,
+            amount: 100,
+            token_uri: Some("uri".to_string()),
+        })
+        .done();
+
+    assert_eq!(event_group.build(), te
