@@ -138,4 +138,11 @@ fn proper_mint_action_call() {
         token_info: TokenMintInfoMsg {
             token_id: 1,
             amount: 100,
-            token_uri: Some("uri".to_stri
+            token_uri: Some("uri".to_string()),
+        },
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
