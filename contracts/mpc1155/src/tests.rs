@@ -146,3 +146,8 @@ fn proper_mint_action_call() {
     msg.as_interaction(&mut event_group, &dest);
 
     let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(MINT))
+        .argument(mock_address(1u8))
+        .argument(TokenMintInfoMsg {
+            t
