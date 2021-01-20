@@ -156,4 +156,13 @@ fn proper_mint_action_call() {
         })
         .done();
 
-    assert_eq!(event_group.build(), te
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_batch_mint_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = BatchMintMsg {
+        to: mock_address(1u8),
+     
