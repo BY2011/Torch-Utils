@@ -165,4 +165,11 @@ fn proper_batch_mint_action_call() {
 
     let msg = BatchMintMsg {
         to: mock_address(1u8),
-     
+        token_infos: vec![TokenMintInfoMsg {
+            token_id: 1,
+            amount: 100,
+            token_uri: Some("uri".to_string()),
+        }],
+    };
+
+    let mut event
