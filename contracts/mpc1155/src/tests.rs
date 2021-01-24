@@ -181,4 +181,9 @@ fn proper_batch_mint_action_call() {
         .argument(mock_address(1u8))
         .argument(vec![TokenMintInfoMsg {
             token_id: 1,
-   
+            amount: 100,
+            token_uri: Some("uri".to_string()),
+        }])
+        .done();
+
+    assert_eq!(event_group.build
