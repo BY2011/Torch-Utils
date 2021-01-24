@@ -177,3 +177,8 @@ fn proper_batch_mint_action_call() {
 
     let mut test_event_group = EventGroup::builder();
     test_event_group
+        .call(dest.clone(), Shortname::from_u32(BATCH_MINT))
+        .argument(mock_address(1u8))
+        .argument(vec![TokenMintInfoMsg {
+            token_id: 1,
+   
