@@ -195,4 +195,11 @@ fn proper_burn_action_call() {
 
     let msg = BurnMsg {
         from: mock_address(1u8),
-        
+        token_info: TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 100,
+        },
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interactio
