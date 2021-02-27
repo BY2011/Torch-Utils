@@ -207,4 +207,11 @@ fn proper_burn_action_call() {
     let mut test_event_group = EventGroup::builder();
     test_event_group
         .call(dest.clone(), Shortname::from_u32(BURN))
-  
+        .argument(mock_address(1u8))
+        .argument(TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 100,
+        })
+        .done();
+
+    assert_eq!(event_g
