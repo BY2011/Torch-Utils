@@ -214,4 +214,12 @@ fn proper_burn_action_call() {
         })
         .done();
 
-    assert_eq!(event_g
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_batch_burn_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = BatchBurnMsg {
+        from: 
