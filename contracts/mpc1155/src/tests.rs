@@ -222,4 +222,11 @@ fn proper_batch_burn_action_call() {
     let dest = mock_address(30u8);
 
     let msg = BatchBurnMsg {
-        from: 
+        from: mock_address(1u8),
+        token_infos: vec![TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 100,
+        }],
+    };
+
+    let mut event_group 
