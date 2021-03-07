@@ -229,4 +229,9 @@ fn proper_batch_burn_action_call() {
         }],
     };
 
-    let mut event_group 
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(
