@@ -237,4 +237,13 @@ fn proper_batch_burn_action_call() {
         .call(dest.clone(), Shortname::from_u32(BATCH_BURN))
         .argument(mock_address(1u8))
         .argument(vec![TokenTransferInfoMsg {
-            token_id:
+            token_id: 1,
+            amount: 100,
+        }])
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_revoke_for_all_a
