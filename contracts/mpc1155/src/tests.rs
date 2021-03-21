@@ -246,4 +246,11 @@ fn proper_batch_burn_action_call() {
 }
 
 #[test]
-fn proper_revoke_for_all_a
+fn proper_revoke_for_all_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = RevokeForAllMsg {
+        operator: mock_address(1u8),
+    };
+
+    let mut event_group = EventGroup::builder()
