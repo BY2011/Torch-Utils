@@ -258,4 +258,11 @@ fn proper_revoke_for_all_action_call() {
 
     let mut test_event_group = EventGroup::builder();
     test_event_group
-        .call(dest.clone(), Shortnam
+        .call(dest.clone(), Shortname::from_u32(REVOKE_FOR_ALL))
+        .argument(mock_address(1u8))
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+#[test]
+fn proper_check_balanc
