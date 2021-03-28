@@ -265,4 +265,10 @@ fn proper_revoke_for_all_action_call() {
     assert_eq!(event_group.build(), test_event_group.build());
 }
 #[test]
-fn proper_check_balanc
+fn proper_check_balances_call() {
+    let dest = mock_address(30u8);
+
+    let msg = CheckBalancesMsg {
+        owner: mock_address(1u8),
+        token_ids: vec![1, 3],
+        amounts: vec![100,
