@@ -271,4 +271,10 @@ fn proper_check_balances_call() {
     let msg = CheckBalancesMsg {
         owner: mock_address(1u8),
         token_ids: vec![1, 3],
-        amounts: vec![100,
+        amounts: vec![100, 30],
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::b
