@@ -283,4 +283,5 @@ fn proper_check_balances_call() {
         .argument(msg)
         .done();
 
-    asser
+    assert_eq!(event_group.build(), test_event_group.build());
+}
