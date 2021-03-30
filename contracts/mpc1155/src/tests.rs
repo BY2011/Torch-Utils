@@ -277,4 +277,10 @@ fn proper_check_balances_call() {
     let mut event_group = EventGroup::builder();
     msg.as_interaction(&mut event_group, &dest);
 
-    let mut test_event_group = EventGroup::b
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(CHECK_BALANCES))
+        .argument(msg)
+        .done();
+
+    asser
