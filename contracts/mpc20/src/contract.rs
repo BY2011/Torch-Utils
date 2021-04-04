@@ -4,4 +4,6 @@ use contract_version_base::state::ContractVersionBase;
 use pbc_contract_common::{address::Address, context::ContractContext, events::EventGroup};
 
 use mpc20_base::{
-    ac
+    actions::{
+        execute_approve, execute_burn, execute_burn_from, execute_decrease_allowance,
+        execute_increase_allowance, execute_init,
