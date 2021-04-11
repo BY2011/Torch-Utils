@@ -10,4 +10,13 @@ use mpc20_base::{
         execute_transfer_from,
     },
     msg::{
-        ApproveMsg, BurnFromMsg, BurnMsg, DecreaseAllowanceMsg, IncreaseAllowanceMsg, Mi
+        ApproveMsg, BurnFromMsg, BurnMsg, DecreaseAllowanceMsg, IncreaseAllowanceMsg, MintMsg,
+        Mpc20InitMsg, TransferFromMsg, TransferMsg,
+    },
+};
+
+const CONTRACT_NAME: &str = env!("CARGO_PKG_NAME");
+const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
+
+#[init]
+pub fn ini
