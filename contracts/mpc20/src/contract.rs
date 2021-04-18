@@ -29,4 +29,11 @@ pub fn initialize(ctx: ContractContext, msg: Mpc20InitMsg) -> (TokenState, Vec<E
     (state, events)
 }
 
-#[action(shortname = 0x01)
+#[action(shortname = 0x01)]
+pub fn transfer(
+    ctx: ContractContext,
+    state: TokenState,
+    to: Address,
+    amount: u128,
+) -> (TokenState, Vec<EventGroup>) {
+    let mut state =
