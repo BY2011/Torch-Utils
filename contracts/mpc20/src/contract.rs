@@ -22,4 +22,11 @@ const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 pub fn initialize(ctx: ContractContext, msg: Mpc20InitMsg) -> (TokenState, Vec<EventGroup>) {
     let (mpc20, events) = execute_init(&ctx, &msg);
     let state = TokenState {
-  
+        mpc20,
+        version: ContractVersionBase::new(CONTRACT_NAME, CONTRACT_VERSION),
+    };
+
+    (state, events)
+}
+
+#[action(shortname = 0x01)
