@@ -19,4 +19,7 @@ const CONTRACT_NAME: &str = env!("CARGO_PKG_NAME");
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[init]
-pub fn ini
+pub fn initialize(ctx: ContractContext, msg: Mpc20InitMsg) -> (TokenState, Vec<EventGroup>) {
+    let (mpc20, events) = execute_init(&ctx, &msg);
+    let state = TokenState {
+  
