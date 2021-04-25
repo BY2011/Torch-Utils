@@ -36,4 +36,11 @@ pub fn transfer(
     to: Address,
     amount: u128,
 ) -> (TokenState, Vec<EventGroup>) {
-    let mut state =
+    let mut state = state;
+    let events = execute_transfer(&ctx, &mut state.mpc20, &TransferMsg { to, amount });
+
+    (state, events)
+}
+
+#[action(shortname = 0x03)]
+pub f
