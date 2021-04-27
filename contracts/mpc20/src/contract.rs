@@ -43,4 +43,11 @@ pub fn transfer(
 }
 
 #[action(shortname = 0x03)]
-pub f
+pub fn transfer_from(
+    ctx: ContractContext,
+    state: TokenState,
+    from: Address,
+    to: Address,
+    amount: u128,
+) -> (TokenState, Vec<EventGroup>) {
+    let m
