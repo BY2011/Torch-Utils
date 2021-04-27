@@ -50,4 +50,11 @@ pub fn transfer_from(
     to: Address,
     amount: u128,
 ) -> (TokenState, Vec<EventGroup>) {
-    let m
+    let mut state = state;
+    let events = execute_transfer_from(
+        &ctx,
+        &mut state.mpc20,
+        &TransferFromMsg { from, to, amount },
+    );
+
+    (state, ev
