@@ -57,4 +57,13 @@ pub fn transfer_from(
         &TransferFromMsg { from, to, amount },
     );
 
-    (state, ev
+    (state, events)
+}
+
+#[action(shortname = 0x05)]
+pub fn approve(
+    ctx: ContractContext,
+    state: TokenState,
+    spender: Address,
+    amount: u128,
+) -> (TokenState,
