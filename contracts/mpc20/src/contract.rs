@@ -73,4 +73,10 @@ pub fn approve(
     (state, events)
 }
 
-#[act
+#[action(shortname = 0x07)]
+pub fn mint(
+    ctx: ContractContext,
+    state: TokenState,
+    recipient: Address,
+    amount: u128,
+) -> (TokenState, Vec<EventGr
