@@ -66,4 +66,11 @@ pub fn approve(
     state: TokenState,
     spender: Address,
     amount: u128,
-) -> (TokenState,
+) -> (TokenState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_approve(&ctx, &mut state.mpc20, &ApproveMsg { spender, amount });
+
+    (state, events)
+}
+
+#[act
