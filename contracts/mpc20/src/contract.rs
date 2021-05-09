@@ -79,4 +79,11 @@ pub fn mint(
     state: TokenState,
     recipient: Address,
     amount: u128,
-) -> (TokenState, Vec<EventGr
+) -> (TokenState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_mint(&ctx, &mut state.mpc20, &MintMsg { recipient, amount });
+
+    (state, events)
+}
+
+#[action(shortname =
