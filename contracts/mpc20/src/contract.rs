@@ -86,4 +86,11 @@ pub fn mint(
     (state, events)
 }
 
-#[action(shortname =
+#[action(shortname = 0x09)]
+pub fn burn(
+    ctx: ContractContext,
+    state: TokenState,
+    amount: u128,
+) -> (TokenState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_burn(&
