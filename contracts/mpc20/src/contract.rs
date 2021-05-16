@@ -102,3 +102,8 @@ pub fn burn(
 pub fn burn_from(
     ctx: ContractContext,
     state: TokenState,
+    owner: Address,
+    amount: u128,
+) -> (TokenState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_burn_from(&ctx, &mut state.mpc20, &BurnFromMsg {
