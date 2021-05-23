@@ -122,4 +122,13 @@ pub fn increase_allowance(
     let events = execute_increase_allowance(
         &ctx,
         &mut state.mpc20,
-        &Increas
+        &IncreaseAllowanceMsg { spender, amount },
+    );
+
+    (state, events)
+}
+
+#[action(shortname = 0x15)]
+pub fn decrease_allowance(
+    ctx: ContractContext,
+   
