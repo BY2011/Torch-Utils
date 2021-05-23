@@ -131,4 +131,9 @@ pub fn increase_allowance(
 #[action(shortname = 0x15)]
 pub fn decrease_allowance(
     ctx: ContractContext,
-   
+    state: TokenState,
+    spender: Address,
+    amount: u128,
+) -> (TokenState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_
