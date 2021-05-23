@@ -136,4 +136,11 @@ pub fn decrease_allowance(
     amount: u128,
 ) -> (TokenState, Vec<EventGroup>) {
     let mut state = state;
-    let events = execute_
+    let events = execute_decrease_allowance(
+        &ctx,
+        &mut state.mpc20,
+        &DecreaseAllowanceMsg { spender, amount },
+    );
+
+    (state, events)
+}
