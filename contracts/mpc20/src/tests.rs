@@ -132,3 +132,72 @@ fn proper_burn_action_call() {
         .call(dest.clone(), Shortname::from_u32(BURN))
         .argument(100u128)
         .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_burn_from_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = BurnFromMsg {
+        owner: mock_address(1u8),
+        amount: 100,
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(BURN_FROM))
+        .argument(mock_address(1u8))
+        .argument(100u128)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_increase_allowance_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = IncreaseAllowanceMsg {
+        spender: mock_address(1u8),
+        amount: 100,
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(INCREASE_ALLOWANCE))
+        .argument(mock_address(1u8))
+        .argument(100u128)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_decrease_allowance_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = DecreaseAllowanceMsg {
+        spender: mock_address(1u8),
+        amount: 100,
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(DECREASE_ALLOWANCE))
+        .argument(mock_address(1u8))
+        .argument(100u128)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
