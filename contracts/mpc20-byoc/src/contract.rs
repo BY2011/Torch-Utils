@@ -186,3 +186,21 @@ pub fn wrap(
         amount,
     }
     .as_interaction(&mut byoc_transfer_events, &state.byoc);
+
+    build_msg_callback(&mut byoc_transfer_events, 0x18, &WrapMsg { amount });
+
+    (state, vec![byoc_transfer_events.build()])
+}
+
+#[callback(shortname = 0x18)]
+pub fn on_wrap_callback(
+    ctx: ContractContext,
+    callback_ctx: CallbackContext,
+    mut state: TokenState,
+    msg: WrapMsg,
+) -> TokenState {
+    assert_callback_success(&callback_ctx);
+
+    state.mpc20.mint_to(&ctx.sender, msg.amount);
+    state
+}
