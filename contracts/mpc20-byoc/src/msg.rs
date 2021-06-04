@@ -6,4 +6,11 @@ use read_write_rpc_derive::ReadWriteRPC;
 use rpc_msg_derive::IntoShortnameRPCEvent;
 use utils::events::IntoShortnameRPCEvent;
 
-#[derive(ReadWriteRPC, CreateTypeSpec, Clone, P
+#[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct Mpc20ByocInitMsg {
+    pub mpc20: Mpc20InitMsg,
+    pub byoc: Address,
+}
+
+/// ## Description
+/// This structure describes fields for mpc2
