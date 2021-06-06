@@ -17,4 +17,5 @@ pub struct Mpc20ByocInitMsg {
 #[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
 #[rpc_msg(action = 0x17)]
 pub struct WrapMsg {
-    pub amo
+    pub amount: u128,
+}
