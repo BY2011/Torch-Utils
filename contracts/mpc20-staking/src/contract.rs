@@ -199,3 +199,31 @@ pub fn increase_allowance(
     ctx: ContractContext,
     state: ContractState,
     spender: Address,
+    amount: u128,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = mpc20_execute_increase_allowance(
+        &ctx,
+        &mut state.mpc20_staking.mpc20,
+        &Mpc20IncreaseAllowanceMsg { spender, amount },
+    );
+
+    (state, events)
+}
+
+#[action(shortname = 0x15)]
+pub fn decrease_allowance(
+    ctx: ContractContext,
+    state: ContractState,
+    spender: Address,
+    amount: u128,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = mpc20_execute_decrease_allowance(
+        &ctx,
+        &mut state.mpc20_staking.mpc20,
+        &Mpc20DecreaseAllowanceMsg { spender, amount },
+    );
+
+    (state, events)
+}
