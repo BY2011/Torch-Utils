@@ -9,4 +9,13 @@ fn mock_address(le: u8) -> Address {
     Address {
         address_type: AddressType::Account,
         identifier: [
-            le, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u
+            le, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 0u8, 0u8,
+        ],
+    }
+}
+
+const STAKE: u32 = 0x17;
+const UNSTAKE: u32 = 0x19;
+const CLAIM: u32 = 0x21;
+const 
