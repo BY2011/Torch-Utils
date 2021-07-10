@@ -18,4 +18,12 @@ fn mock_address(le: u8) -> Address {
 const STAKE: u32 = 0x17;
 const UNSTAKE: u32 = 0x19;
 const CLAIM: u32 = 0x21;
-const 
+const COMPOUND: u32 = 0x23;
+
+#[test]
+fn proper_stake_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = StakeMsg { amount: 100 };
+
+    let mut event_group = EventG
