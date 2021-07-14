@@ -31,4 +31,13 @@ fn proper_stake_action_call() {
 
     let mut test_event_group = EventGroup::builder();
     test_event_group
-        .call(dest.clone(), Shortname:
+        .call(dest.clone(), Shortname::from_u32(STAKE))
+        .argument(100u128)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_unstake_action_call() {
+    let dest
