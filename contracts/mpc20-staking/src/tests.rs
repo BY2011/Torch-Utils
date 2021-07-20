@@ -40,4 +40,9 @@ fn proper_stake_action_call() {
 
 #[test]
 fn proper_unstake_action_call() {
-    let dest
+    let dest = mock_address(30u8);
+
+    let msg = UnstakeMsg { amount: 100 };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &des
