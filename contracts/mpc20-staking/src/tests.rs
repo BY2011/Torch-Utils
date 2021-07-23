@@ -53,4 +53,11 @@ fn proper_unstake_action_call() {
         .argument(100u128)
         .done();
 
-    assert_eq!(
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_claim_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = ClaimMsg 
