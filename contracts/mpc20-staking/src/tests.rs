@@ -60,4 +60,10 @@ fn proper_unstake_action_call() {
 fn proper_claim_action_call() {
     let dest = mock_address(30u8);
 
-    let msg = ClaimMsg 
+    let msg = ClaimMsg { amount: Some(100) };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    
