@@ -80,4 +80,9 @@ fn proper_compound_action_call() {
 
     let msg = CompoundMsg { amount: Some(100) };
 
-    let mut event_group = EventGroup::b
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname:
