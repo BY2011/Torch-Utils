@@ -71,4 +71,13 @@ fn proper_claim_action_call() {
         .argument(Some(100u128))
         .done();
 
-    assert_eq!(event_group.build(), test_event_group.build()
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_compound_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = CompoundMsg { amount: Some(100) };
+
+    let mut event_group = EventGroup::b
