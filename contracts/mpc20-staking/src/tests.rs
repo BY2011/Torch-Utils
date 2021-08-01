@@ -85,4 +85,9 @@ fn proper_compound_action_call() {
 
     let mut test_event_group = EventGroup::builder();
     test_event_group
-        .call(dest.clone(), Shortname:
+        .call(dest.clone(), Shortname::from_u32(COMPOUND))
+        .argument(Some(100u128))
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
