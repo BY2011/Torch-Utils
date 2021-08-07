@@ -309,3 +309,4 @@ fn proper_multi_mint_action_call() {
         .done();
 
     assert_eq!(event_group.build(), test_event_group.build());
+}
