@@ -131,3 +131,62 @@ pub fn revoke(
     let events = execute_revoke(&ctx, &mut state.mpc721, &RevokeMsg { spender, token_id });
 
     (state, events)
+}
+
+#[action(shortname = 0x15)]
+pub fn revoke_for_all(
+    ctx: ContractContext,
+    state: ContractState,
+    operator: Address,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_revoke_for_all(&ctx, &mut state.mpc721, &RevokeForAllMsg { operator });
+
+    (state, events)
+}
+
+#[action(shortname = 0x17)]
+pub fn burn(
+    ctx: ContractContext,
+    state: ContractState,
+    token_id: u128,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_burn(&ctx, &mut state.mpc721, &BurnMsg { token_id });
+
+    (state, events)
+}
+
+#[action(shortname = 0x18)]
+pub fn check_ownership(
+    ctx: ContractContext,
+    state: ContractState,
+    owner: Address,
+    token_id: u128,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events =
+        execute_ownership_check(&ctx, &mut state.mpc721, &CheckOwnerMsg { owner, token_id });
+    (state, events)
+}
+#[action(shortname = 0x19)]
+pub fn update_minter(
+    ctx: ContractContext,
+    state: ContractState,
+    new_minter: Address,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+    let events = execute_update_minter(&ctx, &mut state.mpc721, UpdateMinterMsg { new_minter });
+    (state, events)
+}
+#[action(shortname = 0x20)]
+pub fn multi_mint(
+    ctx: ContractContext,
+    state: ContractState,
+    mints: Vec<MintMsg>,
+) -> (ContractState, Vec<EventGroup>) {
+    let mut state = state;
+
+    execute_multi_mint(&ctx, &mut state.mpc721, &MultiMintMsg { mints });
+    (state, vec![])
+}
