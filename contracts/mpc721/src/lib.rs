@@ -4,4 +4,7 @@
 extern crate pbc_contract_codegen;
 
 pub(crate) mod contract;
-pub m
+pub mod state;
+
+#[cfg(test)]
+mod tests;
