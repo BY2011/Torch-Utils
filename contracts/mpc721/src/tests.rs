@@ -133,3 +133,179 @@ fn proper_mint_action_call() {
 
     let mut event_group = EventGroup::builder();
     msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(MINT))
+        .argument(1u128)
+        .argument(mock_address(1u8))
+        .argument(Some("uri".to_string()))
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_ownership_check_call() {
+    let dest = mock_address(30u8);
+
+    let msg = CheckOwnerMsg {
+        owner: mock_address(1u8),
+        token_id: 1u128,
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(CHECKOWNER))
+        .argument(mock_address(1u8))
+        .argument(1u128)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_approve_for_all_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = ApproveForAllMsg {
+        operator: mock_address(1u8),
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(APPROVE_FOR_ALL))
+        .argument(mock_address(1u8))
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_revoke_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = RevokeMsg {
+        spender: mock_address(1u8),
+        token_id: 1,
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(REVOKE))
+        .argument(mock_address(1u8))
+        .argument(1u128)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_revoke_for_all_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = RevokeForAllMsg {
+        operator: mock_address(1u8),
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(REVOKE_FOR_ALL))
+        .argument(mock_address(1u8))
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+
+#[test]
+fn proper_burn_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = BurnMsg { token_id: 1 };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(BURN))
+        .argument(1u128)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+#[test]
+fn proper_minter_update_action_call() {
+    let dest = mock_address(30u8);
+
+    let msg = UpdateMinterMsg {
+        new_minter: mock_address(19u8),
+    };
+
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(UPDATE_MINTER))
+        .argument(mock_address(19u8))
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
+}
+#[test]
+fn proper_multi_mint_action_call() {
+    let dest = mock_address(30u8);
+
+    let mints = vec![
+        MintMsg {
+            token_id: 1,
+            to: mock_address(4),
+            token_uri: Some(String::from("Token1")),
+        },
+        MintMsg {
+            token_id: 2,
+            to: mock_address(4),
+            token_uri: Some(String::from("Token2")),
+        },
+        MintMsg {
+            token_id: 3,
+            to: mock_address(5),
+            token_uri: Some(String::from("Token3")),
+        },
+        MintMsg {
+            token_id: 4,
+            to: mock_address(5),
+            token_uri: Some(String::from("Token4")),
+        },
+        MintMsg {
+            token_id: 5,
+            to: mock_address(6),
+            token_uri: Some(String::from("Token5")),
+        },
+    ];
+    let msg = MultiMintMsg {
+        mints: mints.clone(),
+    };
+    let mut event_group = EventGroup::builder();
+    msg.as_interaction(&mut event_group, &dest);
+
+    let mut test_event_group = EventGroup::builder();
+    test_event_group
+        .call(dest.clone(), Shortname::from_u32(MULTI_MINT))
+        .argument(mints)
+        .done();
+
+    assert_eq!(event_group.build(), test_event_group.build());
