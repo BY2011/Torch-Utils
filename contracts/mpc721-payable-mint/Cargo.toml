@@ -20,4 +20,10 @@ pbc_contract_codegen = { git = "https://git@gitlab.com/partisiablockchain/langua
 
 mpc20-base = { path = "../../packages/mpc20-base" }
 mpc721-base = { path = "../../packages/mpc721-base" }
-contract-version-base = { path = "../../packages/contract-version-ba
+contract-version-base = { path = "../../packages/contract-version-base"}
+utils = { path = "../../packages/utils" }
+
+serde_json = "1.0"
+
+[features]
+abi = ["pbc_contract_common/abi", "pbc_contract_codegen/abi", "pbc_traits/abi", "create
