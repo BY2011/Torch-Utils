@@ -242,3 +242,60 @@ pub fn multi_mint(
         !mints.iter().any(|mint| mint.to != receiver),
         "Only one receiver supported in payable multi-mint"
     );
+
+    let mut payout_transfer_events = EventGroup::builder();
+
+    MPC20TransferFromMsg {
+        from: receiver,
+        to: ctx.contract_address,
+        amount: (mints.len() as u128) * state.payable_mint_info.amount,
+    }
+    .as_interaction(&mut payout_transfer_events, &state.payable_mint_info.token);
+
+    build_msg_callback(&mut payout_transfer_events, 0x32, &MultiMintMsg { mints });
+
+    (state, vec![payout_transfer_events.build()])
+}
+
+#[callback(shortname = 0x32)]
+pub fn on_multi_mint_callbacl(
+    ctx: ContractContext,
+    callback_ctx: CallbackContext,
+    mut state: ContractState,
+    msg: MultiMintMsg,
+) -> (ContractState, Vec<EventGroup>) {
+    assert_callback_success(&callback_ctx);
+    let _ = execute_multi_mint(&ctx, &mut state.mpc721, &msg);
+
+    let mut payout_transfer_events = EventGroup::builder();
+
+    MPC20TransferMsg {
+        to: state.mpc721.owner.unwrap(),
+        amount: (msg.mints.len() as u128) * state.payable_mint_info.amount,
+    }
+    .as_interaction(&mut payout_transfer_events, &state.payable_mint_info.token);
+
+    (state, vec![payout_transfer_events.build()])
+}
+
+#[action(shortname = 0x51)]
+pub fn recover_funds(
+    ctx: ContractContext,
+    state: ContractState,
+    recipient: Address,
+) -> (ContractState, Vec<EventGroup>) {
+    assert!(
+        state.mpc721.minter == ctx.sender,
+        "Funds recovery can only be done from minter account"
+    );
+
+    let mut recover_transfer_events = EventGroup::builder();
+
+    MPC20TransferMsg {
+        to: recipient,
+        amount: state.payable_mint_info.amount,
+    }
+    .as_interaction(&mut recover_transfer_events, &state.payable_mint_info.token);
+
+    (state, vec![recover_transfer_events.build()])
+}
