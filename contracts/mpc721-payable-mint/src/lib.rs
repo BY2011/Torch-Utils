@@ -5,4 +5,4 @@ extern crate pbc_contract_codegen;
 
 pub(crate) mod contract;
 pub mod msg;
-pub 
+pub mod state;
