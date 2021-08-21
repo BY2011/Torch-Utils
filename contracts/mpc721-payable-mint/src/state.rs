@@ -6,4 +6,8 @@ use read_write_rpc_derive::ReadWriteRPC;
 use read_write_state_derive::ReadWriteState;
 
 #[state]
-#[derive(PartialEq, Eq
+#[derive(PartialEq, Eq, Debug)]
+pub struct ContractState {
+    pub mpc721: MPC721ContractState,
+    pub payable_mint_info: PayableMintInfo,
+    pub version: ContractVersionBase,
