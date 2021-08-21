@@ -11,3 +11,10 @@ pub struct ContractState {
     pub mpc721: MPC721ContractState,
     pub payable_mint_info: PayableMintInfo,
     pub version: ContractVersionBase,
+}
+
+#[derive(ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct PayableMintInfo {
+    pub token: Address,
+    pub amount: u128,
+}
