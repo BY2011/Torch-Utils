@@ -1,4 +1,17 @@
 # Access Control Base
 
 Crate that provides role based access control mechanism,
-where there is an account (role member) that can be granted exclusive access to specific functio
+where there is an account (role member) that can be granted exclusive access to specific functions.
+
+## Base State Actions
+
+## grant_role
+Grants specified tole to specified account.
+
+## setup_role
+Setups new role.
+
+## revoke_role
+Removes role access for specified account.
+
+## renounce_rol
