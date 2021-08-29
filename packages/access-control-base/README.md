@@ -14,4 +14,14 @@ Setups new role.
 ## revoke_role
 Removes role access for specified account.
 
-## renounce_rol
+## renounce_role
+Removes sender access to role.
+
+## set_role_admin
+Sets new tole admin for role.
+
+## assert_only_role
+Validates that only specified role member can have access.
+
+## has_role
+Returns eit
