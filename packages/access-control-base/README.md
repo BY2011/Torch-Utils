@@ -24,4 +24,7 @@ Sets new tole admin for role.
 Validates that only specified role member can have access.
 
 ## has_role
-Returns eit
+Returns either address has specified role or not.
+
+## get_role_admin
+Returns admin role of specified role.
