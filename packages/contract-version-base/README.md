@@ -14,4 +14,4 @@ Sets new contract_name and contract_version.
 Returns contract name.
 
 ## get_contract_version
-Returns contract version
+Returns contract version.
