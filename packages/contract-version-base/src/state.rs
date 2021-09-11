@@ -18,4 +18,12 @@ impl ContractVersionBase {
     /// * **name** is an object of type [`str`]
     ///
     /// * **version** is an object of type [`str`]
-    p
+    pub fn new(name: &str, version: &str) -> Self {
+        Self {
+            name: name.to_string(),
+            version: version.to_string(),
+        }
+    }
+
+    /// ## Description
+   
