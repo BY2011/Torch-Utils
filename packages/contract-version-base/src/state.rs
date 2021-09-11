@@ -4,4 +4,13 @@ use read_write_state_derive::ReadWriteState;
 /// ## Description
 /// This structure describes contract version base state
 #[derive(ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug, Default)]
-pub struct ContractVersionBa
+pub struct ContractVersionBase {
+    /// contract name
+    pub name: String,
+    /// contract version
+    pub version: String,
+}
+
+impl ContractVersionBase {
+    /// ## Description
+    /// Creates c
