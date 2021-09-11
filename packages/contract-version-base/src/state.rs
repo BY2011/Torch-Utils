@@ -13,4 +13,9 @@ pub struct ContractVersionBase {
 
 impl ContractVersionBase {
     /// ## Description
-    /// Creates c
+    /// Creates contract version base extension state
+    /// ## Params
+    /// * **name** is an object of type [`str`]
+    ///
+    /// * **version** is an object of type [`str`]
+    p
