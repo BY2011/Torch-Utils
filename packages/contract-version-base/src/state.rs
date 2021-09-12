@@ -43,4 +43,14 @@ impl ContractVersionBase {
     }
 
     /// ## Description
-    /// Returns cu
+    /// Returns current contract version
+    pub fn get_contract_version(&self) -> String {
+        self.version.clone()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
