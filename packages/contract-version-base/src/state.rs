@@ -26,4 +26,9 @@ impl ContractVersionBase {
     }
 
     /// ## Description
-   
+    /// Sets new name and version
+    /// ## Params
+    /// * **name** is an object of type [`str`]
+    ///
+    /// * **version** is an object of type [`str`]
+  
