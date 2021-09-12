@@ -31,4 +31,9 @@ impl ContractVersionBase {
     /// * **name** is an object of type [`str`]
     ///
     /// * **version** is an object of type [`str`]
-  
+    pub fn set_contract_version(&mut self, name: &str, version: &str) {
+        self.name = name.to_string();
+        self.version = version.to_string();
+    }
+
+    //
