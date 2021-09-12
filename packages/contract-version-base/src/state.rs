@@ -36,4 +36,11 @@ impl ContractVersionBase {
         self.version = version.to_string();
     }
 
-    //
+    /// ## Description
+    /// Returns current contract name
+    pub fn get_contract_name(&self) -> String {
+        self.name.to_string()
+    }
+
+    /// ## Description
+    /// Returns cu
