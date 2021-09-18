@@ -54,3 +54,6 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_contract_version_base() {
+        let mut state = ContractVersionBase::new("name1", "1.0.0");
+        assert_eq!(state.get_contract_name(), "name1"
