@@ -60,4 +60,7 @@ mod tests {
         assert_eq!(state.get_contract_version(), "1.0.0".to_string());
 
         state.set_contract_version("name2", "1.1.0");
-        assert_eq!(state.get_contract_name(), "
+        assert_eq!(state.get_contract_name(), "name2".to_string());
+        assert_eq!(state.get_contract_version(), "1.1.0".to_string());
+    }
+}
