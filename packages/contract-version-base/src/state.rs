@@ -56,4 +56,8 @@ mod tests {
     #[test]
     fn test_contract_version_base() {
         let mut state = ContractVersionBase::new("name1", "1.0.0");
-        assert_eq!(state.get_contract_name(), "name1"
+        assert_eq!(state.get_contract_name(), "name1".to_string());
+        assert_eq!(state.get_contract_version(), "1.0.0".to_string());
+
+        state.set_contract_version("name2", "1.1.0");
+        assert_eq!(state.get_contract_name(), "
