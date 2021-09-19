@@ -33,3 +33,34 @@ impl CounterBase {
     /// ## Description
     /// Returns current counter value
     pub fn current(&self) -> u128 {
+        self.value
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_counter_base() {
+        let mut counter = CounterBase::default();
+        assert_eq!(counter.current(), 0);
+
+        counter.increment();
+        assert_eq!(counter.current(), 1);
+
+        counter.decrement();
+        assert_eq!(counter.current(), 0);
+
+        counter.increment();
+        counter.reset();
+        assert_eq!(counter.current(), 0);
+    }
+
+    #[test]
+    #[should_panic(expected = "CounterBase: decrement overflow")]
+    fn test_decrement_zero_value() {
+        let mut counter = CounterBase::default();
+        counter.decrement()
+    }
+}
