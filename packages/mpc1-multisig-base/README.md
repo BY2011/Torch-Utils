@@ -6,4 +6,14 @@ Base implementation of MPC1-MULTISIG contract.
 
 ## execute_create_proposal
 
-Creat
+Creates a new proposal.
+
+Pararms:
+
+```json
+CreateProposalMsg {
+    "title": "Title",
+    "description": "Decsription",
+    "voting_phase_period": 86400,
+    "calls": [
+        "contr
