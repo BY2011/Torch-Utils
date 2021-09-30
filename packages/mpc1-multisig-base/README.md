@@ -16,4 +16,13 @@ CreateProposalMsg {
     "description": "Decsription",
     "voting_phase_period": 86400,
     "calls": [
-        "contr
+        "contract": "<contract_address>",
+        "method_name": "transfer",
+        "base64_encoded_payload": "<base64_encoded_msg>"
+    ]
+}
+```
+
+## execute_vote
+
+Perfo
