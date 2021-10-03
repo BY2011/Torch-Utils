@@ -25,4 +25,17 @@ CreateProposalMsg {
 
 ## execute_vote
 
-Perfo
+Performes a yes or no vote for specified proposal.
+
+Pararms:
+
+```json
+ProposalVoteMsg {
+    "proposal_id": 1,
+    "vote": 1,
+}
+```
+
+## execute_execute_proposal
+
+Executes proposal if accepte
