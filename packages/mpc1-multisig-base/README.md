@@ -38,4 +38,16 @@ ProposalVoteMsg {
 
 ## execute_execute_proposal
 
-Executes proposal if accepte
+Executes proposal if accepted.
+
+Pararms:
+
+```json
+ProposalExecuteMsg {
+    "proposal_id": 1,
+}
+```
+
+## execute_close_proposal
+
+Closes proposal if expired or threshold was not reached
