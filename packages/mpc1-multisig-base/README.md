@@ -50,4 +50,12 @@ ProposalExecuteMsg {
 
 ## execute_close_proposal
 
-Closes proposal if expired or threshold was not reached
+Closes proposal if expired or threshold was not reached.
+
+Pararms:
+
+```json
+ProposalCloseMsg {
+    "proposal_id": 1,
+}
+```
