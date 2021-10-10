@@ -10,3 +10,8 @@ use crate::{
     },
     ContractError,
 };
+
+/// ## Description
+/// Inits contract state.
+/// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined i
