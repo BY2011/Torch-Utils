@@ -14,4 +14,10 @@ use crate::{
 /// ## Description
 /// Inits contract state.
 /// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)`] if operation was successful,
-/// otherwise panics with error message defined i
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **_ctx** is an object of type [`ContractContext`]
+///
+/// * **msg** is an object of type [`InitMsg`]
+pub fn execute_init(
+    _
