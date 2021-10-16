@@ -20,4 +20,10 @@ use crate::{
 ///
 /// * **msg** is an object of type [`InitMsg`]
 pub fn execute_init(
-    _
+    _ctx: &ContractContext,
+    msg: &InitMsg,
+) -> (MPC1MultisigContractState, Vec<EventGroup>) {
+    assert!(
+        !msg.members.is_empty(),
+        "{}",
+        Contract
