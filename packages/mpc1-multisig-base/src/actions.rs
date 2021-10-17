@@ -26,4 +26,12 @@ pub fn execute_init(
     assert!(
         !msg.members.is_empty(),
         "{}",
-        Contract
+        ContractError::MembersListIsEmpty
+    );
+    assert!(
+        msg.threshold_weight != 0,
+        "{}",
+        ContractError::RequiredWeightIsZero
+    );
+
+    let total_weight = msg.members.iter().map(
