@@ -34,4 +34,11 @@ pub fn execute_init(
         ContractError::RequiredWeightIsZero
     );
 
-    let total_weight = msg.members.iter().map(
+    let total_weight = msg.members.iter().map(|m| m.weight).sum();
+    assert!(
+        msg.threshold_weight <= total_weight,
+        "{}",
+        ContractError::UnreachableWeight
+    );
+
+    let mut members: BTreeMa
