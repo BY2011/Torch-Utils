@@ -41,4 +41,9 @@ pub fn execute_init(
         ContractError::UnreachableWeight
     );
 
-    let mut members: BTreeMa
+    let mut members: BTreeMap<Address, u64> = BTreeMap::new();
+    for member in msg.members.iter() {
+        assert!(
+            !members.contains_key(&member.address),
+            "{}",
+            Contrac
