@@ -57,4 +57,13 @@ pub fn execute_init(
         members,
         threshold_weight: msg.threshold_weight,
         total_weight,
-        voting_phase_per
+        voting_phase_period: msg.voting_phase_period,
+        proposals_count: 0,
+        proposals: BTreeMap::new(),
+    };
+
+    (state, vec![])
+}
+
+/// ## Description
+/// Creates a new proposa
