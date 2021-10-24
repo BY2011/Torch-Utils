@@ -46,4 +46,8 @@ pub fn execute_init(
         assert!(
             !members.contains_key(&member.address),
             "{}",
-            Contrac
+            ContractError::DuplicatedMember
+        );
+        assert!(member.weight > 0, "{}", ContractError::InvalidVotingPower);
+
+        members.insert(member.address, member.we
