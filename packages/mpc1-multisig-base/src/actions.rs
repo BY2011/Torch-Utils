@@ -50,4 +50,11 @@ pub fn execute_init(
         );
         assert!(member.weight > 0, "{}", ContractError::InvalidVotingPower);
 
-        members.insert(member.address, member.we
+        members.insert(member.address, member.weight);
+    }
+
+    let state = MPC1MultisigContractState {
+        members,
+        threshold_weight: msg.threshold_weight,
+        total_weight,
+        voting_phase_per
