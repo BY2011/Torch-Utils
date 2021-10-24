@@ -66,4 +66,6 @@ pub fn execute_init(
 }
 
 /// ## Description
-/// Creates a new proposa
+/// Creates a new proposal.
+/// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
