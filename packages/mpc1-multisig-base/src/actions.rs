@@ -74,4 +74,9 @@ pub fn execute_init(
 ///
 /// * **state** is an object of type [`MPC1MultisigContractState`]
 ///
-/// * **msg** is an object of type
+/// * **msg** is an object of type [`CreateProposalMsg`]
+pub fn execute_create_proposal(
+    ctx: &ContractContext,
+    state: &mut MPC1MultisigContractState,
+    msg: &CreateProposalMsg,
+) -> Vec<E
