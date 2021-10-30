@@ -69,3 +69,9 @@ pub fn execute_init(
 /// Creates a new proposal.
 /// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)`] if operation was successful,
 /// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC1MultisigContractState`]
+///
+/// * **msg** is an object of type
