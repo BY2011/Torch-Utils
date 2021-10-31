@@ -79,4 +79,10 @@ pub fn execute_create_proposal(
     ctx: &ContractContext,
     state: &mut MPC1MultisigContractState,
     msg: &CreateProposalMsg,
-) -> Vec<E
+) -> Vec<EventGroup> {
+    assert!(
+        state.members.contains_key(&ctx.sender),
+        "{}",
+        ContractError::Unauthorized
+    );
+    let member_power = *state.members
