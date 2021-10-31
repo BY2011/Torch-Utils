@@ -85,4 +85,7 @@ pub fn execute_create_proposal(
         "{}",
         ContractError::Unauthorized
     );
-    let member_power = *state.members
+    let member_power = *state.members.get(&ctx.sender).unwrap();
+
+    let max_voting_phase = ctx.block_production_time as u64 + state.voting_phase_period;
+    let voting_phase_end = if let Some(period) = msg
