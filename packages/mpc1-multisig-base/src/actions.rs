@@ -92,4 +92,13 @@ pub fn execute_create_proposal(
         let voting_phase = ctx.block_production_time as u64 + period;
         assert!(
             voting_phase <= max_voting_phase,
-         
+            "{}",
+            ContractError::InvalidVotingPhase
+        );
+        voting_phase
+    } else {
+        max_voting_phase
+    };
+
+    assert!(
+        !msg.cal
