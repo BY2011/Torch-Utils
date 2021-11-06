@@ -101,4 +101,12 @@ pub fn execute_create_proposal(
     };
 
     assert!(
-        !msg.cal
+        !msg.calls.is_empty(),
+        "{}",
+        ContractError::EmptyExecuteCallsList
+    );
+
+    let execute_calls: Vec<ProposalExecuteCall> = msg
+        .calls
+        .iter()
+        .map(|call|
