@@ -113,4 +113,9 @@ pub fn execute_create_proposal(
             contract: call.contract,
             payload: base64::decode(&call.base64_encoded_payload).unwrap(),
         })
-       
+        .collect();
+
+    state.save_proposal(&Proposal {
+        title: msg.title.clone(),
+        description: msg.description.clone(),
+        expires_at: voting_p
