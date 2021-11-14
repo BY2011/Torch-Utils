@@ -109,4 +109,8 @@ pub fn execute_create_proposal(
     let execute_calls: Vec<ProposalExecuteCall> = msg
         .calls
         .iter()
-        .map(|call|
+        .map(|call| ProposalExecuteCall {
+            contract: call.contract,
+            payload: base64::decode(&call.base64_encoded_payload).unwrap(),
+        })
+       
