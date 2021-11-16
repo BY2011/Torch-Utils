@@ -118,4 +118,9 @@ pub fn execute_create_proposal(
     state.save_proposal(&Proposal {
         title: msg.title.clone(),
         description: msg.description.clone(),
-        expires_at: voting_p
+        expires_at: voting_phase_end,
+        execute_calls,
+        status: VOTING_PHASE_STATUS,
+        threshold_weight: state.threshold_weight,
+        total_weight: state.total_weight,
+    
