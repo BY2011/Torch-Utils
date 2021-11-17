@@ -123,4 +123,9 @@ pub fn execute_create_proposal(
         status: VOTING_PHASE_STATUS,
         threshold_weight: state.threshold_weight,
         total_weight: state.total_weight,
-    
+        votes: SubmittedVotes::yes(member_power),
+        ballots: vec![Ballot {
+            member: ctx.sender,
+            vote: YES_VOTE,
+            weight: member_power,
+      
