@@ -128,4 +128,12 @@ pub fn execute_create_proposal(
             member: ctx.sender,
             vote: YES_VOTE,
             weight: member_power,
-      
+        }],
+    });
+
+    vec![]
+}
+
+/// ## Description
+/// Performs a yes or no vote for specified proposal.
+/// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)
