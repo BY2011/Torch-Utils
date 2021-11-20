@@ -136,4 +136,7 @@ pub fn execute_create_proposal(
 
 /// ## Description
 /// Performs a yes or no vote for specified proposal.
-/// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)
+/// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`Con
