@@ -144,4 +144,10 @@ pub fn execute_create_proposal(
 /// * **state** is an object of type [`MPC1MultisigContractState`]
 ///
 /// * **msg** is an object of type [`ProposalVoteMsg`]
-pub f
+pub fn execute_vote(
+    ctx: &ContractContext,
+    state: &mut MPC1MultisigContractState,
+    msg: &ProposalVoteMsg,
+) -> Vec<EventGroup> {
+    assert!(
+        st
