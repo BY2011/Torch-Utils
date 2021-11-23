@@ -150,4 +150,10 @@ pub fn execute_vote(
     msg: &ProposalVoteMsg,
 ) -> Vec<EventGroup> {
     assert!(
-        st
+        state.members.contains_key(&ctx.sender),
+        "{}",
+        ContractError::Unauthorized
+    );
+    let member_power = *state.members.get(&ctx.sender).unwrap();
+
+ 
