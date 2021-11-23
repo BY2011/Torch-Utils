@@ -156,4 +156,10 @@ pub fn execute_vote(
     );
     let member_power = *state.members.get(&ctx.sender).unwrap();
 
- 
+    assert!(
+        state.proposals.contains_key(&msg.proposal_id),
+        "{}",
+        ContractError::ProposalNotFound
+    );
+
+  
