@@ -162,4 +162,8 @@ pub fn execute_vote(
         ContractError::ProposalNotFound
     );
 
-  
+    let proposal = state.proposals.get_mut(&msg.proposal_id).unwrap();
+    assert!(
+        proposal.status == VOTING_PHASE_STATUS,
+        "{}",
+        ContractError::P
