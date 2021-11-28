@@ -171,4 +171,12 @@ pub fn execute_vote(
     assert!(
         proposal.not_expired(ctx.block_production_time as u64),
         "{}",
-        ContractError::
+        ContractError::Expired
+    );
+    assert!(
+        proposal.not_voted(&ctx.sender),
+        "{}",
+        ContractError::AlreadyVoted
+    );
+
+    proposal.register_vote(&ctx.sender, 
