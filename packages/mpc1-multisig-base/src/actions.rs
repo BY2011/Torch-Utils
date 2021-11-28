@@ -179,4 +179,12 @@ pub fn execute_vote(
         ContractError::AlreadyVoted
     );
 
-    proposal.register_vote(&ctx.sender, 
+    proposal.register_vote(&ctx.sender, msg.vote, member_power);
+    proposal.update_status(ctx.block_production_time as u64);
+
+    vec![]
+}
+
+/// ## Description
+/// Executes proposal if accepted.
+///
