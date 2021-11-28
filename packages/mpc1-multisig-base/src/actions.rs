@@ -166,4 +166,9 @@ pub fn execute_vote(
     assert!(
         proposal.status == VOTING_PHASE_STATUS,
         "{}",
-        ContractError::P
+        ContractError::ProposalIsNotInTheVotingPhase
+    );
+    assert!(
+        proposal.not_expired(ctx.block_production_time as u64),
+        "{}",
+        ContractError::
