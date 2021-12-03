@@ -187,4 +187,6 @@ pub fn execute_vote(
 
 /// ## Description
 /// Executes proposal if accepted.
-///
+/// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Pa
