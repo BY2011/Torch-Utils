@@ -204,4 +204,12 @@ pub fn execute_execute_proposal(
     assert!(
         state.members.contains_key(&ctx.sender),
         "{}",
-        ContractError::Unautho
+        ContractError::Unauthorized
+    );
+    assert!(
+        state.proposals.contains_key(&msg.proposal_id),
+        "{}",
+        ContractError::ProposalNotFound
+    );
+
+    let proposal = 
