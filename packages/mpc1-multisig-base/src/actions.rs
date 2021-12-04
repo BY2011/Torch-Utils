@@ -199,4 +199,9 @@ pub fn execute_vote(
 pub fn execute_execute_proposal(
     ctx: &ContractContext,
     state: &mut MPC1MultisigContractState,
-    msg:
+    msg: &ProposalExecuteMsg,
+) -> Vec<EventGroup> {
+    assert!(
+        state.members.contains_key(&ctx.sender),
+        "{}",
+        ContractError::Unautho
