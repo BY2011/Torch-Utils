@@ -189,4 +189,9 @@ pub fn execute_vote(
 /// Executes proposal if accepted.
 /// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)`] if operation was successful,
 /// otherwise panics with error message defined in [`ContractError`]
-/// ## Pa
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC1MultisigContractState`]
+///
+/// * **msg** is an ob
