@@ -219,3 +219,8 @@ pub fn execute_execute_proposal(
         "{}",
         ContractError::ProposalIsNotAcceptedOrRejected
     );
+    proposal.mark_executed();
+
+    let mut event_group = EventGroup::new();
+    for call in proposal.execute_calls.iter() {
+        event_group.send_from_contract(&call.con
