@@ -212,4 +212,10 @@ pub fn execute_execute_proposal(
         ContractError::ProposalNotFound
     );
 
-    let proposal = 
+    let proposal = state.proposals.get_mut(&msg.proposal_id).unwrap();
+
+    assert!(
+        proposal.status == ACCEPTED_STATUS,
+        "{}",
+        ContractError::ProposalIsNotAcceptedOrRejected
+    );
