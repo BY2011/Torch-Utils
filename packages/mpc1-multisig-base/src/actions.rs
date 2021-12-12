@@ -223,4 +223,12 @@ pub fn execute_execute_proposal(
 
     let mut event_group = EventGroup::new();
     for call in proposal.execute_calls.iter() {
-        event_group.send_from_contract(&call.con
+        event_group.send_from_contract(&call.contract, call.payload.clone(), None);
+    }
+
+    vec![event_group]
+}
+
+/// ## Description
+/// Closes proposal if expired or threshold was not reached.
+/// Returns [`(MPC1Multisig
