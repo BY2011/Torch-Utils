@@ -231,4 +231,7 @@ pub fn execute_execute_proposal(
 
 /// ## Description
 /// Closes proposal if expired or threshold was not reached.
-/// Returns [`(MPC1Multisig
+/// Returns [`(MPC1MultisigContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an
