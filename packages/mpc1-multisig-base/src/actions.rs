@@ -239,4 +239,9 @@ pub fn execute_execute_proposal(
 /// * **state** is an object of type [`MPC1MultisigContractState`]
 ///
 /// * **msg** is an object of type [`ProposalCloseMsg`]
-p
+pub fn execute_close_proposal(
+    ctx: &ContractContext,
+    state: &mut MPC1MultisigContractState,
+    msg: &ProposalCloseMsg,
+) -> Vec<EventGroup> {
+    assert!(
