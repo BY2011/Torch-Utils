@@ -258,4 +258,8 @@ pub fn execute_close_proposal(
     let proposal = state.proposals.get_mut(&msg.proposal_id).unwrap();
 
     assert!(
-        ![ACCEPTED_STATUS, 
+        ![ACCEPTED_STATUS, REJECTED_STATUS, EXECUTED_STATUS,]
+            .iter()
+            .any(|s| *s == proposal.status),
+        "{}",
+        ContractError::WrongCloseStatus,
