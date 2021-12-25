@@ -245,3 +245,11 @@ pub fn execute_close_proposal(
     msg: &ProposalCloseMsg,
 ) -> Vec<EventGroup> {
     assert!(
+        state.members.contains_key(&ctx.sender),
+        "{}",
+        ContractError::Unauthorized
+    );
+    assert!(
+        state.proposals.contains_key(&msg.proposal_id),
+        "{}",
+ 
