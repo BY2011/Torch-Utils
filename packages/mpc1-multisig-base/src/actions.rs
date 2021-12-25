@@ -252,4 +252,10 @@ pub fn execute_close_proposal(
     assert!(
         state.proposals.contains_key(&msg.proposal_id),
         "{}",
- 
+        ContractError::ProposalNotFound
+    );
+
+    let proposal = state.proposals.get_mut(&msg.proposal_id).unwrap();
+
+    assert!(
+        ![ACCEPTED_STATUS, 
