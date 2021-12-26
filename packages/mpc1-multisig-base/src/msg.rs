@@ -7,4 +7,7 @@ use rpc_msg_derive::IntoShortnameRPCEvent;
 use utils::events::IntoShortnameRPCEvent;
 
 /// ## Description
-/// This str
+/// This structure describes fields for mpc1-multisig initialize msg
+#[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct MultisigMember {
+    /// multisig member add
