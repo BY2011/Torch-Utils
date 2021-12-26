@@ -270,4 +270,7 @@ pub fn execute_close_proposal(
         ContractError::ProposalNotExpired
     );
 
-    proposal.ma
+    proposal.mark_rejected();
+
+    vec![]
+}
