@@ -263,3 +263,11 @@ pub fn execute_close_proposal(
             .any(|s| *s == proposal.status),
         "{}",
         ContractError::WrongCloseStatus,
+    );
+    assert!(
+        !proposal.not_expired(ctx.block_production_time as u64),
+        "{}",
+        ContractError::ProposalNotExpired
+    );
+
+    proposal.ma
