@@ -17,4 +17,9 @@ pub struct MultisigMember {
 }
 
 /// ## Description
-/// This structure describes fields for mpc1-multisig initia
+/// This structure describes fields for mpc1-multisig initialize msg
+#[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct InitMsg {
+    /// multisig members
+    pub members: Vec<MultisigMember>,
+    /// require
