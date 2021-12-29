@@ -10,4 +10,11 @@ use utils::events::IntoShortnameRPCEvent;
 /// This structure describes fields for mpc1-multisig initialize msg
 #[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
 pub struct MultisigMember {
-    /// multisig member add
+    /// multisig member address
+    pub address: Address,
+    /// member weight
+    pub weight: u64,
+}
+
+/// ## Description
+/// This structure describes fields for mpc1-multisig initia
