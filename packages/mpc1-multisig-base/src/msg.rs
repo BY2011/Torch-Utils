@@ -22,4 +22,11 @@ pub struct MultisigMember {
 pub struct InitMsg {
     /// multisig members
     pub members: Vec<MultisigMember>,
-    /// require
+    /// required threshold
+    pub threshold_weight: u64,
+    /// voting phase period in UTC timestamp
+    pub voting_phase_period: u64,
+}
+
+/// ## Description
+/// This structure describes fields for 
