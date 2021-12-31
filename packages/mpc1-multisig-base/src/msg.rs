@@ -29,4 +29,7 @@ pub struct InitMsg {
 }
 
 /// ## Description
-/// This structure describes fields for 
+/// This structure describes fields for mpc1-multisig create proposal msg
+#[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
+#[rpc_msg(action = 0x01)]
+pub struct 
