@@ -38,4 +38,10 @@ pub struct CreateProposalMsg {
     /// proposal description
     pub description: String,
     /// optional voting period
-    pub vot
+    pub voting_phase_period: Option<u64>,
+    /// proposal calls to execute
+    pub calls: Vec<ProposalExecuteCallMsg>,
+}
+
+/// ## Description
+/// This structure describes fields for 
