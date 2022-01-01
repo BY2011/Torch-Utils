@@ -32,4 +32,10 @@ pub struct InitMsg {
 /// This structure describes fields for mpc1-multisig create proposal msg
 #[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
 #[rpc_msg(action = 0x01)]
-pub struct 
+pub struct CreateProposalMsg {
+    /// proposal title
+    pub title: String,
+    /// proposal description
+    pub description: String,
+    /// optional voting period
+    pub vot
