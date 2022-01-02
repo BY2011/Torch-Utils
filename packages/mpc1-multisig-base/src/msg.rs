@@ -47,4 +47,11 @@ pub struct CreateProposalMsg {
 /// This structure describes fields for mpc1-multisig proposal execute call msg
 #[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
 pub struct ProposalExecuteCallMsg {
-    /// contra
+    /// contract to call
+    pub contract: Address,
+    /// base64 encoded msg payload
+    pub base64_encoded_payload: String,
+}
+
+/// ## Description
+/// This structure describes fields for mp
