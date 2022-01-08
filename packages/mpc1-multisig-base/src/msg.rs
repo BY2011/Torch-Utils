@@ -65,4 +65,7 @@ pub struct ProposalVoteMsg {
 }
 
 /// ## Description
-/// This structure describes fields for mpc1-multisig pr
+/// This structure describes fields for mpc1-multisig proposal execute msg
+#[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
+#[rpc_msg(action = 0x05)]
+pub struct ProposalExecuteMsg {
