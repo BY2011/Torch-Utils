@@ -78,4 +78,6 @@ pub struct ProposalExecuteMsg {
 #[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
 #[rpc_msg(action = 0x07)]
 pub struct ProposalCloseMsg {
-    /// propo
+    /// proposal id to close
+    pub proposal_id: u64,
+}
