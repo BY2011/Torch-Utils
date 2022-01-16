@@ -452,3 +452,203 @@ fn proper_vote() {
                     }],
                     status: VOTING_PHASE_STATUS,
                     threshold_weight: 3,
+                    total_weight: 3,
+                    votes: SubmittedVotes { yes: 2, no: 0 },
+                    ballots: vec![
+                        Ballot {
+                            member: mock_address(1),
+                            vote: YES_VOTE,
+                            weight: 1,
+                        },
+                        Ballot {
+                            member: mock_address(2),
+                            vote: YES_VOTE,
+                            weight: 1,
+                        }
+                    ],
+                }
+            )]),
+        }
+    );
+}
+
+#[test]
+#[should_panic(expected = "Unauthorized")]
+fn unauthorized_member_on_vote() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 3,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let vote_msg = ProposalVoteMsg {
+        proposal_id: 1,
+        vote: YES_VOTE,
+    };
+    let events = execute_vote(&mock_contract_context(4), &mut state, &vote_msg);
+}
+
+#[test]
+#[should_panic(expected = "Proposal not found")]
+fn proposal_not_found_on_vote() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 3,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let vote_msg = ProposalVoteMsg {
+        proposal_id: 2,
+        vote: YES_VOTE,
+    };
+    let events = execute_vote(&mock_contract_context(2), &mut state, &vote_msg);
+}
+
+#[test]
+#[should_panic(expected = "Proposal is not in the voting phase")]
+fn invalid_voting_phase_on_vote() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 3,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+    state.proposals.get_mut(&1).unwrap().status = EXECUTED_STATUS;
+
+    let vote_msg = ProposalVoteMsg {
+        proposal_id: 1,
+        vote: YES_VOTE,
+    };
+    let events = execute_vote(&mock_contract_context(2), &mut state, &vote_msg);
+}
+
+#[test]
+#[should_panic(expected = "Proposal voting phase has expired")]
+fn proposal_expired_on_vote() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 3,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let vote_msg = ProposalVoteMsg {
+        proposal_id: 1,
+        vote: YES_VOTE,
+    };
+
+    let mut context = mock_contract_context(2);
+    context.block_production_time = 86501;
+    let events = execute_vote(&context, &mut state, &vote_msg);
+}
+
+#[test]
+#[should_panic(expected = "Member has already voted")]
+fn member_already_voted_on_vote() {
+    let msg = InitMsg {
