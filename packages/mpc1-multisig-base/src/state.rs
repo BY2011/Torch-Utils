@@ -121,3 +121,88 @@ impl Proposal {
 
     /// ## Description
     /// Returns current proposal status
+    /// ## Params
+    /// * **block_time** is a field of type [`u64`]
+    pub fn current_status(&self, block_time: u64) -> ProposalStatus {
+        let mut status = self.status;
+        if status == VOTING_PHASE_STATUS {
+            if self.is_passed() {
+                status = ACCEPTED_STATUS;
+            }
+
+            if self.is_rejected() || !self.not_expired(block_time) {
+                status = REJECTED_STATUS;
+            }
+        }
+
+        status
+    }
+
+    /// ## Description
+    /// Checks passed proposal or not
+    pub fn is_passed(&self) -> bool {
+        self.votes.yes >= self.threshold_weight
+    }
+
+    /// ## Description
+    /// Checks rejected proposal or not
+    pub fn is_rejected(&self) -> bool {
+        self.votes.no > (self.total_weight - self.threshold_weight)
+    }
+}
+
+/// ## Description
+/// This structure describes proposal execute call
+#[derive(ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct ProposalExecuteCall {
+    /// contract to call
+    pub contract: Address,
+    /// msg payload
+    pub payload: Vec<u8>,
+}
+
+/// ## Description
+/// Defines a type for proposal status
+pub type ProposalStatus = u8;
+pub const VOTING_PHASE_STATUS: ProposalStatus = 1;
+pub const ACCEPTED_STATUS: ProposalStatus = 2;
+pub const REJECTED_STATUS: ProposalStatus = 3;
+pub const EXECUTED_STATUS: ProposalStatus = 4;
+
+/// ## Description
+/// Defines a type for proposal vote
+pub type Vote = u8;
+pub const YES_VOTE: Vote = 1;
+pub const NO_VOTE: Vote = 2;
+
+/// ## Description
+/// This structure describes submitted votes
+#[derive(ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct SubmittedVotes {
+    /// amount of yes votes
+    pub yes: u64,
+    /// amount of no votes
+    pub no: u64,
+}
+
+impl SubmittedVotes {
+    /// ## Description
+    /// Creates struct with submitted yes vote
+    /// ## Params
+    /// * **weight** is a field of type [`u64`]
+    pub fn yes(weight: u64) -> Self {
+        Self { yes: weight, no: 0 }
+    }
+}
+
+/// ## Description
+/// This structure describes ballot information
+#[derive(ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct Ballot {
+    /// voted address
+    pub member: Address,
+    /// vote
+    pub vote: Vote,
+    /// multisig member weight
+    pub weight: u64,
+}
