@@ -78,3 +78,185 @@ fn proper_execute_init() {
             },
         ],
         threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (state, events) = execute_init(&mock_contract_context(1), &msg);
+    assert_eq!(events.len(), 0);
+    assert_eq!(
+        state,
+        MPC1MultisigContractState {
+            members: BTreeMap::from([
+                (mock_address(1), 1),
+                (mock_address(2), 1),
+                (mock_address(3), 1),
+            ]),
+            threshold_weight: 2,
+            total_weight: 3,
+            voting_phase_period: 86400,
+            proposals_count: 0,
+            proposals: BTreeMap::new(),
+        }
+    )
+}
+
+#[test]
+#[should_panic(expected = "Members list is empty")]
+fn empty_members_list_on_init() {
+    let msg = InitMsg {
+        members: vec![],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (_, _) = execute_init(&mock_contract_context(1), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Required weight is zero")]
+fn zero_threshold_weight_on_init() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 0,
+        voting_phase_period: 86400,
+    };
+
+    let (_, _) = execute_init(&mock_contract_context(1), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Unreachable weight")]
+fn unreachable_weight_on_init() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 5,
+        voting_phase_period: 86400,
+    };
+
+    let (_, _) = execute_init(&mock_contract_context(1), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Duplicated member")]
+fn duplicated_member_on_init() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (_, _) = execute_init(&mock_contract_context(1), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Invalid voting power(weight)")]
+fn zero_member_weight_on_init() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 0,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (_, _) = execute_init(&mock_contract_context(1), &msg);
+}
+
+#[test]
+fn proper_create_proposal() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+    assert_eq!(
+        state,
+        MPC1MultisigContractState {
+            members: BTreeMap::from([
+                (mock_address(1), 1),
+                (mock_address(2), 1),
+                (mock_address(3), 1),
+            ]),
+            threshold_weight: 2,
+            total_weight: 3,
+            voting_phase_period: 86400,
+            proposals_count: 1,
+            proposals: BTreeMap::from([(
+                1,
