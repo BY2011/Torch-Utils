@@ -1006,3 +1006,155 @@ fn unauthorized_member_on_close_proposal() {
     let msg = InitMsg {
         members: vec![
             MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let proposal_close_msg = ProposalCloseMsg { proposal_id: 1 };
+    let mut context = mock_contract_context(5);
+    context.block_production_time = 86501;
+    let events = execute_close_proposal(&context, &mut state, &proposal_close_msg);
+}
+
+#[test]
+#[should_panic(expected = "Proposal not found")]
+fn proposal_not_found_on_close_proposal() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let proposal_close_msg = ProposalCloseMsg { proposal_id: 2 };
+    let mut context = mock_contract_context(1);
+    context.block_production_time = 86501;
+    let events = execute_close_proposal(&context, &mut state, &proposal_close_msg);
+}
+
+#[test]
+#[should_panic(expected = "Cannot close executed or rejected proposal")]
+fn wrong_close_status_on_close_proposal() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let vote_msg = ProposalVoteMsg {
+        proposal_id: 1,
+        vote: YES_VOTE,
+    };
+    let events = execute_vote(&mock_contract_context(2), &mut state, &vote_msg);
+
+    let proposal_close_msg = ProposalCloseMsg { proposal_id: 1 };
+    let mut context = mock_contract_context(1);
+    context.block_production_time = 86501;
+    let events = execute_close_proposal(&context, &mut state, &proposal_close_msg);
+}
+
+#[test]
+#[should_panic(expected = "Proposal not expired yet")]
+fn proposal_not_expired_on_close_proposal() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
