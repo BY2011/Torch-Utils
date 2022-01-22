@@ -823,3 +823,186 @@ fn unauthorized_member_on_execute_proposal() {
         }],
     };
     let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let vote_msg = ProposalVoteMsg {
+        proposal_id: 1,
+        vote: YES_VOTE,
+    };
+    let events = execute_vote(&mock_contract_context(2), &mut state, &vote_msg);
+
+    let execute_proposal_msg = ProposalExecuteMsg { proposal_id: 1 };
+    let events =
+        execute_execute_proposal(&mock_contract_context(5), &mut state, &execute_proposal_msg);
+}
+
+#[test]
+#[should_panic(expected = "Proposal not found")]
+fn proposal_not_found_on_execute_proposal() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let vote_msg = ProposalVoteMsg {
+        proposal_id: 1,
+        vote: YES_VOTE,
+    };
+    let events = execute_vote(&mock_contract_context(2), &mut state, &vote_msg);
+
+    let execute_proposal_msg = ProposalExecuteMsg { proposal_id: 2 };
+    let events =
+        execute_execute_proposal(&mock_contract_context(1), &mut state, &execute_proposal_msg);
+}
+
+#[test]
+#[should_panic(expected = "Proposal is not accepted yet or rejected")]
+fn proposal_is_not_accepted_on_execute_proposal() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let execute_proposal_msg = ProposalExecuteMsg { proposal_id: 1 };
+    let events =
+        execute_execute_proposal(&mock_contract_context(1), &mut state, &execute_proposal_msg);
+}
+
+#[test]
+fn proper_close_proposal() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
+                address: mock_address(1),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(2),
+                weight: 1,
+            },
+            MultisigMember {
+                address: mock_address(3),
+                weight: 1,
+            },
+        ],
+        threshold_weight: 2,
+        voting_phase_period: 86400,
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(1), &msg);
+
+    let create_proposal_msg = CreateProposalMsg {
+        title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let proposal_close_msg = ProposalCloseMsg { proposal_id: 1 };
+    let mut context = mock_contract_context(1);
+    context.block_production_time = 86501;
+    let events = execute_close_proposal(&context, &mut state, &proposal_close_msg);
+    assert_eq!(
+        state,
+        MPC1MultisigContractState {
+            members: BTreeMap::from([
+                (mock_address(1), 1),
+                (mock_address(2), 1),
+                (mock_address(3), 1),
+            ]),
+            threshold_weight: 2,
+            total_weight: 3,
+            voting_phase_period: 86400,
+            proposals_count: 1,
+            proposals: BTreeMap::from([(
+                1,
+                Proposal {
+                    title: "Proposal #1".to_string(),
+                    description: "Description".to_string(),
+                    expires_at: 86500,
+                    execute_calls: vec![ProposalExecuteCall {
+                        contract: mock_address(20),
+                        payload: mock_transfer_payload_with_name_bytes(),
+                    }],
+                    status: REJECTED_STATUS,
+                    threshold_weight: 2,
+                    total_weight: 3,
+                    votes: SubmittedVotes { yes: 1, no: 0 },
+                    ballots: vec![Ballot {
+                        member: mock_address(1),
+                        vote: YES_VOTE,
+                        weight: 1,
+                    }],
+                }
+            )]),
+        }
+    );
+}
+
+#[test]
+#[should_panic(expected = "Unauthorized")]
+fn unauthorized_member_on_close_proposal() {
+    let msg = InitMsg {
+        members: vec![
+            MultisigMember {
