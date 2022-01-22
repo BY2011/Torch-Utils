@@ -1158,3 +1158,18 @@ fn proposal_not_expired_on_close_proposal() {
 
     let create_proposal_msg = CreateProposalMsg {
         title: "Proposal #1".to_string(),
+        description: "Description".to_string(),
+        voting_phase_period: None,
+        calls: vec![ProposalExecuteCallMsg {
+            contract: mock_address(20),
+            base64_encoded_payload: mock_transfer_base64_payload(),
+        }],
+    };
+    let events =
+        execute_create_proposal(&mock_contract_context(1), &mut state, &create_proposal_msg);
+
+    let proposal_close_msg = ProposalCloseMsg { proposal_id: 1 };
+    let mut context = mock_contract_context(1);
+    context.block_production_time = 86499;
+    let events = execute_close_proposal(&context, &mut state, &proposal_close_msg);
+}
