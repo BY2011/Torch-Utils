@@ -103,3 +103,46 @@ BurnMsg {
         "amount": 1,
     },
 }
+```
+
+## execute_batch_burn
+
+Batch destroy your token forever.
+
+Params:
+
+```json
+BatchBurnMsg {
+    "from": "<address>",
+    "token_infos": [
+        {
+            "token_id": 1,
+            "amount": 1,
+        }
+    ],
+}
+```
+
+## execute_approve_for_all
+
+Allows operator to transfer any owner tokens from his account.
+
+Params:
+
+```json
+ApproveForAllMsg {
+    "operator": "<address>",
+}
+```
+
+## execute_revoke_for_all
+
+Remove operator.
+
+Params:
+
+```json
+RevokeForAllMsg {
+    "operator": "<address>",
+}
+```
