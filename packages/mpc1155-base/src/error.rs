@@ -5,4 +5,11 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 pub enum ContractError {
     #[error("Unauthorized")]
-    Unautho
+    Unauthorized,
+
+    #[error("Not found")]
+    NotFound,
+
+    #[error("Balance check has failed")]
+    InadequateBalance,
+}
