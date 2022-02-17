@@ -10,4 +10,10 @@ use crate::ContractError;
 /// ## Description
 /// This structure describes main mpc1155 contract state.
 #[derive(ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
-pub struct MPC115
+pub struct MPC1155ContractState {
+    /// optional owner address
+    pub owner: Option<Address>,
+    /// base uri for the tokens
+    pub uri: String,
+    /// minter address
+    pub minter: Addre
