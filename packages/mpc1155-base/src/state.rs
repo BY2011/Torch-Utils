@@ -7,4 +7,7 @@ use read_write_state_derive::ReadWriteState;
 
 use crate::ContractError;
 
-/
+/// ## Description
+/// This structure describes main mpc1155 contract state.
+#[derive(ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct MPC115
