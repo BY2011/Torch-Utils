@@ -16,4 +16,8 @@ pub struct MPC1155ContractState {
     /// base uri for the tokens
     pub uri: String,
     /// minter address
-    pub minter: Addre
+    pub minter: Address,
+    /// token holders balance
+    pub balances: BTreeMap<u128, BTreeMap<Address, u128>>,
+    /// token approvals
+    pub operator_approvals: BTreeMap<Address, BTreeMap<Address
