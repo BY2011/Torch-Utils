@@ -20,4 +20,10 @@ pub struct MPC1155ContractState {
     /// token holders balance
     pub balances: BTreeMap<u128, BTreeMap<Address, u128>>,
     /// token approvals
-    pub operator_approvals: BTreeMap<Address, BTreeMap<Address
+    pub operator_approvals: BTreeMap<Address, BTreeMap<Address, bool>>,
+    /// token info by token id
+    pub tokens: BTreeMap<u128, TokenInfo>,
+}
+
+/// ## Description
+/// This structure describes minted mpc1155 token informati
