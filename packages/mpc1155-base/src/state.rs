@@ -26,4 +26,11 @@ pub struct MPC1155ContractState {
 }
 
 /// ## Description
-/// This structure describes minted mpc1155 token informati
+/// This structure describes minted mpc1155 token information
+#[derive(ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct TokenInfo {
+    /// optional token uri
+    pub token_uri: Option<String>,
+}
+
+im
