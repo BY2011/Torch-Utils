@@ -33,4 +33,10 @@ pub struct TokenInfo {
     pub token_uri: Option<String>,
 }
 
-im
+impl MPC1155ContractState {
+    /// ## Description
+    /// Sets new base uri
+    /// ## Params
+    /// * **uri** is an object of type [`str`]
+    pub fn set_uri(&mut self, uri: &str) {
+     
