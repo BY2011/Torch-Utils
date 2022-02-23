@@ -39,4 +39,10 @@ impl MPC1155ContractState {
     /// ## Params
     /// * **uri** is an object of type [`str`]
     pub fn set_uri(&mut self, uri: &str) {
-     
+        self.uri = uri.to_string()
+    }
+
+    /// ## Description
+    /// Stores new token at specified token id
+    /// ## Params
+    /// * **token_id** is an object of type 
