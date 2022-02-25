@@ -45,4 +45,8 @@ impl MPC1155ContractState {
     /// ## Description
     /// Stores new token at specified token id
     /// ## Params
-    /// * **token_id** is an object of type 
+    /// * **token_id** is an object of type [`u128`]
+    ///
+    /// * **info** is an object of type [`TokenInfo`]
+    pub fn store_token(&mut self, token_id: u128, info: &TokenInfo) {
+        self.tokens.entry(token_id
