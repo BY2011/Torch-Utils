@@ -49,4 +49,10 @@ impl MPC1155ContractState {
     ///
     /// * **info** is an object of type [`TokenInfo`]
     pub fn store_token(&mut self, token_id: u128, info: &TokenInfo) {
-        self.tokens.entry(token_id
+        self.tokens.entry(token_id).or_insert_with(|| info.clone());
+    }
+
+    /// ## Description
+    /// Transfers token from owner to spender
+    /// ## Params
+    /// * **from** is an objec
