@@ -60,4 +60,9 @@ impl MPC1155ContractState {
     /// * **to** is an object of type [`Option<Address>`]
     ///
     /// * **token_id** is a field of type [`u128`]
-    /
+    ///
+    /// * **amount** is a field of type [`u128`]
+    pub fn transfer(
+        &mut self,
+        from: Option<&Address>,
+        to: Option<&Address>,
