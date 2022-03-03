@@ -55,4 +55,9 @@ impl MPC1155ContractState {
     /// ## Description
     /// Transfers token from owner to spender
     /// ## Params
-    /// * **from** is an objec
+    /// * **from** is an object of type [`Option<Address>`]
+    ///
+    /// * **to** is an object of type [`Option<Address>`]
+    ///
+    /// * **token_id** is a field of type [`u128`]
+    /
