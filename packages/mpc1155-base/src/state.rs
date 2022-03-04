@@ -66,3 +66,10 @@ impl MPC1155ContractState {
         &mut self,
         from: Option<&Address>,
         to: Option<&Address>,
+        token_id: u128,
+        amount: u128,
+    ) {
+        if let Some(from) = from {
+            self.balances.entry(token_id).and_modify(|token_balances| {
+                token_balances
+        
