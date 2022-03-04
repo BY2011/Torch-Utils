@@ -72,4 +72,9 @@ impl MPC1155ContractState {
         if let Some(from) = from {
             self.balances.entry(token_id).and_modify(|token_balances| {
                 token_balances
-        
+                    .entry(*from)
+                    .and_modify(|balance| *balance = balance.checked_sub(amount).unwrap());
+            });
+        }
+
+        if let 
