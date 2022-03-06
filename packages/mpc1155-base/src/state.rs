@@ -77,4 +77,9 @@ impl MPC1155ContractState {
             });
         }
 
-        if let 
+        if let Some(to) = to {
+            self.balances
+                .entry(token_id)
+                .and_modify(|token_balances| {
+                    token_balances
+              
