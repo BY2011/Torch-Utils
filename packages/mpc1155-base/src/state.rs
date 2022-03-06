@@ -82,4 +82,6 @@ impl MPC1155ContractState {
                 .entry(token_id)
                 .and_modify(|token_balances| {
                     token_balances
-              
+                        .entry(*to)
+                        .and_modify(|balance| *balance = balance.checked_add(amount).unwrap())
+                        .or_ins
