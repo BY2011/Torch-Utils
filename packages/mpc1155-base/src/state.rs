@@ -84,4 +84,10 @@ impl MPC1155ContractState {
                     token_balances
                         .entry(*to)
                         .and_modify(|balance| *balance = balance.checked_add(amount).unwrap())
-                        .or_ins
+                        .or_insert(amount);
+                })
+                .or_insert_with(|| BTreeMap::from([(*to, amount)]));
+        }
+    }
+    /// ## Description
+    /// ch
