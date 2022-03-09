@@ -90,4 +90,5 @@ impl MPC1155ContractState {
         }
     }
     /// ## Description
-    /// ch
+    /// checks if an address possesses at least a given balance of tokens
+    pub fn check_balances(&mut self, owner: Address, token_ids: Vec<u128>, amounts: Vec<u12
