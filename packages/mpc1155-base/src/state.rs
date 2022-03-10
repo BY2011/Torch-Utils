@@ -94,4 +94,12 @@ impl MPC1155ContractState {
     pub fn check_balances(&mut self, owner: Address, token_ids: Vec<u128>, amounts: Vec<u128>) {
         token_ids.into_iter().enumerate().for_each(|(n, id)| {
             assert!(
-                self.balances.get(&id).unwrap().get(&owner).unwrap() >= &amou
+                self.balances.get(&id).unwrap().get(&owner).unwrap() >= &amounts[n],
+                "{}",
+                ContractError::InadequateBalance
+            )
+        });
+    }
+    /// ## Description
+    /// Adds new operator approval
+    //
