@@ -106,4 +106,8 @@ impl MPC1155ContractState {
     /// * **owner** is an object of type [`Address`]
     ///
     /// * **operator** is an object of type [`Address`]
-    pub fn add_operat
+    pub fn add_operator(&mut self, owner: &Address, operator: &Address) {
+        let owner_operators = self
+            .operator_approvals
+            .entry(*owner)
+            .or_ins
