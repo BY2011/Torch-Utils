@@ -110,4 +110,12 @@ impl MPC1155ContractState {
         let owner_operators = self
             .operator_approvals
             .entry(*owner)
-            .or_ins
+            .or_insert_with(BTreeMap::new);
+
+        owner_operators.insert(*operator, true);
+    }
+
+    /// ## Description
+    /// Removes operator approval
+    /// ## Params
+    //
