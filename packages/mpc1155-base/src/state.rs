@@ -118,4 +118,7 @@ impl MPC1155ContractState {
     /// ## Description
     /// Removes operator approval
     /// ## Params
-    //
+    /// * **owner** is an object of type [`Address`]
+    ///
+    /// * **operator** is an object of type [`Address`]
+    pub fn remove_operator(&mut self, owner: &Address, operator: &Address) 
