@@ -121,4 +121,8 @@ impl MPC1155ContractState {
     /// * **owner** is an object of type [`Address`]
     ///
     /// * **operator** is an object of type [`Address`]
-    pub fn remove_operator(&mut self, owner: &Address, operator: &Address) 
+    pub fn remove_operator(&mut self, owner: &Address, operator: &Address) {
+        let owner_operators = self
+            .operator_approvals
+            .get_mut(owner)
+            .unwrap_or_else(|| panic!("{}", ContractError::NotFoun
