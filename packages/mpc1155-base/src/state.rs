@@ -125,4 +125,10 @@ impl MPC1155ContractState {
         let owner_operators = self
             .operator_approvals
             .get_mut(owner)
-            .unwrap_or_else(|| panic!("{}", ContractError::NotFoun
+            .unwrap_or_else(|| panic!("{}", ContractError::NotFound.to_string()));
+
+        owner_operators.remove(operator);
+
+        if owner_operators.is_empty() {
+            self.operator_approvals.remove(owner);
+ 
