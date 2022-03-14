@@ -131,4 +131,11 @@ impl MPC1155ContractState {
 
         if owner_operators.is_empty() {
             self.operator_approvals.remove(owner);
- 
+        }
+    }
+
+    /// ## Description
+    /// Checks that specified address is an owner or not
+    /// ## Params
+    /// * **address** is an object of type [`Address`]
+    pub fn is_owner(&se
