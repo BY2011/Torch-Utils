@@ -138,4 +138,12 @@ impl MPC1155ContractState {
     /// Checks that specified address is an owner or not
     /// ## Params
     /// * **address** is an object of type [`Address`]
-    pub fn is_owner(&se
+    pub fn is_owner(&self, address: &Address) -> bool {
+        if let Some(owner) = self.owner {
+            owner.eq(address)
+        } else {
+            false
+        }
+    }
+
+    /// ## De
