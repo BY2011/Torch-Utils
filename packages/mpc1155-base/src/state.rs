@@ -146,4 +146,9 @@ impl MPC1155ContractState {
         }
     }
 
-    /// ## De
+    /// ## Description
+    /// Checks approval
+    /// ## Params
+    /// * **owner** is an object of type [`Address`]
+    ///
+    /// * **sender** is an object of type [`Addres
