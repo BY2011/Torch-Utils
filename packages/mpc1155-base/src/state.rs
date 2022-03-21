@@ -155,4 +155,8 @@ impl MPC1155ContractState {
     pub fn is_token_owner_or_operator(&self, owner: &Address, sender: &Address) -> bool {
         if owner == sender {
             return true;
-     
+        }
+
+        if let Some(owner_approvals) = self.operator_approvals.get(owner) {
+            if let Some(approved) = owner_approvals.get(sender) {
+                return *app
