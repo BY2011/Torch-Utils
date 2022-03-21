@@ -151,4 +151,8 @@ impl MPC1155ContractState {
     /// ## Params
     /// * **owner** is an object of type [`Address`]
     ///
-    /// * **sender** is an object of type [`Addres
+    /// * **sender** is an object of type [`Address`]
+    pub fn is_token_owner_or_operator(&self, owner: &Address, sender: &Address) -> bool {
+        if owner == sender {
+            return true;
+     
