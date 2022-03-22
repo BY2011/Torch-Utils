@@ -169,4 +169,8 @@ impl MPC1155ContractState {
     /// ## Description
     /// Returns token info by specified token id
     /// ## Params
-    /// * **token_id** is an object of ty
+    /// * **token_id** is an object of type [`u128`]
+    pub fn token_info(&self, token_id: u128) -> Option<&TokenInfo> {
+        self.tokens.get(&token_id)
+    }
+}
