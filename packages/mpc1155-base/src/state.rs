@@ -159,4 +159,14 @@ impl MPC1155ContractState {
 
         if let Some(owner_approvals) = self.operator_approvals.get(owner) {
             if let Some(approved) = owner_approvals.get(sender) {
-                return *app
+                return *approved;
+            }
+        }
+
+        false
+    }
+
+    /// ## Description
+    /// Returns token info by specified token id
+    /// ## Params
+    /// * **token_id** is an object of ty
