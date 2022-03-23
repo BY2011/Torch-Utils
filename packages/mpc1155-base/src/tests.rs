@@ -195,3 +195,172 @@ fn proper_mint() {
                 amount: 1,
                 token_uri: None,
             },
+        },
+    ]
+    .into_iter()
+    {
+        let _ = execute_mint(&mock_contract_context(minter), &mut state, &msg);
+    }
+
+    assert_eq!(
+        state.tokens,
+        BTreeMap::from([
+            (
+                1,
+                TokenInfo {
+                    token_uri: Some("1.json".to_string()),
+                }
+            ),
+            (
+                2,
+                TokenInfo {
+                    token_uri: Some("2.json".to_string()),
+                }
+            )
+        ])
+    );
+    assert_eq!(
+        state.balances,
+        BTreeMap::from([
+            (
+                1,
+                BTreeMap::from([(mock_address(alice), 60), (mock_address(bob), 1)])
+            ),
+            (2, BTreeMap::from([(mock_address(alice), 20)]))
+        ])
+    );
+}
+
+#[test]
+#[should_panic(expected = "Unauthorized")]
+fn sender_is_not_minter_on_mint() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(alice), &mut state, &mint_msg);
+}
+
+#[test]
+fn proper_batch_mint() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    for msg in vec![
+        BatchMintMsg {
+            to: mock_address(alice),
+            token_infos: vec![
+                TokenMintInfoMsg {
+                    token_id: 1,
+                    amount: 10,
+                    token_uri: None,
+                },
+                TokenMintInfoMsg {
+                    token_id: 2,
+                    amount: 20,
+                    token_uri: Some("2.json".to_string()),
+                },
+            ],
+        },
+        BatchMintMsg {
+            to: mock_address(bob),
+            token_infos: vec![
+                TokenMintInfoMsg {
+                    token_id: 1,
+                    amount: 100,
+                    token_uri: None,
+                },
+                TokenMintInfoMsg {
+                    token_id: 3,
+                    amount: 30,
+                    token_uri: Some("3.json".to_string()),
+                },
+            ],
+        },
+    ]
+    .into_iter()
+    {
+        let _ = execute_batch_mint(&mock_contract_context(minter), &mut state, &msg);
+    }
+
+    assert_eq!(
+        state.tokens,
+        BTreeMap::from([
+            (1, TokenInfo { token_uri: None }),
+            (
+                2,
+                TokenInfo {
+                    token_uri: Some("2.json".to_string()),
+                }
+            ),
+            (
+                3,
+                TokenInfo {
+                    token_uri: Some("3.json".to_string()),
+                }
+            )
+        ])
+    );
+    assert_eq!(
+        state.balances,
+        BTreeMap::from([
+            (
+                1,
+                BTreeMap::from([(mock_address(alice), 10), (mock_address(bob), 100)])
+            ),
+            (2, BTreeMap::from([(mock_address(alice), 20)])),
+            (3, BTreeMap::from([(mock_address(bob), 30)]))
+        ])
+    );
+}
+
+#[test]
+fn check_balances() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    for msg in vec![
+        BatchMintMsg {
+            to: mock_address(alice),
+            token_infos: vec![
+                TokenMintInfoMsg {
+                    token_id: 1,
+                    amount: 10,
+                    token_uri: None,
