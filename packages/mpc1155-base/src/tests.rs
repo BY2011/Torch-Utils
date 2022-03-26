@@ -527,3 +527,171 @@ fn proper_approve_for_all() {
             BTreeMap::from([(mock_address(bob), true)])
         )])
     );
+
+    let approve_all_msg = ApproveForAllMsg {
+        operator: mock_address(alice),
+    };
+    let _ = execute_approve_for_all(&mock_contract_context(bob), &mut state, &approve_all_msg);
+    assert_eq!(
+        state.operator_approvals,
+        BTreeMap::from([
+            (
+                mock_address(alice),
+                BTreeMap::from([(mock_address(bob), true)])
+            ),
+            (
+                mock_address(bob),
+                BTreeMap::from([(mock_address(alice), true)])
+            )
+        ])
+    );
+}
+
+#[test]
+fn proper_revoke_for_all() {
+    let owner = 1u8;
+    let alice = 10u8;
+    let bob = 11u8;
+    let jack = 12u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(1),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(2), &msg);
+
+    let approve_all_msg = ApproveForAllMsg {
+        operator: mock_address(bob),
+    };
+    let _ = execute_approve_for_all(&mock_contract_context(alice), &mut state, &approve_all_msg);
+    let approve_all_msg = ApproveForAllMsg {
+        operator: mock_address(jack),
+    };
+    let _ = execute_approve_for_all(&mock_contract_context(alice), &mut state, &approve_all_msg);
+
+    let revoke_all_msg = RevokeForAllMsg {
+        operator: mock_address(bob),
+    };
+    let _ = execute_revoke_for_all(&mock_contract_context(alice), &mut state, &revoke_all_msg);
+    assert_eq!(
+        state.operator_approvals,
+        BTreeMap::from([(
+            mock_address(alice),
+            BTreeMap::from([(mock_address(jack), true)])
+        )])
+    );
+
+    let revoke_all_msg = RevokeForAllMsg {
+        operator: mock_address(jack),
+    };
+    let _ = execute_revoke_for_all(&mock_contract_context(alice), &mut state, &revoke_all_msg);
+    assert_eq!(state.operator_approvals, BTreeMap::new());
+}
+
+#[test]
+#[should_panic(expected = "Not found")]
+fn revoke_not_existing_operator() {
+    let owner = 1u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(1),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(2), &msg);
+
+    let revoke_all_msg = RevokeForAllMsg {
+        operator: mock_address(bob),
+    };
+    let _ = execute_revoke_for_all(&mock_contract_context(alice), &mut state, &revoke_all_msg);
+}
+
+#[test]
+fn proper_transfer_from() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+    let jack = 12u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    for msg in vec![
+        BatchMintMsg {
+            to: mock_address(alice),
+            token_infos: vec![
+                TokenMintInfoMsg {
+                    token_id: 1,
+                    amount: 10,
+                    token_uri: None,
+                },
+                TokenMintInfoMsg {
+                    token_id: 2,
+                    amount: 20,
+                    token_uri: Some("2.json".to_string()),
+                },
+            ],
+        },
+        BatchMintMsg {
+            to: mock_address(bob),
+            token_infos: vec![
+                TokenMintInfoMsg {
+                    token_id: 1,
+                    amount: 100,
+                    token_uri: None,
+                },
+                TokenMintInfoMsg {
+                    token_id: 3,
+                    amount: 30,
+                    token_uri: Some("3.json".to_string()),
+                },
+            ],
+        },
+    ]
+    .into_iter()
+    {
+        let _ = execute_batch_mint(&mock_contract_context(minter), &mut state, &msg);
+    }
+
+    for (sender, msg) in vec![
+        (
+            alice,
+            TransferFromMsg {
+                from: mock_address(alice),
+                to: mock_address(bob),
+                token_info: TokenTransferInfoMsg {
+                    token_id: 1,
+                    amount: 5,
+                },
+            },
+        ),
+        (
+            bob,
+            TransferFromMsg {
+                from: mock_address(bob),
+                to: mock_address(jack),
+                token_info: TokenTransferInfoMsg {
+                    token_id: 3,
+                    amount: 15,
+                },
+            },
+        ),
+        (
+            alice,
+            TransferFromMsg {
+                from: mock_address(alice),
+                to: mock_address(jack),
+                token_info: TokenTransferInfoMsg {
+                    token_id: 1,
+                    amount: 4,
