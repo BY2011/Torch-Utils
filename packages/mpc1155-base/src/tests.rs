@@ -695,3 +695,173 @@ fn proper_transfer_from() {
                 token_info: TokenTransferInfoMsg {
                     token_id: 1,
                     amount: 4,
+                },
+            },
+        ),
+        (
+            alice,
+            TransferFromMsg {
+                from: mock_address(alice),
+                to: mock_address(jack),
+                token_info: TokenTransferInfoMsg {
+                    token_id: 2,
+                    amount: 10,
+                },
+            },
+        ),
+    ]
+    .into_iter()
+    {
+        let _ = execute_transfer_from(&mock_contract_context(sender), &mut state, &msg);
+    }
+
+    assert_eq!(
+        state.balances,
+        BTreeMap::from([
+            (
+                1,
+                BTreeMap::from([
+                    (mock_address(alice), 1),
+                    (mock_address(bob), 105),
+                    (mock_address(jack), 4)
+                ])
+            ),
+            (
+                2,
+                BTreeMap::from([(mock_address(alice), 10), (mock_address(jack), 10)])
+            ),
+            (
+                3,
+                BTreeMap::from([(mock_address(bob), 15), (mock_address(jack), 15)])
+            )
+        ])
+    );
+
+    // allow jack to transfer alice tokens
+    let approve_all_msg = ApproveForAllMsg {
+        operator: mock_address(jack),
+    };
+    let _ = execute_approve_for_all(&mock_contract_context(alice), &mut state, &approve_all_msg);
+
+    let transfer_from_msg = TransferFromMsg {
+        from: mock_address(alice),
+        to: mock_address(bob),
+        token_info: TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 1,
+        },
+    };
+
+    let _ = execute_transfer_from(&mock_contract_context(jack), &mut state, &transfer_from_msg);
+    assert_eq!(
+        state.balances,
+        BTreeMap::from([
+            (
+                1,
+                BTreeMap::from([
+                    (mock_address(alice), 0),
+                    (mock_address(bob), 106),
+                    (mock_address(jack), 4)
+                ])
+            ),
+            (
+                2,
+                BTreeMap::from([(mock_address(alice), 10), (mock_address(jack), 10)])
+            ),
+            (
+                3,
+                BTreeMap::from([(mock_address(bob), 15), (mock_address(jack), 15)])
+            )
+        ])
+    );
+}
+
+#[test]
+#[should_panic]
+fn transfer_not_owned_token() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let transfer_from_msg = TransferFromMsg {
+        from: mock_address(alice),
+        to: mock_address(bob),
+        token_info: TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 1,
+        },
+    };
+    let _ = execute_transfer_from(&mock_contract_context(bob), &mut state, &transfer_from_msg);
+}
+
+#[test]
+#[should_panic]
+fn transfer_more_than_balance() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let transfer_from_msg = TransferFromMsg {
+        from: mock_address(alice),
+        to: mock_address(bob),
+        token_info: TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 11,
+        },
+    };
+    let _ = execute_transfer_from(
+        &mock_contract_context(alice),
+        &mut state,
+        &transfer_from_msg,
+    );
+}
+
+#[test]
+fn proper_batch_transfer_from() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
