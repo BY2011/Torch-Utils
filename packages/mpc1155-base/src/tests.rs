@@ -1006,3 +1006,178 @@ fn batch_transfer_more_than_balance() {
         &batch_transfer_from_msg,
     );
 }
+
+#[test]
+fn proper_burn() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let burn_msg = BurnMsg {
+        from: mock_address(alice),
+        token_info: TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 1,
+        },
+    };
+    let _ = execute_burn(&mock_contract_context(alice), &mut state, &burn_msg);
+    assert_eq!(
+        state.balances,
+        BTreeMap::from([(1, BTreeMap::from([(mock_address(alice), 9)]))])
+    );
+}
+
+#[test]
+#[should_panic]
+fn burn_not_owned_token() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let burn_msg = BurnMsg {
+        from: mock_address(alice),
+        token_info: TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 1,
+        },
+    };
+    let _ = execute_burn(&mock_contract_context(bob), &mut state, &burn_msg);
+}
+
+#[test]
+#[should_panic]
+fn burn_more_than_balance() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let burn_msg = BurnMsg {
+        from: mock_address(alice),
+        token_info: TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 11,
+        },
+    };
+    let _ = execute_burn(&mock_contract_context(alice), &mut state, &burn_msg);
+}
+
+#[test]
+fn proper_batch_burn() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 2,
+            amount: 10,
+            token_uri: None,
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let batch_burn_msg = BatchBurnMsg {
+        from: mock_address(alice),
+        token_infos: vec![
+            TokenTransferInfoMsg {
+                token_id: 1,
+                amount: 1,
+            },
+            TokenTransferInfoMsg {
+                token_id: 2,
+                amount: 2,
+            },
+        ],
+    };
+    let _ = execute_batch_burn(&mock_contract_context(alice), &mut state, &batch_burn_msg);
+    assert_eq!(
+        state.balances,
+        BTreeMap::from([
+            (1, BTreeMap::from([(mock_address(alice), 9)])),
+            (2, BTreeMap::from([(mock_address(alice), 8)]))
+        ])
+    );
+}
+
+#[test]
+#[should_panic]
