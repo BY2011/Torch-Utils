@@ -1181,3 +1181,91 @@ fn proper_batch_burn() {
 
 #[test]
 #[should_panic]
+fn batch_burn_not_owned_token() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 2,
+            amount: 10,
+            token_uri: None,
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let batch_burn_msg = BatchBurnMsg {
+        from: mock_address(alice),
+        token_infos: vec![
+            TokenTransferInfoMsg {
+                token_id: 1,
+                amount: 1,
+            },
+            TokenTransferInfoMsg {
+                token_id: 2,
+                amount: 2,
+            },
+        ],
+    };
+    let _ = execute_batch_burn(&mock_contract_context(bob), &mut state, &batch_burn_msg);
+}
+
+#[test]
+#[should_panic]
+fn batch_burn_more_than_balance() {
+    let owner = 1u8;
+    let minter = 2u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(owner)),
+        uri: "ipfs://random".to_string(),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(owner), &msg);
+
+    let mint_msg = MintMsg {
+        to: mock_address(alice),
+        token_info: TokenMintInfoMsg {
+            token_id: 1,
+            amount: 10,
+            token_uri: Some("1.json".to_string()),
+        },
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let batch_burn_msg = BatchBurnMsg {
+        from: mock_address(alice),
+        token_infos: vec![TokenTransferInfoMsg {
+            token_id: 1,
+            amount: 11,
+        }],
+    };
+    let _ = execute_batch_burn(&mock_contract_context(bob), &mut state, &batch_burn_msg);
+}
