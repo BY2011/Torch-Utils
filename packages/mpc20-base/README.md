@@ -102,3 +102,10 @@ IncreaseAllowanceMsg {
 Lowers the spender's access of tokens from the owner's account by amount.
 
 Params:
+
+```json
+DecreaseAllowanceMsg {
+    "spender": "<address>",
+    "amount": 123
+}
+```
