@@ -155,3 +155,124 @@ pub fn execute_burn(
 
     vec![]
 }
+
+/// ## Description
+/// Only with approval extension. Destroys your tokens forever.
+/// Returns [`(MPC20ContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC20ContractState`]
+///
+/// * **msg** is an object of type [`BurnFromMsg`]
+pub fn execute_burn_from(
+    ctx: &ContractContext,
+    state: &mut MPC20ContractState,
+    msg: &BurnFromMsg,
+) -> Vec<EventGroup> {
+    assert!(
+        msg.amount > 0,
+        "{}",
+        ContractError::AmountMustBeHigherThenZero,
+    );
+
+    state.decrease_allowance(&msg.owner, &ctx.sender, msg.amount);
+    state.decrease_balance(&msg.owner, msg.amount);
+    state.decrease_total_supply(msg.amount);
+
+    vec![]
+}
+
+/// ## Description
+/// Sets amount as the allowance of spender over the caller's tokens.
+/// Returns [`(MPC20ContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC20ContractState`]
+///
+/// * **msg** is an object of type [`ApproveMsg`]
+pub fn execute_approve(
+    ctx: &ContractContext,
+    state: &mut MPC20ContractState,
+    msg: &ApproveMsg,
+) -> Vec<EventGroup> {
+    assert!(
+        ctx.sender != msg.spender,
+        "{}",
+        ContractError::CannotApproveToYourself
+    );
+
+    assert!(
+        msg.amount > 0,
+        "{}",
+        ContractError::AmountMustBeHigherThenZero,
+    );
+
+    state.set_allowance(&ctx.sender, &msg.spender, msg.amount);
+    vec![]
+}
+
+/// ## Description
+/// Allows spender to access an additional amount tokens from the owner's account.
+/// Returns [`(MPC20ContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC20ContractState`]
+///
+/// * **msg** is an object of type [`IncreaseAllowanceMsg`]
+pub fn execute_increase_allowance(
+    ctx: &ContractContext,
+    state: &mut MPC20ContractState,
+    msg: &IncreaseAllowanceMsg,
+) -> Vec<EventGroup> {
+    assert!(
+        ctx.sender != msg.spender,
+        "{}",
+        ContractError::CannotApproveToYourself
+    );
+
+    assert!(
+        msg.amount > 0,
+        "{}",
+        ContractError::AmountMustBeHigherThenZero,
+    );
+
+    state.increase_allowance(&ctx.sender, &msg.spender, msg.amount);
+    vec![]
+}
+
+/// ## Description
+/// Lowers the spender's access of tokens from the owner's account by amount.
+/// Returns [`(MPC20ContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC20ContractState`]
+///
+/// * **msg** is an object of type [`DecreaseAllowanceMsg`]
+pub fn execute_decrease_allowance(
+    ctx: &ContractContext,
+    state: &mut MPC20ContractState,
+    msg: &DecreaseAllowanceMsg,
+) -> Vec<EventGroup> {
+    assert!(
+        ctx.sender != msg.spender,
+        "{}",
+        ContractError::CannotApproveToYourself
+    );
+
+    assert!(
+        msg.amount > 0,
+        "{}",
+        ContractError::AmountMustBeHigherThenZero,
+    );
+
+    state.decrease_allowance(&ctx.sender, &msg.spender, msg.amount);
+    vec![]
+}
