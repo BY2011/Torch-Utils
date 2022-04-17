@@ -179,3 +179,65 @@ impl MPC20ContractState {
     /// ## Description
     /// Increases already existing entry otherwise creates new one
     /// ## Params
+    /// * **map** is an object of type [`BTreeMap<Address, u128>`]
+    ///
+    /// * **address** is an object of type [`Address`]
+    ///
+    /// * **amount** is a field of type [`u128`]
+    fn increase_or_set(map: &mut BTreeMap<Address, u128>, address: &Address, amount: u128) {
+        map.entry(*address)
+            .and_modify(|a| *a += amount)
+            .or_insert(amount);
+    }
+
+    /// ## Description
+    /// Decreases already existing entry otherwise removes it
+    ///  ## Params
+    /// * **map** is an object of type [`BTreeMap<Address, u128>`]
+    ///
+    /// * **address** is an object of type [`Address`]
+    ///
+    /// * **amount** is a field of type [`u128`]
+    fn decrease_or_remove(map: &mut BTreeMap<Address, u128>, address: &Address, amount: u128) {
+        let current = *map
+            .get(address)
+            .unwrap_or_else(|| panic!("{}", ContractError::NotFound.to_string()));
+
+        assert!(current >= amount, "{}", ContractError::Overflow.to_string());
+
+        if amount < current {
+            map.entry(*address).and_modify(|a| *a -= amount);
+        } else {
+            map.remove(address);
+        }
+    }
+
+    /// ## Description
+    /// Returns token capacity
+    pub fn get_capacity(&self) -> Option<u128> {
+        self.minter.as_ref().and_then(|m| m.capacity)
+    }
+
+    /// ## Description
+    /// Returns balance of specified address
+    ///  ## Params
+    /// * **address** is an object of type [`Address`]
+    pub fn balance_of(&self, address: &Address) -> u128 {
+        *self.balances.get(address).unwrap_or(&0)
+    }
+
+    /// ## Description
+    /// Returns allowance for specified address pair
+    ///  ## Params
+    /// * **owner** is an object of type [`Address`]
+    ///
+    /// * **spender** is an object of type [`Address`]
+    pub fn allowance(&self, owner: &Address, spender: &Address) -> u128 {
+        *self
+            .allowances
+            .get(owner)
+            .unwrap_or(&BTreeMap::new())
+            .get(spender)
+            .unwrap_or(&0)
+    }
+}
