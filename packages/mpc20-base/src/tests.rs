@@ -12,4 +12,10 @@ use crate::{
         execute_transfer_from,
     },
     msg::{
-        ApproveMsg, BurnFromMsg, BurnMsg, DecreaseAllowanceMs
+        ApproveMsg, BurnFromMsg, BurnMsg, DecreaseAllowanceMsg, IncreaseAllowanceMsg,
+        InitialBalance, MintMsg, Mpc20InitMsg, TransferFromMsg, TransferMsg,
+    },
+    state::{MPC20ContractState, Minter, TokenInfo},
+};
+
+fn 
