@@ -18,4 +18,8 @@ use crate::{
     state::{MPC20ContractState, Minter, TokenInfo},
 };
 
-fn 
+fn mock_address(le: u8) -> Address {
+    Address {
+        address_type: AddressType::Account,
+        identifier: [
+            le, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0
