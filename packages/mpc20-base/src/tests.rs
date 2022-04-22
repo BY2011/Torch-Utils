@@ -22,4 +22,12 @@ fn mock_address(le: u8) -> Address {
     Address {
         address_type: AddressType::Account,
         identifier: [
-            le, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0
+            le, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 0u8, 0u8,
+        ],
+    }
+}
+
+fn mock_contract_context(sender: u8) -> ContractContext {
+    ContractContext {
+        contract_add
