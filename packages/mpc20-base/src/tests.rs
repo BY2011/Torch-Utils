@@ -35,4 +35,5 @@ fn mock_contract_context(sender: u8) -> ContractContext {
         block_time: 100,
         block_production_time: 100,
         current_transaction: [
-            0u8, 0u
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0
