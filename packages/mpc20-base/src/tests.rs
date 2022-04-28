@@ -40,4 +40,12 @@ fn mock_contract_context(sender: u8) -> ContractContext {
         ],
         original_transaction: [
             0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
-        
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+        ],
+    }
+}
+
+#[test]
+fn proper_execute_init() {
+    let msg = Mpc20InitMsg {
+        info: TokenInfo {
