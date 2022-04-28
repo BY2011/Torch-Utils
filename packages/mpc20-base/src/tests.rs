@@ -49,3 +49,8 @@ fn mock_contract_context(sender: u8) -> ContractContext {
 fn proper_execute_init() {
     let msg = Mpc20InitMsg {
         info: TokenInfo {
+            name: "Token".to_string(),
+            symbol: "TKN".to_string(),
+            decimals: 9,
+        },
+        initial_balances: vec![InitialBalan
