@@ -53,4 +53,10 @@ fn proper_execute_init() {
             symbol: "TKN".to_string(),
             decimals: 9,
         },
-        initial_balances: vec![InitialBalan
+        initial_balances: vec![InitialBalance {
+            address: mock_address(10u8),
+            amount: 100,
+        }],
+        minter: Some(Minter {
+            minter: mock_address(3u8),
+            capacity: Some(1_0
