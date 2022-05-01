@@ -59,4 +59,12 @@ fn proper_execute_init() {
         }],
         minter: Some(Minter {
             minter: mock_address(3u8),
-            capacity: Some(1_0
+            capacity: Some(1_000),
+        }),
+    };
+
+    let (state, events) = execute_init(&mock_contract_context(2u8), &msg);
+    assert_eq!(events.len(), 0);
+    assert_eq!(
+        state,
+        MP
