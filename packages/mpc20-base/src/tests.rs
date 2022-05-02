@@ -67,4 +67,10 @@ fn proper_execute_init() {
     assert_eq!(events.len(), 0);
     assert_eq!(
         state,
-        MP
+        MPC20ContractState {
+            info: TokenInfo {
+                name: "Token".to_string(),
+                symbol: "TKN".to_string(),
+                decimals: 9,
+            },
+  
