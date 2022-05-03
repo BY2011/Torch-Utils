@@ -78,4 +78,11 @@ fn proper_execute_init() {
                 minter: mock_address(3u8),
                 capacity: Some(1_000),
             }),
-       
+            balances: BTreeMap::from([(mock_address(10u8), 100)]),
+            allowances: BTreeMap::new(),
+        }
+    );
+}
+
+fn mock_token_info() -> TokenInfo {
+    To
