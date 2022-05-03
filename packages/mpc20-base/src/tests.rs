@@ -73,4 +73,9 @@ fn proper_execute_init() {
                 symbol: "TKN".to_string(),
                 decimals: 9,
             },
-  
+            total_supply: 100,
+            minter: Some(Minter {
+                minter: mock_address(3u8),
+                capacity: Some(1_000),
+            }),
+       
