@@ -85,4 +85,12 @@ fn proper_execute_init() {
 }
 
 fn mock_token_info() -> TokenInfo {
-    To
+    TokenInfo {
+        name: "Token".to_string(),
+        symbol: "TKN".to_string(),
+        decimals: 9,
+    }
+}
+
+#[test]
+#[should_panic(expected = "Name is not in the expecte
