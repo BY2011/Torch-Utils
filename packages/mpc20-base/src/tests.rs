@@ -98,4 +98,9 @@ fn invalid_token_name_on_init() {
     let msg = Mpc20InitMsg {
         info: TokenInfo {
             name: "TO".to_string(),
-            symbol:
+            symbol: "TKN".to_string(),
+            decimals: 9,
+        },
+        initial_balances: vec![InitialBalance {
+            address: mock_address(10u8),
+            amou
