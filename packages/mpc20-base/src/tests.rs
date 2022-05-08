@@ -93,4 +93,9 @@ fn mock_token_info() -> TokenInfo {
 }
 
 #[test]
-#[should_panic(expected = "Name is not in the expecte
+#[should_panic(expected = "Name is not in the expected length. Must be 3-50")]
+fn invalid_token_name_on_init() {
+    let msg = Mpc20InitMsg {
+        info: TokenInfo {
+            name: "TO".to_string(),
+            symbol:
