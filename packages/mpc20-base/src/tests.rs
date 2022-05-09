@@ -103,4 +103,12 @@ fn invalid_token_name_on_init() {
         },
         initial_balances: vec![InitialBalance {
             address: mock_address(10u8),
-            amou
+            amount: 100,
+        }],
+        minter: Some(Minter {
+            minter: mock_address(3u8),
+            capacity: Some(1_000),
+        }),
+    };
+
+    let (_, _
