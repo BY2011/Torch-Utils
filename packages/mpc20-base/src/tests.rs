@@ -111,4 +111,9 @@ fn invalid_token_name_on_init() {
         }),
     };
 
-    let (_, _
+    let (_, _) = execute_init(&mock_contract_context(2u8), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Ticker symbol is not in expected length. Must be 3-12")]
+fn invalid_symbol
