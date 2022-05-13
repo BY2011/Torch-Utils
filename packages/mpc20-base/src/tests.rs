@@ -116,4 +116,8 @@ fn invalid_token_name_on_init() {
 
 #[test]
 #[should_panic(expected = "Ticker symbol is not in expected length. Must be 3-12")]
-fn invalid_symbol
+fn invalid_symbol_on_init() {
+    let msg = Mpc20InitMsg {
+        info: TokenInfo {
+            name: "Token".to_string(),
+            symbol: "TKKTKKTKKTKKR".to_string()
