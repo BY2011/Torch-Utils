@@ -120,4 +120,11 @@ fn invalid_symbol_on_init() {
     let msg = Mpc20InitMsg {
         info: TokenInfo {
             name: "Token".to_string(),
-            symbol: "TKKTKKTKKTKKR".to_string()
+            symbol: "TKKTKKTKKTKKR".to_string(),
+            decimals: 9,
+        },
+        initial_balances: vec![InitialBalance {
+            address: mock_address(10u8),
+            amount: 100,
+        }],
+        mint
