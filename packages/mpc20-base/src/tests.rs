@@ -133,4 +133,10 @@ fn invalid_symbol_on_init() {
         }),
     };
 
-    let (_, _) = execute_init(&mock_contract_context(2u8),
+    let (_, _) = execute_init(&mock_contract_context(2u8), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Ticker symbol is not in expected format. Must be [a-zA-Z\\-]")]
+fn invalid_symbol_character_on_init() {
+    let msg =
