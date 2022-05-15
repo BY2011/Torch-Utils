@@ -145,4 +145,8 @@ fn invalid_symbol_character_on_init() {
             symbol: "!@#TKN".to_string(),
             decimals: 9,
         },
-  
+        initial_balances: vec![InitialBalance {
+            address: mock_address(10u8),
+            amount: 100,
+        }],
+        minter: Some(
