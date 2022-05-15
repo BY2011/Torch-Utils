@@ -139,4 +139,10 @@ fn invalid_symbol_on_init() {
 #[test]
 #[should_panic(expected = "Ticker symbol is not in expected format. Must be [a-zA-Z\\-]")]
 fn invalid_symbol_character_on_init() {
-    let msg =
+    let msg = Mpc20InitMsg {
+        info: TokenInfo {
+            name: "Token".to_string(),
+            symbol: "!@#TKN".to_string(),
+            decimals: 9,
+        },
+  
