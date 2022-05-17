@@ -156,3 +156,11 @@ fn invalid_symbol_character_on_init() {
     };
 
     let (_, _) = execute_init(&mock_contract_context(2u8), &msg);
+}
+
+#[test]
+#[should_panic(expected = "")]
+fn invalid_decimals_on_init() {
+    let msg = Mpc20InitMsg {
+        info: TokenInfo {
+            name: "Token".
