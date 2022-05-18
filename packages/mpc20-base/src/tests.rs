@@ -163,4 +163,9 @@ fn invalid_symbol_character_on_init() {
 fn invalid_decimals_on_init() {
     let msg = Mpc20InitMsg {
         info: TokenInfo {
-            name: "Token".
+            name: "Token".to_string(),
+            symbol: "TKN".to_string(),
+            decimals: 100,
+        },
+        initial_balances: vec![InitialBalance {
+        
