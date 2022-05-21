@@ -182,4 +182,9 @@ fn invalid_decimals_on_init() {
 
 #[test]
 #[should_panic(expected = "Duplicate addresses in initial balances list")]
-fn invalid_initial_ba
+fn invalid_initial_balances_on_init() {
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![
+            InitialBalance {
+       
