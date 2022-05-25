@@ -187,4 +187,9 @@ fn invalid_initial_balances_on_init() {
         info: mock_token_info(),
         initial_balances: vec![
             InitialBalance {
-       
+                address: mock_address(10u8),
+                amount: 100,
+            },
+            InitialBalance {
+                address: mock_address(10u8),
+   
