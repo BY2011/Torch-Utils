@@ -192,4 +192,10 @@ fn invalid_initial_balances_on_init() {
             },
             InitialBalance {
                 address: mock_address(10u8),
-   
+                amount: 50,
+            },
+        ],
+        minter: Some(Minter {
+            minter: mock_address(3u8),
+            capacity: Some(1_000),
+        })
