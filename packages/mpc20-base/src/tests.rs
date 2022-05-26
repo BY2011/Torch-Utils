@@ -198,4 +198,12 @@ fn invalid_initial_balances_on_init() {
         minter: Some(Minter {
             minter: mock_address(3u8),
             capacity: Some(1_000),
-        })
+        }),
+    };
+
+    let (_, _) = execute_init(&mock_contract_context(2u8), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Initial supply is greater than capacity")]
+fn ex
