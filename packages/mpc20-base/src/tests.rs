@@ -206,4 +206,8 @@ fn invalid_initial_balances_on_init() {
 
 #[test]
 #[should_panic(expected = "Initial supply is greater than capacity")]
-fn ex
+fn exceed_total_supply_on_init() {
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![InitialBalance {
+            address: mock_address
