@@ -210,4 +210,10 @@ fn exceed_total_supply_on_init() {
     let msg = Mpc20InitMsg {
         info: mock_token_info(),
         initial_balances: vec![InitialBalance {
-            address: mock_address
+            address: mock_address(10u8),
+            amount: 1001,
+        }],
+        minter: Some(Minter {
+            minter: mock_address(3u8),
+            capacity: Some(1_000),
+     
