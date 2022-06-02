@@ -225,4 +225,9 @@ fn exceed_total_supply_on_init() {
 #[test]
 fn proper_mint() {
     let msg = Mpc20InitMsg {
-        info
+        info: mock_token_info(),
+        initial_balances: vec![],
+        minter: Some(Minter {
+            minter: mock_address(2u8),
+            capacity: Some(1_000),
+        }),
