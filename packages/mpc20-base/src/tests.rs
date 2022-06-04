@@ -231,3 +231,10 @@ fn proper_mint() {
             minter: mock_address(2u8),
             capacity: Some(1_000),
         }),
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let mint_msg = MintMsg {
+        recipient: mock_address(10u8),
+        amount: 
