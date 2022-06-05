@@ -237,4 +237,8 @@ fn proper_mint() {
 
     let mint_msg = MintMsg {
         recipient: mock_address(10u8),
-        amount: 
+        amount: 400,
+    };
+
+    let _ = execute_mint(&mock_contract_context(2u8), &mut state, &mint_msg.clone());
+    assert_eq!(state.balances, BTreeMap::from([(mock_address(10u8), 40
