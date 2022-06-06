@@ -241,4 +241,10 @@ fn proper_mint() {
     };
 
     let _ = execute_mint(&mock_contract_context(2u8), &mut state, &mint_msg.clone());
-    assert_eq!(state.balances, BTreeMap::from([(mock_address(10u8), 40
+    assert_eq!(state.balances, BTreeMap::from([(mock_address(10u8), 400)]));
+
+    let _ = execute_mint(&mock_contract_context(2u8), &mut state, &mint_msg);
+    assert_eq!(state.balances, BTreeMap::from([(mock_address(10u8), 800)]));
+}
+
+#[test]
