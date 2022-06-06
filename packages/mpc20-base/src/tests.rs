@@ -248,3 +248,9 @@ fn proper_mint() {
 }
 
 #[test]
+#[should_panic(expected = "Amount must be higher then zero")]
+fn zero_amount_on_mint() {
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![],
+      
