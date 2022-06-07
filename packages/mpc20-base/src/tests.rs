@@ -253,4 +253,10 @@ fn zero_amount_on_mint() {
     let msg = Mpc20InitMsg {
         info: mock_token_info(),
         initial_balances: vec![],
-      
+        minter: Some(Minter {
+            minter: mock_address(2u8),
+            capacity: Some(1_000),
+        }),
+    };
+
+    let (mut state, _) = execute_init(&mo
