@@ -259,4 +259,11 @@ fn zero_amount_on_mint() {
         }),
     };
 
-    let (mut state, _) = execute_init(&mo
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let mint_msg = MintMsg {
+        recipient: mock_address(10u8),
+        amount: 0,
+    };
+
+    let _ = execute_mint(&moc
