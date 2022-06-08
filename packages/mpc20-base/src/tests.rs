@@ -266,4 +266,10 @@ fn zero_amount_on_mint() {
         amount: 0,
     };
 
-    let _ = execute_mint(&moc
+    let _ = execute_mint(&mock_contract_context(2u8), &mut state, &mint_msg.clone());
+}
+
+#[test]
+#[should_panic(expected = "Minting is disabled")]
+fn minting_is_disabled_on_mint() {
+    let msg = Mpc20I
