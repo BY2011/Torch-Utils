@@ -285,4 +285,11 @@ fn minting_is_disabled_on_mint() {
         amount: 100,
     };
 
-    let _ = execute_mint(&mock_contract_context(2u8), &m
+    let _ = execute_mint(&mock_contract_context(2u8), &mut state, &mint_msg.clone());
+}
+
+#[test]
+#[should_panic(expected = "Unauthorized")]
+fn mint_from_different_address_on_mint() {
+    let msg = Mpc20InitMsg {
+   
