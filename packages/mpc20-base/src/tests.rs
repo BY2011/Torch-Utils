@@ -278,4 +278,11 @@ fn minting_is_disabled_on_mint() {
         minter: None,
     };
 
-    let (mut state, _) = execute_init(&mock_contract_context(2u8
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let mint_msg = MintMsg {
+        recipient: mock_address(10u8),
+        amount: 100,
+    };
+
+    let _ = execute_mint(&mock_contract_context(2u8), &m
