@@ -292,4 +292,8 @@ fn minting_is_disabled_on_mint() {
 #[should_panic(expected = "Unauthorized")]
 fn mint_from_different_address_on_mint() {
     let msg = Mpc20InitMsg {
-   
+        info: mock_token_info(),
+        initial_balances: vec![],
+        minter: Some(Minter {
+            minter: mock_address(11u8),
+            capacity:
