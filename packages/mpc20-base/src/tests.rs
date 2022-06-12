@@ -303,4 +303,12 @@ fn mint_from_different_address_on_mint() {
     let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
 
     let mint_msg = MintMsg {
-        recipient: mock_address(10u8
+        recipient: mock_address(10u8),
+        amount: 100,
+    };
+
+    let _ = execute_mint(&mock_contract_context(2u8), &mut state, &mint_msg.clone());
+}
+
+#[test]
+#[should_panic(expected = "Capacity exceede
