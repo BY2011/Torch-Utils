@@ -311,4 +311,9 @@ fn mint_from_different_address_on_mint() {
 }
 
 #[test]
-#[should_panic(expected = "Capacity exceede
+#[should_panic(expected = "Capacity exceeded")]
+fn exceed_total_supply_on_mint() {
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![],
+        minter: Some(Mi
