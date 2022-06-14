@@ -324,4 +324,9 @@ fn exceed_total_supply_on_mint() {
 
     let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
 
-    le
+    let mint_msg = MintMsg {
+        recipient: mock_address(10u8),
+        amount: 1_001,
+    };
+
+    let _ = execute_mint(&mock_contract_context(2u8), &mut
