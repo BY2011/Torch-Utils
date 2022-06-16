@@ -329,4 +329,13 @@ fn exceed_total_supply_on_mint() {
         amount: 1_001,
     };
 
-    let _ = execute_mint(&mock_contract_context(2u8), &mut
+    let _ = execute_mint(&mock_contract_context(2u8), &mut state, &mint_msg.clone());
+}
+
+#[test]
+fn proper_transfer() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_toke
