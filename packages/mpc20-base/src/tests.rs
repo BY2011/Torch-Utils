@@ -371,4 +371,11 @@ fn proper_transfer() {
 }
 
 #[test]
-#[should_panic(expected = "Amount must be higher then zero
+#[should_panic(expected = "Amount must be higher then zero")]
+fn transfer_zero_amount() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: v
