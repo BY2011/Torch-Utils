@@ -366,4 +366,9 @@ fn proper_transfer() {
 
     let _ = execute_transfer(&mock_contract_context(alice), &mut state, &transfer_msg);
     assert_eq!(state.balances, BTreeMap::from([(mock_address(bob), 1000)]));
-    assert_eq!(state.bala
+    assert_eq!(state.balance_of(&mock_address(alice)), 0);
+    assert_eq!(state.balance_of(&mock_address(bob)), 1000);
+}
+
+#[test]
+#[should_panic(expected = "Amount must be higher then zero
