@@ -386,4 +386,12 @@ fn transfer_zero_amount() {
 
     let transfer_msg = TransferMsg {
         to: mock_address(bob),
-        amount:
+        amount: 0,
+    };
+
+    let _ = execute_transfer(&mock_contract_context(alice), &mut state, &transfer_msg);
+}
+
+#[test]
+#[should_panic(expected = "Not found")]
+fn transfer_with_zero_b
