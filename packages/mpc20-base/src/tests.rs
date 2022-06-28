@@ -394,4 +394,11 @@ fn transfer_zero_amount() {
 
 #[test]
 #[should_panic(expected = "Not found")]
-fn transfer_with_zero_b
+fn transfer_with_zero_balance() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![],
+   
