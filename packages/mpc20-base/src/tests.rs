@@ -409,3 +409,11 @@ fn transfer_with_zero_balance() {
     let transfer_msg = TransferMsg {
         to: mock_address(bob),
         amount: 100,
+    };
+
+    let _ = execute_transfer(&mock_contract_context(alice), &mut state, &transfer_msg);
+}
+
+#[test]
+#[should_panic(expected = "Overflow")]
+fn insuf
