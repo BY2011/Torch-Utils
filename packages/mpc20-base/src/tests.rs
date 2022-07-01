@@ -416,4 +416,11 @@ fn transfer_with_zero_balance() {
 
 #[test]
 #[should_panic(expected = "Overflow")]
-fn insuf
+fn insufficient_funds_on_transfer() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![InitialBalance {
+   
