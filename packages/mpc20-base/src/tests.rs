@@ -423,4 +423,11 @@ fn insufficient_funds_on_transfer() {
     let msg = Mpc20InitMsg {
         info: mock_token_info(),
         initial_balances: vec![InitialBalance {
-   
+            address: mock_address(alice),
+            amount: 99,
+        }],
+        minter: None,
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
