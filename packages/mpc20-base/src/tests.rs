@@ -431,3 +431,9 @@ fn insufficient_funds_on_transfer() {
 
     let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
 
+    let transfer_msg = TransferMsg {
+        to: mock_address(bob),
+        amount: 100,
+    };
+
+    let _ = execute_transfer(&mock_contract_context(alice), &mut state, &tran
