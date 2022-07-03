@@ -436,4 +436,14 @@ fn insufficient_funds_on_transfer() {
         amount: 100,
     };
 
-    let _ = execute_transfer(&mock_contract_context(alice), &mut state, &tran
+    let _ = execute_transfer(&mock_contract_context(alice), &mut state, &transfer_msg);
+}
+
+#[test]
+fn proper_transfer_from() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+      
