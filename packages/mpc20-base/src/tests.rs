@@ -460,4 +460,11 @@ fn proper_transfer_from() {
         amount: 100,
     };
 
-    let _ = execute_
+    let _ = execute_increase_allowance(
+        &mock_contract_context(alice),
+        &mut state,
+        &increase_allowance_msg,
+    );
+
+    let transfer_from_msg = TransferFromMsg {
+       
