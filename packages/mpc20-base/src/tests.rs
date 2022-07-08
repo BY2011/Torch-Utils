@@ -467,4 +467,9 @@ fn proper_transfer_from() {
     );
 
     let transfer_from_msg = TransferFromMsg {
-       
+        from: mock_address(alice),
+        to: mock_address(bob),
+        amount: 100,
+    };
+
+    let _ = execute_transfer_from(&mock_contract_context(20u8), &mut state, &transfer_f
