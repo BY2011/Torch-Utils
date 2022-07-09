@@ -472,4 +472,12 @@ fn proper_transfer_from() {
         amount: 100,
     };
 
-    let _ = execute_transfer_from(&mock_contract_context(20u8), &mut state, &transfer_f
+    let _ = execute_transfer_from(&mock_contract_context(20u8), &mut state, &transfer_from_msg);
+    assert_eq!(
+        state.balances,
+        BTreeMap::from([(mock_address(alice), 900), (mock_address(bob), 100)])
+    );
+}
+
+#[test]
+#[should_pa
