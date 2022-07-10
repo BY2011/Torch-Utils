@@ -485,4 +485,10 @@ fn zero_amount_on_transfer_from() {
     let alice = 10u8;
     let bob = 11u8;
 
-    let msg = Mpc20In
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![InitialBalance {
+            address: mock_address(alice),
+            amount: 1_000,
+        }],
+     
