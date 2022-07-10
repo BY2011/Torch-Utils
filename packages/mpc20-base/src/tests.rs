@@ -480,4 +480,9 @@ fn proper_transfer_from() {
 }
 
 #[test]
-#[should_pa
+#[should_panic(expected = "Amount must be higher then zero")]
+fn zero_amount_on_transfer_from() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20In
