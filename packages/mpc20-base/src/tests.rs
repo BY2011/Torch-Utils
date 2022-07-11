@@ -491,4 +491,10 @@ fn zero_amount_on_transfer_from() {
             address: mock_address(alice),
             amount: 1_000,
         }],
+        minter: None,
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let transfer_from_msg = TransferFromMsg {
      
