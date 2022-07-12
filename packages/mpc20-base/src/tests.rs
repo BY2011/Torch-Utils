@@ -502,4 +502,13 @@ fn zero_amount_on_transfer_from() {
         amount: 0,
     };
 
-    let _ = execute_transfer_from(&mock_contract_context(20u8), &mut s
+    let _ = execute_transfer_from(&mock_contract_context(20u8), &mut state, &transfer_from_msg);
+}
+
+#[test]
+fn proper_burn() {
+    let alice = 10u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_b
