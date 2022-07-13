@@ -518,4 +518,7 @@ fn proper_burn() {
         minter: None,
     };
 
-    let (mut state
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let burn_msg = BurnMsg { amount: 100 };
+    let _ = execute_burn(&mock_contract_context(alice), 
