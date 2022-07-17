@@ -527,4 +527,10 @@ fn proper_burn() {
 }
 
 #[test]
-#[should_panic
+#[should_panic(expected = "Amount must be higher then zero")]
+fn burn_zero_amount() {
+    let alice = 10u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+     
