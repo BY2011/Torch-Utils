@@ -540,4 +540,11 @@ fn burn_zero_amount() {
         minter: None,
     };
 
-    let (mut state, _) = execut
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let burn_msg = BurnMsg { amount: 0 };
+    let _ = execute_burn(&mock_contract_context(alice), &mut state, &burn_msg);
+}
+
+#[test]
+#[sho
