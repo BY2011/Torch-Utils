@@ -547,4 +547,10 @@ fn burn_zero_amount() {
 }
 
 #[test]
-#[sho
+#[should_panic(expected = "Not found")]
+fn burn_with_zero_balance() {
+    let alice = 10u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balanc
