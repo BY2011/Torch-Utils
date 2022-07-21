@@ -568,3 +568,7 @@ fn burn_with_zero_balance() {
 fn insufficient_funds_on_burn() {
     let alice = 10u8;
 
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![InitialBalance {
+            address: mock_address(alice),
