@@ -572,3 +572,12 @@ fn insufficient_funds_on_burn() {
         info: mock_token_info(),
         initial_balances: vec![InitialBalance {
             address: mock_address(alice),
+            amount: 100,
+        }],
+        minter: None,
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let burn_msg = BurnMsg { amount: 101 };
+    let 
