@@ -580,4 +580,12 @@ fn insufficient_funds_on_burn() {
     let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
 
     let burn_msg = BurnMsg { amount: 101 };
-    let 
+    let _ = execute_burn(&mock_contract_context(alice), &mut state, &burn_msg);
+}
+
+#[test]
+fn proper_burn_from() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMs
