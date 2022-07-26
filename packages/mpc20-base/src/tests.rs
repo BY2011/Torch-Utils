@@ -607,4 +607,12 @@ fn proper_burn_from() {
     let _ = execute_increase_allowance(
         &mock_contract_context(alice),
         &mut state,
-   
+        &increase_allowance_msg,
+    );
+
+    let burn_from_msg = BurnFromMsg {
+        owner: mock_address(alice),
+        amount: 100,
+    };
+
+    let _ = execute_burn_from(&m
