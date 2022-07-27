@@ -615,4 +615,6 @@ fn proper_burn_from() {
         amount: 100,
     };
 
-    let _ = execute_burn_from(&m
+    let _ = execute_burn_from(&mock_contract_context(bob), &mut state, &burn_from_msg);
+    assert_eq!(state.total_supply, 900);
+    assert_eq!(state.balances, BTreeMap::from([(mock_address(alice), 900)]));
