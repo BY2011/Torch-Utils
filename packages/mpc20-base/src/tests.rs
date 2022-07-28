@@ -618,3 +618,12 @@ fn proper_burn_from() {
     let _ = execute_burn_from(&mock_contract_context(bob), &mut state, &burn_from_msg);
     assert_eq!(state.total_supply, 900);
     assert_eq!(state.balances, BTreeMap::from([(mock_address(alice), 900)]));
+}
+
+#[test]
+#[should_panic(expected = "Amount must be higher then zero")]
+fn zero_amount_on_burn_from() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let 
