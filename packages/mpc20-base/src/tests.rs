@@ -638,4 +638,9 @@ fn zero_amount_on_burn_from() {
     let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
 
     let burn_from_msg = BurnFromMsg {
-        owner
+        owner: mock_address(alice),
+        amount: 0,
+    };
+
+    let _ = execute_burn_from(&mock_contract_context(bob), &mut state, &burn_from_msg);
+}
