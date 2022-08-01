@@ -644,3 +644,12 @@ fn zero_amount_on_burn_from() {
 
     let _ = execute_burn_from(&mock_contract_context(bob), &mut state, &burn_from_msg);
 }
+
+#[test]
+fn proper_approve() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        
