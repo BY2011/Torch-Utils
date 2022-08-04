@@ -664,4 +664,10 @@ fn proper_approve() {
     };
     let _ = execute_approve(&mock_contract_context(alice), &mut state, &approve_msg);
     assert_eq!(
-   
+        state.allowances,
+        BTreeMap::from([(
+            mock_address(alice),
+            BTreeMap::from([(mock_address(bob), 100,)])
+        )])
+    );
+    assert_e
