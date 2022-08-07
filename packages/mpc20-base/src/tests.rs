@@ -677,4 +677,10 @@ fn proper_approve() {
     assert_eq!(state.allowance(&mock_address(bob), &mock_address(alice)), 0);
 }
 
-#[te
+#[test]
+#[should_panic(expected = "Cannot approve to yourself")]
+fn approve_to_yourself() {
+    let alice = 10u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info
