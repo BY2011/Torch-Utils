@@ -670,4 +670,11 @@ fn proper_approve() {
             BTreeMap::from([(mock_address(bob), 100,)])
         )])
     );
-    assert_e
+    assert_eq!(
+        state.allowance(&mock_address(alice), &mock_address(bob)),
+        100
+    );
+    assert_eq!(state.allowance(&mock_address(bob), &mock_address(alice)), 0);
+}
+
+#[te
