@@ -698,4 +698,10 @@ fn approve_to_yourself() {
 }
 
 #[test]
-#[should_panic
+#[should_panic(expected = "Amount must be higher then zero")]
+pub fn zero_amount_on_approve() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_
