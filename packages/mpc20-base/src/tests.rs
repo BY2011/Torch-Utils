@@ -711,4 +711,8 @@ pub fn zero_amount_on_approve() {
 
     let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
 
-    let appr
+    let approve_msg = ApproveMsg {
+        spender: mock_address(bob),
+        amount: 0,
+    };
+    let _ = execute_approve(&mock_contract_context(alice), &mut state, &approve
