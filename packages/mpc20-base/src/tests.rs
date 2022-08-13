@@ -715,4 +715,14 @@ pub fn zero_amount_on_approve() {
         spender: mock_address(bob),
         amount: 0,
     };
-    let _ = execute_approve(&mock_contract_context(alice), &mut state, &approve
+    let _ = execute_approve(&mock_contract_context(alice), &mut state, &approve_msg);
+}
+
+#[test]
+fn proper_increase_allowance() {
+    let alice = 10u8;
+    let bob = 11u8;
+    let joe = 12u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info()
