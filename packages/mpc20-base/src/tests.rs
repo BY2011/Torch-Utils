@@ -739,4 +739,11 @@ fn proper_increase_allowance() {
 
     let _ = execute_increase_allowance(
         &mock_contract_context(alice),
-        
+        &mut state,
+        &increase_allowance_msg,
+    );
+
+    assert_eq!(
+        state.allowances,
+        BTreeMap::from([(
+            mock_address(alic
