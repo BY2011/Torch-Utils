@@ -746,4 +746,11 @@ fn proper_increase_allowance() {
     assert_eq!(
         state.allowances,
         BTreeMap::from([(
-            mock_address(alic
+            mock_address(alice),
+            BTreeMap::from([(mock_address(bob), 100,)])
+        )])
+    );
+
+    let increase_allowance_msg = IncreaseAllowanceMsg {
+        spender: mock_address(joe),
+        
