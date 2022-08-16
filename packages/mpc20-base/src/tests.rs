@@ -753,4 +753,12 @@ fn proper_increase_allowance() {
 
     let increase_allowance_msg = IncreaseAllowanceMsg {
         spender: mock_address(joe),
-        
+        amount: 500,
+    };
+
+    let _ = execute_increase_allowance(
+        &mock_contract_context(bob),
+        &mut state,
+        &increase_allowance_msg,
+    );
+    assert_eq!(
