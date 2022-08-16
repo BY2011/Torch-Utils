@@ -762,3 +762,9 @@ fn proper_increase_allowance() {
         &increase_allowance_msg,
     );
     assert_eq!(
+        state.allowances,
+        BTreeMap::from([
+            (
+                mock_address(alice),
+                BTreeMap::from([(mock_address(bob), 100)])
+       
