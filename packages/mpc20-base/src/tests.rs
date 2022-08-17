@@ -767,4 +767,13 @@ fn proper_increase_allowance() {
             (
                 mock_address(alice),
                 BTreeMap::from([(mock_address(bob), 100)])
-       
+            ),
+            (
+                mock_address(bob),
+                BTreeMap::from([(mock_address(joe), 500)])
+            )
+        ])
+    );
+}
+
+#[tes
