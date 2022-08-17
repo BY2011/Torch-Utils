@@ -776,4 +776,10 @@ fn proper_increase_allowance() {
     );
 }
 
-#[tes
+#[test]
+#[should_panic(expected = "Cannot approve to yourself")]
+fn increase_allowance_to_yourself() {
+    let alice = 10u8;
+
+    let msg = Mpc20InitMsg {
+        i
