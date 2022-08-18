@@ -782,4 +782,11 @@ fn increase_allowance_to_yourself() {
     let alice = 10u8;
 
     let msg = Mpc20InitMsg {
-        i
+        info: mock_token_info(),
+        initial_balances: vec![],
+        minter: None,
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let inc
