@@ -795,4 +795,12 @@ fn increase_allowance_to_yourself() {
     };
 
     let _ = execute_increase_allowance(
-        &mock_contract_
+        &mock_contract_context(alice),
+        &mut state,
+        &increase_allowance_msg,
+    );
+}
+
+#[test]
+#[should_panic(expected = "Amount must be higher then zero")]
+fn zero_amount_on_increas
