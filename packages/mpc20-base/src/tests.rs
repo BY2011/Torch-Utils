@@ -823,4 +823,14 @@ fn zero_amount_on_increase_allowance() {
     let _ = execute_increase_allowance(
         &mock_contract_context(alice),
         &mut state,
-        &increase_all
+        &increase_allowance_msg,
+    );
+}
+
+#[test]
+fn proper_decrease_allowance() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_inf
