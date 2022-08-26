@@ -816,4 +816,11 @@ fn zero_amount_on_increase_allowance() {
     let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
 
     let increase_allowance_msg = IncreaseAllowanceMsg {
-        spender:
+        spender: mock_address(bob),
+        amount: 0,
+    };
+
+    let _ = execute_increase_allowance(
+        &mock_contract_context(alice),
+        &mut state,
+        &increase_all
