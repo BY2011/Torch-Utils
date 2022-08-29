@@ -846,4 +846,10 @@ fn proper_decrease_allowance() {
     };
 
     let _ = execute_increase_allowance(
-        &mo
+        &mock_contract_context(alice),
+        &mut state,
+        &increase_allowance_msg,
+    );
+
+    let decrease_allowance_msg = DecreaseAllowanceMsg {
+        spender: mock_
