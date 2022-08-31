@@ -852,4 +852,14 @@ fn proper_decrease_allowance() {
     );
 
     let decrease_allowance_msg = DecreaseAllowanceMsg {
-        spender: mock_
+        spender: mock_address(bob),
+        amount: 450,
+    };
+
+    let _ = execute_decrease_allowance(
+        &mock_contract_context(alice),
+        &mut state,
+        &decrease_allowance_msg,
+    );
+
+    assert_eq!(
