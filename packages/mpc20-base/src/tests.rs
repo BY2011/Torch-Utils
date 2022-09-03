@@ -871,4 +871,10 @@ fn proper_decrease_allowance() {
     );
 }
 
-#[t
+#[test]
+#[should_panic(expected = "Cannot approve to yourself")]
+fn decrease_allowance_to_yourself() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg 
