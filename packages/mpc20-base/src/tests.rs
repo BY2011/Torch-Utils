@@ -900,4 +900,13 @@ fn decrease_allowance_to_yourself() {
 #[test]
 #[should_panic(expected = "Amount must be higher then zero")]
 fn zero_amount_on_decrease_allowance() {
-    let alice =
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![],
+        minter: None,
+    };
+
+    let (mut state, _) = 
