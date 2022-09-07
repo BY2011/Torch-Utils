@@ -891,4 +891,13 @@ fn decrease_allowance_to_yourself() {
     };
 
     let _ = execute_decrease_allowance(
-        &mock_contract_context(
+        &mock_contract_context(alice),
+        &mut state,
+        &decrease_allowance_msg,
+    );
+}
+
+#[test]
+#[should_panic(expected = "Amount must be higher then zero")]
+fn zero_amount_on_decrease_allowance() {
+    let alice =
