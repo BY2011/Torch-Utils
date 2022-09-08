@@ -916,4 +916,13 @@ fn zero_amount_on_decrease_allowance() {
         amount: 0,
     };
 
-    let _ = execute_decrease_allo
+    let _ = execute_decrease_allowance(
+        &mock_contract_context(alice),
+        &mut state,
+        &decrease_allowance_msg,
+    );
+}
+
+#[test]
+#[should_panic(expected = "Not found")]
+fn decrease_wit
