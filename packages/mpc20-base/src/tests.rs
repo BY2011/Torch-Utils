@@ -909,4 +909,11 @@ fn zero_amount_on_decrease_allowance() {
         minter: None,
     };
 
-    let (mut state, _) = 
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let decrease_allowance_msg = DecreaseAllowanceMsg {
+        spender: mock_address(bob),
+        amount: 0,
+    };
+
+    let _ = execute_decrease_allo
