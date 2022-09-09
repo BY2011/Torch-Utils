@@ -925,4 +925,12 @@ fn zero_amount_on_decrease_allowance() {
 
 #[test]
 #[should_panic(expected = "Not found")]
-fn decrease_wit
+fn decrease_with_zero_approved() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![],
+        minter: None,
+   
