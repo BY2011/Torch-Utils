@@ -933,4 +933,10 @@ fn decrease_with_zero_approved() {
         info: mock_token_info(),
         initial_balances: vec![],
         minter: None,
-   
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_context(2u8), &msg);
+
+    let decrease_allowance_msg = DecreaseAllowanceMsg {
+        spender: mock_address(bob),
+    
