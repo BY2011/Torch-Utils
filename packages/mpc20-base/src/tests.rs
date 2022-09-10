@@ -945,4 +945,14 @@ fn decrease_with_zero_approved() {
     let _ = execute_decrease_allowance(
         &mock_contract_context(alice),
         &mut state,
-        &decrease_allo
+        &decrease_allowance_msg,
+    );
+}
+
+#[test]
+#[should_panic(expected = "Overflow")]
+fn decrease_more_than_approved() {
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = Mpc20
