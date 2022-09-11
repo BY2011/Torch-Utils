@@ -955,4 +955,10 @@ fn decrease_more_than_approved() {
     let alice = 10u8;
     let bob = 11u8;
 
-    let msg = Mpc20
+    let msg = Mpc20InitMsg {
+        info: mock_token_info(),
+        initial_balances: vec![],
+        minter: None,
+    };
+
+    let (mut state, _) = execute_init(&mock_contract_c
