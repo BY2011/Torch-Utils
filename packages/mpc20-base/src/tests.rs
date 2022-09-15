@@ -968,4 +968,10 @@ fn decrease_more_than_approved() {
         amount: 1_000,
     };
 
-    let _
+    let _ = execute_increase_allowance(
+        &mock_contract_context(alice),
+        &mut state,
+        &increase_allowance_msg,
+    );
+
+    let decrease_allowance_msg = Decrease
