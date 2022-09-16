@@ -974,4 +974,10 @@ fn decrease_more_than_approved() {
         &increase_allowance_msg,
     );
 
-    let decrease_allowance_msg = Decrease
+    let decrease_allowance_msg = DecreaseAllowanceMsg {
+        spender: mock_address(bob),
+        amount: 1_001,
+    };
+
+    let _ = execute_decrease_allowance(
+        &mock_contract_context(ali
