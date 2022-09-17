@@ -980,4 +980,8 @@ fn decrease_more_than_approved() {
     };
 
     let _ = execute_decrease_allowance(
-        &mock_contract_context(ali
+        &mock_contract_context(alice),
+        &mut state,
+        &decrease_allowance_msg,
+    );
+}
