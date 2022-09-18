@@ -6,4 +6,8 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib", "rlib"]
 
-[pac
+[package.metadata.partisiablockchain]
+cargo-partisia = "0.2.9"
+
+[dependencies]
+pbc_contract_common = { git = "https://git@gitlab.com/partisiablockchain/language/contract-sdk.git",
