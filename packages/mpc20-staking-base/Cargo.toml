@@ -20,4 +20,11 @@ pbc_contract_codegen = { git = "https://git@gitlab.com/partisiablockchain/langua
 
 utils = { path = "../utils", features = ["abi"] }
 rpc-msg-derive = { path = "../rpc-msg-derive", features = ["abi"] }
-mpc20-base = { path = "../
+mpc20-base = { path = "../mpc20-base" }
+
+serde_json = "1.0"
+thiserror = "1.0.31"
+rust_decimal = "1.21.0"
+
+[features]
+abi = ["pbc_contract_common/abi", "pbc_contract_codegen/abi", "pbc_traits/abi", "create_t
