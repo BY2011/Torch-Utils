@@ -27,4 +27,4 @@ thiserror = "1.0.31"
 rust_decimal = "1.21.0"
 
 [features]
-abi = ["pbc_contract_common/abi", "pbc_contract_codegen/abi", "pbc_traits/abi", "create_t
+abi = ["pbc_contract_common/abi", "pbc_contract_codegen/abi", "pbc_traits/abi", "create_type_spec_derive/abi"]
