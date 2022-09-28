@@ -26,3 +26,21 @@ Pararms:
 UnstakeMsg {
     amount: 11,
 }
+```
+
+## execute_claim
+
+Claim earned rewards.
+
+Pararms:
+
+```json
+ClaimMsg {
+    amount: 10 | null
+}
+```
+
+## execute_compound
+
+Compound earned rewards(e.g. stake them).
+Onl
