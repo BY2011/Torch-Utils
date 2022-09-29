@@ -43,4 +43,14 @@ ClaimMsg {
 ## execute_compound
 
 Compound earned rewards(e.g. stake them).
-Onl
+Only works when deposit token is reward token.
+
+Pararms:
+
+```json
+CompoundMsg {
+    amount: 10 | null
+}
+```
+
+## [MPC20 Base actions](https://github.com/partisiablockchainapplications/Co
