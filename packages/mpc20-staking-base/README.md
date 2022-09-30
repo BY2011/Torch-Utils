@@ -53,4 +53,4 @@ CompoundMsg {
 }
 ```
 
-## [MPC20 Base actions](https://github.com/partisiablockchainapplications/Co
+## [MPC20 Base actions](https://github.com/partisiablockchainapplications/CoreContracts/blob/master/packages/mpc20-base/README.md)
