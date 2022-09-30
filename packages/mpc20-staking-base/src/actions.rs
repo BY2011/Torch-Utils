@@ -96,3 +96,140 @@ pub fn execute_stake(
         amount: msg.amount,
     }
     .as_interaction(&mut event_group, &state.deposit_token);
+
+    vec![event_group.build()]
+}
+
+/// ## Description
+/// Withdraw staked tokens.
+/// Returns [`(MPC20StakingContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC20StakingContractState`]
+///
+/// * **msg** is an object of type [`UnstakeMsg`]
+pub fn execute_unstake(
+    ctx: &ContractContext,
+    state: &mut MPC20StakingContractState,
+    msg: &UnstakeMsg,
+) -> Vec<EventGroup> {
+    let mut staker = state.get_staker(&ctx.sender);
+
+    assert!(
+        staker.staked_amount >= msg.amount,
+        "{}",
+        ContractError::CannotUnstakeMoreThenStaked,
+    );
+
+    state.distribute_rewards(ctx.block_production_time as u64);
+    staker.compute_reward(state.global_index);
+    state.decrease_stake_amount(&ctx.sender, &mut staker, msg.amount);
+
+    let mut event_group = EventGroup::builder();
+    Mpc20TransferMsg {
+        to: ctx.sender,
+        amount: msg.amount,
+    }
+    .as_interaction(&mut event_group, &state.deposit_token);
+
+    vec![event_group.build()]
+}
+
+/// ## Description
+/// Claim earned rewards.
+/// Returns [`(MPC20StakingContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC20StakingContractState`]
+///
+/// * **msg** is an object of type [`ClaimMsg`]
+pub fn execute_claim(
+    ctx: &ContractContext,
+    state: &mut MPC20StakingContractState,
+    msg: &ClaimMsg,
+) -> Vec<EventGroup> {
+    let mut staker = state.get_staker(&ctx.sender);
+
+    state.distribute_rewards(ctx.block_production_time as u64);
+    staker.compute_reward(state.global_index);
+
+    assert!(
+        !staker.pending_reward.is_zero(),
+        "{}",
+        ContractError::NothingToClaim
+    );
+
+    let claim_amount = if let Some(amount) = msg.amount {
+        assert!(
+            amount <= staker.pending_reward && !amount.is_zero(),
+            "{}",
+            ContractError::CannotClaimMoreThenRewarded
+        );
+        amount
+    } else {
+        staker.pending_reward
+    };
+
+    staker.pending_reward = staker.pending_reward.checked_sub(claim_amount).unwrap();
+    state.store_staker(&ctx.sender, &staker);
+    state.mpc20.mint_to(&ctx.sender, claim_amount);
+
+    vec![]
+}
+
+/// ## Description
+/// Compound earned rewards(e.g. stake them).
+/// Only works when deposit token is reward token.
+/// Returns [`(MPC20StakingContractState, Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC20StakingContractState`]
+///
+/// * **msg** is an object of type [`CompoundMsg`]
+pub fn execute_compound(
+    ctx: &ContractContext,
+    state: &mut MPC20StakingContractState,
+    msg: &CompoundMsg,
+) -> Vec<EventGroup> {
+    let mut staker = state.get_staker(&ctx.sender);
+
+    state.distribute_rewards(ctx.block_production_time as u64);
+    staker.compute_reward(state.global_index);
+
+    assert!(
+        state.deposit_token == ctx.contract_address,
+        "{}",
+        ContractError::CompoundOnlyWorksWithSelfToken
+    );
+
+    assert!(
+        (staker.last_compound + state.compound_frequency) < (ctx.block_production_time as u64),
+        "{}",
+        ContractError::ForbiddenToCompoundToOften,
+    );
+
+    let compound_amount = if let Some(amount) = msg.amount {
+        assert!(
+            amount <= staker.pending_reward && !amount.is_zero(),
+            "{}",
+            ContractError::CannotCompoundMoreThenRewarded
+        );
+        amount
+    } else {
+        staker.pending_reward
+    };
+
+    staker.last_compound = ctx.block_production_time as u64;
+    staker.pending_reward = staker.pending_reward.checked_sub(compound_amount).unwrap();
+    state.increase_stake_amount(&ctx.sender, &mut staker, compound_amount);
+
+    state.mpc20.mint_to(&ctx.contract_address, compound_amount);
+
+    vec![]
+}
