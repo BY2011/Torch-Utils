@@ -10,4 +10,8 @@ use utils::events::IntoShortnameRPCEvent;
 /// This structure describes fields for mpc20-staking initialize msg
 #[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
 pub struct Mpc20StakingInitMsg {
-    /// deposit token address, if None then depos
+    /// deposit token address, if None then deposit token will contract address
+    pub deposit_token: Option<Address>,
+    /// per epoch distribution amount
+    pub distribution_amount: u128,
+    /// UTC tim
