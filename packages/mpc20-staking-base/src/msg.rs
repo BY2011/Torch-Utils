@@ -7,4 +7,7 @@ use rpc_msg_derive::IntoShortnameRPCEvent;
 use utils::events::IntoShortnameRPCEvent;
 
 /// ## Description
-/// This structure describes fields for mp
+/// This structure describes fields for mpc20-staking initialize msg
+#[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct Mpc20StakingInitMsg {
+    /// deposit token address, if None then depos
