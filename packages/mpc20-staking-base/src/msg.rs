@@ -14,4 +14,10 @@ pub struct Mpc20StakingInitMsg {
     pub deposit_token: Option<Address>,
     /// per epoch distribution amount
     pub distribution_amount: u128,
-    /// UTC tim
+    /// UTC timestamp
+    pub distribution_epoch: u64,
+    /// compounding limit
+    pub compound_frequency: u64,
+    /// mpc20 base token info
+    pub info: TokenInfo,
+    /// m
