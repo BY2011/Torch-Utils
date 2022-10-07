@@ -20,4 +20,7 @@ pub struct Mpc20StakingInitMsg {
     pub compound_frequency: u64,
     /// mpc20 base token info
     pub info: TokenInfo,
-    /// m
+    /// mpc20 base initial balances
+    pub initial_balances: Vec<InitialBalance>,
+    /// mpc20 base optional minter address
+    pub minter: Option<Addr
