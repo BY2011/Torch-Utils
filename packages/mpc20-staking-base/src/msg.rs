@@ -23,4 +23,11 @@ pub struct Mpc20StakingInitMsg {
     /// mpc20 base initial balances
     pub initial_balances: Vec<InitialBalance>,
     /// mpc20 base optional minter address
-    pub minter: Option<Addr
+    pub minter: Option<Address>,
+}
+
+impl Mpc20StakingInitMsg {
+    pub fn validate(&self) {
+        assert!(
+            self.distribution_epoch > 0,
+            "Distribution epo
