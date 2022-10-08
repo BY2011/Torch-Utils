@@ -30,4 +30,13 @@ impl Mpc20StakingInitMsg {
     pub fn validate(&self) {
         assert!(
             self.distribution_epoch > 0,
-            "Distribution epo
+            "Distribution epoch must be higher then 0"
+        );
+        assert!(
+            self.distribution_amount > 0,
+            "Distribution amount must be higher then 0"
+        )
+    }
+}
+
+/// ## Descri
