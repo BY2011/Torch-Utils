@@ -39,4 +39,7 @@ impl Mpc20StakingInitMsg {
     }
 }
 
-/// ## Descri
+/// ## Description
+/// This structure describes fields for mpc20-staking stake msg
+#[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
+#[rpc_msg(action = 
