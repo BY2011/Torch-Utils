@@ -42,4 +42,11 @@ impl Mpc20StakingInitMsg {
 /// ## Description
 /// This structure describes fields for mpc20-staking stake msg
 #[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
-#[rpc_msg(action = 
+#[rpc_msg(action = 0x17)]
+pub struct StakeMsg {
+    /// amount to stake
+    pub amount: u128,
+}
+
+/// ## Description
+/// This structure describes fields for mpc20-staking unstak
