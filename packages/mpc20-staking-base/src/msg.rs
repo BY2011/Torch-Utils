@@ -49,4 +49,7 @@ pub struct StakeMsg {
 }
 
 /// ## Description
-/// This structure describes fields for mpc20-staking unstak
+/// This structure describes fields for mpc20-staking unstake msg
+#[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
+#[rpc_msg(action = 0x19)]
+pub struct UnstakeMsg 
