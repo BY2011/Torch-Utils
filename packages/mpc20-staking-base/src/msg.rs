@@ -52,4 +52,11 @@ pub struct StakeMsg {
 /// This structure describes fields for mpc20-staking unstake msg
 #[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
 #[rpc_msg(action = 0x19)]
-pub struct UnstakeMsg 
+pub struct UnstakeMsg {
+    /// amount to unstake
+    pub amount: u128,
+}
+
+/// ## Description
+/// This structure describes fields for mpc20-staking claim msg
+#[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnam
