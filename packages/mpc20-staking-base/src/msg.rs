@@ -63,4 +63,9 @@ pub struct UnstakeMsg {
 #[rpc_msg(action = 0x21)]
 pub struct ClaimMsg {
     /// optional amount to claim, if None everything will be claimed
-    pub 
+    pub amount: Option<u128>,
+}
+
+/// ## Description
+/// This structure describes fields for mpc20-staking compound msg
+#[derive(ReadWriteRPC, CreateTypeSpec, IntoShor
