@@ -68,4 +68,8 @@ pub struct ClaimMsg {
 
 /// ## Description
 /// This structure describes fields for mpc20-staking compound msg
-#[derive(ReadWriteRPC, CreateTypeSpec, IntoShor
+#[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
+#[rpc_msg(action = 0x23)]
+pub struct CompoundMsg {
+    /// optional amount to claim, if None everything will be compounded
+  
