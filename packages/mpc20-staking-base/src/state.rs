@@ -12,4 +12,9 @@ use utils::decimal::DecimalRatio;
 /// ## Description
 /// This structure describes main mpc20-staking contract state.
 #[derive(ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
-pub str
+pub struct MPC20StakingContractState {
+    /// deposit token address
+    pub deposit_token: Address,
+    /// per epoch distribution amount
+    pub distribution_amount: u128,
+  
