@@ -17,4 +17,9 @@ pub struct MPC20StakingContractState {
     pub deposit_token: Address,
     /// per epoch distribution amount
     pub distribution_amount: u128,
-  
+    /// UTC timestamp
+    pub distribution_epoch: u64,
+
+    /// global index for calculating users share
+    pub global_index: DecimalRatio,
+    /// total amount
