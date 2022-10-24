@@ -46,4 +46,9 @@ impl MPC20StakingContractState {
             return;
         }
 
-        let passed_distri
+        let passed_distributions = (block_time - self.last_distributed) / self.distribution_epoch;
+        if passed_distributions.is_zero() {
+            return;
+        }
+
+        let distributed_a
