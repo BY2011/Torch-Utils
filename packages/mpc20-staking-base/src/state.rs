@@ -22,4 +22,10 @@ pub struct MPC20StakingContractState {
 
     /// global index for calculating users share
     pub global_index: DecimalRatio,
-    /// total amount
+    /// total amount of tokens staked
+    pub total_staked: u128,
+    /// UTC timestamp of last distribution
+    pub last_distributed: u64,
+
+    /// information about stakers
+    pub stakers: BTreeMap<Address, Staker>
