@@ -53,4 +53,9 @@ impl MPC20StakingContractState {
 
         let distributed_amount = self.distribution_amount * (passed_distributions as u128);
         self.global_index =
-            self.global_index + DecimalRatio::from_ratio(distributed_amount, self.tot
+            self.global_index + DecimalRatio::from_ratio(distributed_amount, self.total_staked);
+        self.last_distributed += self.distribution_epoch * passed_distributions;
+    }
+
+    /// ## Description
+    /// Increases total staked amount and staked amount by staker
