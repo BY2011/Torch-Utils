@@ -28,4 +28,12 @@ pub struct MPC20StakingContractState {
     pub last_distributed: u64,
 
     /// information about stakers
-    pub stakers: BTreeMap<Address, Staker>
+    pub stakers: BTreeMap<Address, Staker>,
+    /// compounding limit
+    pub compound_frequency: u64,
+    /// mpc20 base state
+    pub mpc20: MPC20ContractState,
+}
+
+impl MPC20StakingContractState {
+    /// ## Des
