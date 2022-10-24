@@ -51,4 +51,6 @@ impl MPC20StakingContractState {
             return;
         }
 
-        let distributed_a
+        let distributed_amount = self.distribution_amount * (passed_distributions as u128);
+        self.global_index =
+            self.global_index + DecimalRatio::from_ratio(distributed_amount, self.tot
