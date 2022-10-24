@@ -36,4 +36,8 @@ pub struct MPC20StakingContractState {
 }
 
 impl MPC20StakingContractState {
-    /// ## Des
+    /// ## Description
+    /// Distributes rewards by recalculting global index
+    /// ## Params
+    /// * **block_time** is an object of type [`u64`]
+    pub fn distribute_rewards(
