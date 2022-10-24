@@ -59,3 +59,10 @@ impl MPC20StakingContractState {
 
     /// ## Description
     /// Increases total staked amount and staked amount by staker
+    /// ## Params
+    /// * **address** is an object of type [`Address`]
+    ///
+    /// * **staker** is an object of type [`Staker`]
+    ///
+    /// * **amount** is a field of type [`u128`]
+    pub f
