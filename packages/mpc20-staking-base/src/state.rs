@@ -40,4 +40,10 @@ impl MPC20StakingContractState {
     /// Distributes rewards by recalculting global index
     /// ## Params
     /// * **block_time** is an object of type [`u64`]
-    pub fn distribute_rewards(
+    pub fn distribute_rewards(&mut self, block_time: u64) {
+        if self.total_staked.is_zero() {
+            self.last_distributed = block_time;
+            return;
+        }
+
+        let passed_distri
