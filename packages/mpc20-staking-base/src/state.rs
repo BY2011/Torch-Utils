@@ -67,4 +67,9 @@ impl MPC20StakingContractState {
     /// * **amount** is a field of type [`u128`]
     pub fn increase_stake_amount(&mut self, address: &Address, staker: &mut Staker, amount: u128) {
         self.total_staked = self.total_staked.checked_add(amount).unwrap();
-        
+        staker.staked_amount = staker.staked_amount.checked_add(amount).unwrap();
+        self.store_staker(address, staker);
+    }
+
+    /// ## Description
+    /// Decreases total st
