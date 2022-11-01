@@ -72,4 +72,9 @@ impl MPC20StakingContractState {
     }
 
     /// ## Description
-    /// Decreases total st
+    /// Decreases total staked amount and staked amount by staker
+    /// ## Params
+    /// * **address** is an object of type [`Address`]
+    ///
+    /// * **staker** is an object of type [`Staker`]
+ 
