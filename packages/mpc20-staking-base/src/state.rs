@@ -106,4 +106,8 @@ impl MPC20StakingContractState {
     /// ## Description
     /// Returns information about staker
     /// ## Params
-    /// * **address** is an object of ty
+    /// * **address** is an object of type [`Address`]
+    pub fn get_staker(&self, address: &Address) -> Staker {
+        match self.stakers.get(address) {
+            Some(s) => s.clone(),
+            None
