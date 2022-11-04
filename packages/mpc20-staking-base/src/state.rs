@@ -88,4 +88,8 @@ impl MPC20StakingContractState {
     /// ## Description
     /// Saves updated information about staker
     /// ## Params
-    /// * **address** is an object 
+    /// * **address** is an object of type [`Address`]
+    ///
+    /// * **staker** is an object of type [`Staker`]
+    pub fn store_staker(&mut self, address: &Address, staker: &Staker) {
+   
