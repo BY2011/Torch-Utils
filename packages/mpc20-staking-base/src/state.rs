@@ -77,4 +77,6 @@ impl MPC20StakingContractState {
     /// * **address** is an object of type [`Address`]
     ///
     /// * **staker** is an object of type [`Staker`]
- 
+    ///
+    /// * **amount** is a field of type [`u128`]
+    pub fn decrease_stake_amount(&mut self, address: &Address, staker: &mut Staker, amount: 
