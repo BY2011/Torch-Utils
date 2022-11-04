@@ -110,4 +110,9 @@ impl MPC20StakingContractState {
     pub fn get_staker(&self, address: &Address) -> Staker {
         match self.stakers.get(address) {
             Some(s) => s.clone(),
-            None
+            None => Staker {
+                reward_index: DecimalRatio::default(),
+                staked_amount: 0,
+                pending_reward: 0,
+                last_compound: 0,
+            
