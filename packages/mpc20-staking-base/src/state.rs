@@ -100,4 +100,10 @@ impl MPC20StakingContractState {
                 s.pending_reward = staker.pending_reward;
                 s.last_compound = staker.last_compound;
             })
-            .or_i
+            .or_insert_with(|| staker.clone());
+    }
+
+    /// ## Description
+    /// Returns information about staker
+    /// ## Params
+    /// * **address** is an object of ty
