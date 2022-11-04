@@ -92,4 +92,8 @@ impl MPC20StakingContractState {
     ///
     /// * **staker** is an object of type [`Staker`]
     pub fn store_staker(&mut self, address: &Address, staker: &Staker) {
-   
+        self.stakers
+            .entry(*address)
+            .and_modify(|s| {
+                s.reward_index = staker.reward_index;
+                s.sta
