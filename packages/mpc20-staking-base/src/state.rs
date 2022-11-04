@@ -96,4 +96,8 @@ impl MPC20StakingContractState {
             .entry(*address)
             .and_modify(|s| {
                 s.reward_index = staker.reward_index;
-                s.sta
+                s.staked_amount = staker.staked_amount;
+                s.pending_reward = staker.pending_reward;
+                s.last_compound = staker.last_compound;
+            })
+            .or_i
