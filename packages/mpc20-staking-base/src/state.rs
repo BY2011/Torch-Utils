@@ -122,4 +122,9 @@ impl MPC20StakingContractState {
 
 /// ## Description
 /// This structure describes information about staker
-#[derive(ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq
+#[derive(ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct Staker {
+    /// personal reward index
+    pub reward_index: DecimalRatio,
+    /// total staked amount
+    pub staked_amount: u128,
