@@ -128,3 +128,12 @@ pub struct Staker {
     pub reward_index: DecimalRatio,
     /// total staked amount
     pub staked_amount: u128,
+    /// pending rewards
+    pub pending_reward: u128,
+    /// UTC timestamp of last compounding
+    pub last_compound: u64,
+}
+
+impl Staker {
+    /// ## Description
+    //
