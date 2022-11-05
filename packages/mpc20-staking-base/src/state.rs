@@ -115,4 +115,11 @@ impl MPC20StakingContractState {
                 staked_amount: 0,
                 pending_reward: 0,
                 last_compound: 0,
-            
+            },
+        }
+    }
+}
+
+/// ## Description
+/// This structure describes information about staker
+#[derive(ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq
