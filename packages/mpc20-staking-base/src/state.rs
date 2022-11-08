@@ -136,4 +136,7 @@ pub struct Staker {
 
 impl Staker {
     /// ## Description
-    //
+    /// Computes current staker reward
+    /// ## Params
+    /// * **global_index** is an object of type [`DecimalRatio`]
+    pub fn compute_reward(
