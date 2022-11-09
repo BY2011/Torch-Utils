@@ -141,4 +141,9 @@ impl Staker {
     /// * **global_index** is an object of type [`DecimalRatio`]
     pub fn compute_reward(&mut self, global_index: DecimalRatio) {
         let staked_amount = DecimalRatio::new(self.staked_amount, 0);
-        let pending_reward = (staked_amount * glob
+        let pending_reward = (staked_amount * global_index) - (staked_amount * self.reward_index);
+
+        self.reward_index = global_index;
+        self.pending_reward = self
+            .pending_reward
+          
