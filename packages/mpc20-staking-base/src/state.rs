@@ -146,4 +146,7 @@ impl Staker {
         self.reward_index = global_index;
         self.pending_reward = self
             .pending_reward
-          
+            .checked_add(pending_reward.to_u128())
+            .unwrap();
+    }
+}
