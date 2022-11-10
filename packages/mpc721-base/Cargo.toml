@@ -1,4 +1,13 @@
 [package]
 name = "mpc721-base"
 version = "1.1.0"
-edition = "
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[package.metadata.partisiablockchain]
+cargo-partisia = "0.2.9"
+
+[dependencies]
+pbc_contract_common = { git = "https://git@
