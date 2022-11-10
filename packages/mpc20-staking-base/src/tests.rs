@@ -95,3 +95,157 @@ fn test_staking() {
                 }),
                 balances: BTreeMap::new(),
                 allowances: BTreeMap::new(),
+            },
+        }
+    );
+
+    // no distribution yet, total_stake is zero
+    block_production_time = 105;
+
+    let msg = StakeMsg { amount: 100 };
+    let events = execute_stake(
+        &mock_contract_context(ALICE, block_production_time),
+        &mut state,
+        &msg,
+    );
+
+    assert_eq!(events.len(), 1);
+
+    let transfer_from_msg = TransferFromMsg {
+        from: mock_address(ALICE),
+        to: mock_address(1u8),
+        amount: 100,
+    };
+
+    let mut eg = EventGroup::builder();
+    eg.call(
+        mock_address(DEPOSIT_TOKEN),
+        Shortname::from_u32(transfer_from_msg.action_shortname()),
+    )
+    .argument(mock_address(ALICE))
+    .argument(mock_address(1u8))
+    .argument(100u128)
+    .done();
+
+    assert_eq!(events[0], eg.build());
+
+    assert_eq!(
+        state,
+        MPC20StakingContractState {
+            deposit_token: mock_address(DEPOSIT_TOKEN),
+            distribution_amount: 1_000,
+            distribution_epoch: 10,
+            global_index: DecimalRatio::new(0, 0),
+            total_staked: 100,
+            last_distributed: 105,
+            stakers: BTreeMap::from([(
+                mock_address(ALICE),
+                Staker {
+                    reward_index: DecimalRatio::zero(),
+                    staked_amount: 100,
+                    pending_reward: 0,
+                    last_compound: 0,
+                }
+            )]),
+            compound_frequency: 100,
+            mpc20: MPC20ContractState {
+                info: TokenInfo {
+                    name: "Staking Token".to_string(),
+                    symbol: "STKN".to_string(),
+                    decimals: 18,
+                },
+                total_supply: 0,
+                minter: Some(Minter {
+                    minter: mock_address(MINTER),
+                    capacity: None,
+                }),
+                balances: BTreeMap::new(),
+                allowances: BTreeMap::new(),
+            },
+        }
+    );
+
+    // no distribution yet, total stake 100
+    block_production_time = 114;
+
+    let msg = StakeMsg { amount: 100 };
+    let events = execute_stake(
+        &mock_contract_context(BOB, block_production_time),
+        &mut state,
+        &msg,
+    );
+    assert_eq!(
+        state,
+        MPC20StakingContractState {
+            deposit_token: mock_address(DEPOSIT_TOKEN),
+            distribution_amount: 1_000,
+            distribution_epoch: 10,
+            global_index: DecimalRatio::new(0, 0),
+            total_staked: 200,
+            last_distributed: 105,
+            stakers: BTreeMap::from([
+                (
+                    mock_address(ALICE),
+                    Staker {
+                        reward_index: DecimalRatio::zero(),
+                        staked_amount: 100,
+                        pending_reward: 0,
+                        last_compound: 0,
+                    }
+                ),
+                (
+                    mock_address(BOB),
+                    Staker {
+                        reward_index: DecimalRatio::zero(),
+                        staked_amount: 100,
+                        pending_reward: 0,
+                        last_compound: 0,
+                    }
+                )
+            ]),
+            compound_frequency: 100,
+            mpc20: MPC20ContractState {
+                info: TokenInfo {
+                    name: "Staking Token".to_string(),
+                    symbol: "STKN".to_string(),
+                    decimals: 18,
+                },
+                total_supply: 0,
+                minter: Some(Minter {
+                    minter: mock_address(MINTER),
+                    capacity: None,
+                }),
+                balances: BTreeMap::new(),
+                allowances: BTreeMap::new(),
+            },
+        }
+    );
+
+    // first distribution, ALICE and BOB must claim and receive equal rewards
+    block_production_time = 115;
+
+    let msg = ClaimMsg { amount: None };
+    let _ = execute_claim(
+        &mock_contract_context(ALICE, block_production_time),
+        &mut state,
+        &msg,
+    );
+    assert_eq!(
+        state,
+        MPC20StakingContractState {
+            deposit_token: mock_address(DEPOSIT_TOKEN),
+            distribution_amount: 1_000,
+            distribution_epoch: 10,
+            global_index: DecimalRatio::new(5, 0),
+            total_staked: 200,
+            last_distributed: 115,
+            stakers: BTreeMap::from([
+                (
+                    mock_address(ALICE),
+                    Staker {
+                        reward_index: DecimalRatio::new(5, 0),
+                        staked_amount: 100,
+                        pending_reward: 0, // pending reward claimed(minted)
+                        last_compound: 0,
+                    }
+                ),
