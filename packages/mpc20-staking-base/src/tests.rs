@@ -421,3 +421,345 @@ fn test_staking() {
     );
     assert_eq!(
         state,
+        MPC20StakingContractState {
+            deposit_token: mock_address(DEPOSIT_TOKEN),
+            distribution_amount: 1_000,
+            distribution_epoch: 10,
+            global_index: DecimalRatio::new(11666666666666666666666666667, 27),
+            total_staked: 150,
+            last_distributed: 125,
+            stakers: BTreeMap::from([
+                (
+                    mock_address(ALICE),
+                    Staker {
+                        reward_index: DecimalRatio::new(11666666666666666666666666667, 27),
+                        staked_amount: 100,
+                        pending_reward: 566, // 666 - claim_amount
+                        last_compound: 0,
+                    }
+                ),
+                (
+                    mock_address(BOB),
+                    Staker {
+                        reward_index: DecimalRatio::new(11666666666666666666666666667, 27),
+                        staked_amount: 50,
+                        pending_reward: 0,
+                        last_compound: 0,
+                    }
+                )
+            ]),
+            compound_frequency: 100,
+            mpc20: MPC20ContractState {
+                info: TokenInfo {
+                    name: "Staking Token".to_string(),
+                    symbol: "STKN".to_string(),
+                    decimals: 18,
+                },
+                total_supply: 1_433,
+                minter: Some(Minter {
+                    minter: mock_address(MINTER),
+                    capacity: None,
+                }),
+                balances: BTreeMap::from([(mock_address(ALICE), 600), (mock_address(BOB), 833)]),
+                allowances: BTreeMap::new(),
+            },
+        }
+    );
+
+    // JACK stakes 50, ALICE share 50, BOB and JACK 25 resp
+    block_production_time = 134;
+
+    let msg = StakeMsg { amount: 50 };
+    let events = execute_stake(
+        &mock_contract_context(JACK, block_production_time),
+        &mut state,
+        &msg,
+    );
+    assert_eq!(
+        state,
+        MPC20StakingContractState {
+            deposit_token: mock_address(DEPOSIT_TOKEN),
+            distribution_amount: 1_000,
+            distribution_epoch: 10,
+            global_index: DecimalRatio::new(11666666666666666666666666667, 27),
+            total_staked: 200,
+            last_distributed: 125,
+            stakers: BTreeMap::from([
+                (
+                    mock_address(ALICE),
+                    Staker {
+                        reward_index: DecimalRatio::new(11666666666666666666666666667, 27),
+                        staked_amount: 100,
+                        pending_reward: 566, // 666 - claim_amount
+                        last_compound: 0,
+                    }
+                ),
+                (
+                    mock_address(BOB),
+                    Staker {
+                        reward_index: DecimalRatio::new(11666666666666666666666666667, 27),
+                        staked_amount: 50,
+                        pending_reward: 0,
+                        last_compound: 0,
+                    }
+                ),
+                (
+                    mock_address(JACK),
+                    Staker {
+                        reward_index: DecimalRatio::new(11666666666666666666666666667, 27),
+                        staked_amount: 50,
+                        pending_reward: 0,
+                        last_compound: 0,
+                    }
+                )
+            ]),
+            compound_frequency: 100,
+            mpc20: MPC20ContractState {
+                info: TokenInfo {
+                    name: "Staking Token".to_string(),
+                    symbol: "STKN".to_string(),
+                    decimals: 18,
+                },
+                total_supply: 1_433,
+                minter: Some(Minter {
+                    minter: mock_address(MINTER),
+                    capacity: None,
+                }),
+                balances: BTreeMap::from([(mock_address(ALICE), 600), (mock_address(BOB), 833)]),
+                allowances: BTreeMap::new(),
+            },
+        }
+    );
+
+    // everyone claims 1 token
+    block_production_time = 140;
+
+    let msg = ClaimMsg { amount: Some(1) };
+    let _ = execute_claim(
+        &mock_contract_context(ALICE, block_production_time),
+        &mut state,
+        &msg,
+    );
+    let _ = execute_claim(
+        &mock_contract_context(BOB, block_production_time),
+        &mut state,
+        &msg,
+    );
+    let _ = execute_claim(
+        &mock_contract_context(JACK, block_production_time),
+        &mut state,
+        &msg,
+    );
+    assert_eq!(
+        state,
+        MPC20StakingContractState {
+            deposit_token: mock_address(DEPOSIT_TOKEN),
+            distribution_amount: 1_000,
+            distribution_epoch: 10,
+            global_index: DecimalRatio::new(16666666666666666666666666667, 27),
+            total_staked: 200,
+            last_distributed: 135,
+            stakers: BTreeMap::from([
+                (
+                    mock_address(ALICE),
+                    Staker {
+                        reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                        staked_amount: 100,
+                        pending_reward: 1065,
+                        last_compound: 0,
+                    }
+                ),
+                (
+                    mock_address(BOB),
+                    Staker {
+                        reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                        staked_amount: 50,
+                        pending_reward: 249,
+                        last_compound: 0,
+                    }
+                ),
+                (
+                    mock_address(JACK),
+                    Staker {
+                        reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                        staked_amount: 50,
+                        pending_reward: 249,
+                        last_compound: 0,
+                    }
+                )
+            ]),
+            compound_frequency: 100,
+            mpc20: MPC20ContractState {
+                info: TokenInfo {
+                    name: "Staking Token".to_string(),
+                    symbol: "STKN".to_string(),
+                    decimals: 18,
+                },
+                total_supply: 1_436,
+                minter: Some(Minter {
+                    minter: mock_address(MINTER),
+                    capacity: None,
+                }),
+                balances: BTreeMap::from([
+                    (mock_address(ALICE), 601),
+                    (mock_address(BOB), 834),
+                    (mock_address(JACK), 1)
+                ]),
+                allowances: BTreeMap::new(),
+            },
+        }
+    );
+
+    // JACK compounds
+    block_production_time = 144;
+
+    let msg = CompoundMsg { amount: Some(100) };
+    let events = execute_compound(
+        &mock_contract_context(JACK, block_production_time),
+        &mut state,
+        &msg,
+    );
+    assert_eq!(
+        state,
+        MPC20StakingContractState {
+            deposit_token: mock_address(DEPOSIT_TOKEN),
+            distribution_amount: 1_000,
+            distribution_epoch: 10,
+            global_index: DecimalRatio::new(16666666666666666666666666667, 27),
+            total_staked: 300,
+            last_distributed: 135,
+            stakers: BTreeMap::from([
+                (
+                    mock_address(ALICE),
+                    Staker {
+                        reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                        staked_amount: 100,
+                        pending_reward: 1065,
+                        last_compound: 0,
+                    }
+                ),
+                (
+                    mock_address(BOB),
+                    Staker {
+                        reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                        staked_amount: 50,
+                        pending_reward: 249,
+                        last_compound: 0,
+                    }
+                ),
+                (
+                    mock_address(JACK),
+                    Staker {
+                        reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                        staked_amount: 150,
+                        pending_reward: 149,
+                        last_compound: 144,
+                    }
+                )
+            ]),
+            compound_frequency: 100,
+            mpc20: MPC20ContractState {
+                info: TokenInfo {
+                    name: "Staking Token".to_string(),
+                    symbol: "STKN".to_string(),
+                    decimals: 18,
+                },
+                total_supply: 1_536,
+                minter: Some(Minter {
+                    minter: mock_address(MINTER),
+                    capacity: None,
+                }),
+                balances: BTreeMap::from([
+                    (mock_address(ALICE), 601),
+                    (mock_address(BOB), 834),
+                    (mock_address(JACK), 1),
+                    (mock_address(DEPOSIT_TOKEN), 100) // compound - claim + stake
+                ]),
+                allowances: BTreeMap::new(),
+            },
+        }
+    );
+}
+
+#[test]
+#[should_panic(expected = "Distribution amount must be higher then 0")]
+fn invalid_distribution_amount() {
+    const MINTER: u8 = 9;
+
+    let block_production_time = 100;
+
+    let msg = Mpc20StakingInitMsg {
+        deposit_token: None,
+        distribution_amount: 0,
+        distribution_epoch: 10,
+        compound_frequency: 100,
+        info: TokenInfo {
+            name: "Staking Token".to_string(),
+            symbol: "STKN".to_string(),
+            decimals: 18,
+        },
+        initial_balances: vec![],
+        minter: Some(mock_address(MINTER)),
+    };
+    let (_, _) = execute_init(&mock_contract_context(MINTER, block_production_time), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Distribution epoch must be higher then 0")]
+fn invalid_distribution_epoch() {
+    const MINTER: u8 = 9;
+
+    let block_production_time = 100;
+
+    let msg = Mpc20StakingInitMsg {
+        deposit_token: None,
+        distribution_amount: 1_000,
+        distribution_epoch: 0,
+        compound_frequency: 100,
+        info: TokenInfo {
+            name: "Staking Token".to_string(),
+            symbol: "STKN".to_string(),
+            decimals: 18,
+        },
+        initial_balances: vec![],
+        minter: Some(mock_address(MINTER)),
+    };
+    let (_, _) = execute_init(&mock_contract_context(MINTER, block_production_time), &msg);
+}
+
+#[test]
+#[should_panic(expected = "Cannot unstake more then staked")]
+fn unstake_more_then_staked() {
+    const DEPOSIT_TOKEN: u8 = 1;
+    const MINTER: u8 = 9;
+    const ALICE: u8 = 10;
+    const BOB: u8 = 11;
+    const JACK: u8 = 12;
+
+    let block_production_time = 150;
+
+    let mut state = MPC20StakingContractState {
+        deposit_token: mock_address(DEPOSIT_TOKEN),
+        distribution_amount: 1_000,
+        distribution_epoch: 10,
+        global_index: DecimalRatio::new(16666666666666666666666666667, 27),
+        total_staked: 300,
+        last_distributed: 135,
+        stakers: BTreeMap::from([
+            (
+                mock_address(ALICE),
+                Staker {
+                    reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                    staked_amount: 100,
+                    pending_reward: 1065,
+                    last_compound: 0,
+                },
+            ),
+            (
+                mock_address(BOB),
+                Staker {
+                    reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                    staked_amount: 50,
+                    pending_reward: 249,
+                    last_compound: 0,
+                },
