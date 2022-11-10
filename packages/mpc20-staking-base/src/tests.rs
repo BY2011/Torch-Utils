@@ -929,3 +929,157 @@ fn claim_more_then_rewarded() {
             ),
         ]),
         compound_frequency: 100,
+        mpc20: MPC20ContractState {
+            info: TokenInfo {
+                name: "Staking Token".to_string(),
+                symbol: "STKN".to_string(),
+                decimals: 18,
+            },
+            total_supply: 1_536,
+            minter: Some(Minter {
+                minter: mock_address(MINTER),
+                capacity: None,
+            }),
+            balances: BTreeMap::from([
+                (mock_address(ALICE), 601),
+                (mock_address(BOB), 834),
+                (mock_address(JACK), 1),
+                (mock_address(DEPOSIT_TOKEN), 100),
+            ]),
+            allowances: BTreeMap::new(),
+        },
+    };
+
+    let msg = ClaimMsg { amount: Some(11) };
+    let _ = execute_claim(
+        &mock_contract_context(JACK, block_production_time),
+        &mut state,
+        &msg,
+    );
+}
+
+#[test]
+#[should_panic(expected = "Compound only enabled when deposit token is reward token")]
+fn compound_when_disabled() {
+    const DEPOSIT_TOKEN: u8 = 2;
+    const MINTER: u8 = 9;
+    const ALICE: u8 = 10;
+    const BOB: u8 = 11;
+    const JACK: u8 = 12;
+
+    let block_production_time = 135;
+
+    let mut state = MPC20StakingContractState {
+        deposit_token: mock_address(DEPOSIT_TOKEN),
+        distribution_amount: 1_000,
+        distribution_epoch: 10,
+        global_index: DecimalRatio::new(16666666666666666666666666667, 27),
+        total_staked: 300,
+        last_distributed: 135,
+        stakers: BTreeMap::from([
+            (
+                mock_address(ALICE),
+                Staker {
+                    reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                    staked_amount: 100,
+                    pending_reward: 1065,
+                    last_compound: 0,
+                },
+            ),
+            (
+                mock_address(BOB),
+                Staker {
+                    reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                    staked_amount: 50,
+                    pending_reward: 249,
+                    last_compound: 0,
+                },
+            ),
+            (
+                mock_address(JACK),
+                Staker {
+                    reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                    staked_amount: 150,
+                    pending_reward: 10,
+                    last_compound: 144,
+                },
+            ),
+        ]),
+        compound_frequency: 100,
+        mpc20: MPC20ContractState {
+            info: TokenInfo {
+                name: "Staking Token".to_string(),
+                symbol: "STKN".to_string(),
+                decimals: 18,
+            },
+            total_supply: 1_536,
+            minter: Some(Minter {
+                minter: mock_address(MINTER),
+                capacity: None,
+            }),
+            balances: BTreeMap::from([
+                (mock_address(ALICE), 601),
+                (mock_address(BOB), 834),
+                (mock_address(JACK), 1),
+                (mock_address(DEPOSIT_TOKEN), 100),
+            ]),
+            allowances: BTreeMap::new(),
+        },
+    };
+
+    let msg = CompoundMsg { amount: None };
+    let _ = execute_compound(
+        &mock_contract_context(BOB, block_production_time),
+        &mut state,
+        &msg,
+    );
+}
+
+#[test]
+#[should_panic(expected = "Forbidden to compound to often")]
+fn compound_to_often() {
+    const DEPOSIT_TOKEN: u8 = 1;
+    const MINTER: u8 = 9;
+    const ALICE: u8 = 10;
+    const BOB: u8 = 11;
+    const JACK: u8 = 12;
+
+    let block_production_time = 135;
+
+    let mut state = MPC20StakingContractState {
+        deposit_token: mock_address(DEPOSIT_TOKEN),
+        distribution_amount: 1_000,
+        distribution_epoch: 10,
+        global_index: DecimalRatio::new(16666666666666666666666666667, 27),
+        total_staked: 300,
+        last_distributed: 135,
+        stakers: BTreeMap::from([
+            (
+                mock_address(ALICE),
+                Staker {
+                    reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                    staked_amount: 100,
+                    pending_reward: 1065,
+                    last_compound: 0,
+                },
+            ),
+            (
+                mock_address(BOB),
+                Staker {
+                    reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                    staked_amount: 50,
+                    pending_reward: 249,
+                    last_compound: 36,
+                },
+            ),
+            (
+                mock_address(JACK),
+                Staker {
+                    reward_index: DecimalRatio::new(16666666666666666666666666667, 27),
+                    staked_amount: 150,
+                    pending_reward: 10,
+                    last_compound: 144,
+                },
+            ),
+        ]),
+        compound_frequency: 100,
