@@ -10,4 +10,5 @@ crate-type = ["cdylib", "rlib"]
 cargo-partisia = "0.2.9"
 
 [dependencies]
-pbc_contract_common = { git = "https://git@
+pbc_contract_common = { git = "https://git@gitlab.com/partisiablockchain/language/contract-sdk.git", tag = "9.1.1" }
+pbc_traits = { git = "https://git@gitlab.com/partisiablockchain/language/contract-sdk.git", tag =
