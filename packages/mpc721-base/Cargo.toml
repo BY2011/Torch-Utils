@@ -22,4 +22,7 @@ utils = { path = "../utils" }
 rpc-msg-derive = { path = "../rpc-msg-derive" }
 
 serde_json = "1.0"
-thi
+thiserror = "1.0.31"
+
+[features]
+abi = ["pbc_contract_common/abi", "pbc_contract_codegen/abi", "pbc_traits/abi", "create_type_spec_derive/abi"]
