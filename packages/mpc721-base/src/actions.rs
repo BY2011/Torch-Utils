@@ -273,3 +273,38 @@ pub fn execute_burn(
 pub fn execute_ownership_check(
     ctx: &ContractContext,
     state: &mut MPC721ContractState,
+    msg: &CheckOwnerMsg,
+) -> Vec<EventGroup> {
+    let token_info = state.token_info(msg.token_id);
+    match token_info {
+        Some(token_info) => assert!(
+            token_info.owner == msg.owner,
+            "{}",
+            ContractError::IncorrectOwner
+        ),
+        None => panic!("{}", ContractError::NotFound),
+    };
+    vec![]
+}
+
+/// ## Description
+/// Mint Multiple NFTs in a single function call
+/// Returns [` Vec<EventGroup>)`] if operation was successful,
+/// otherwise panics with error message defined in [`ContractError`]
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **state** is an object of type [`MPC721ContractState`]
+///
+/// * **msg** is an object of type [`MultiMintMsg`]
+pub fn execute_multi_mint(
+    ctx: &ContractContext,
+    state: &mut MPC721ContractState,
+    msg: &MultiMintMsg,
+) -> Vec<EventGroup> {
+    for mint in msg.mints.iter() {
+        execute_mint(ctx, state, mint);
+    }
+
+    vec![]
+}
