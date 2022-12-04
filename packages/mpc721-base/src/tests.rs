@@ -573,3 +573,149 @@ fn not_owner_or_operator_approve() {
     let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
 
     let approve_msg = ApproveMsg {
+        spender: mock_address(bob),
+        token_id: 1,
+    };
+
+    let _ = execute_approve(&mock_contract_context(bob), &mut state, &approve_msg);
+}
+
+#[test]
+fn proper_revoke() {
+    let minter = 1u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: None,
+        name: "Cool Token".to_string(),
+        symbol: "CTC".to_string(),
+        base_uri: Some("ipfs://some.some".to_string()),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(2), &msg);
+
+    let mint_msg = MintMsg {
+        token_id: 1,
+        to: mock_address(alice),
+        token_uri: None,
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let approve_msg = ApproveMsg {
+        spender: mock_address(bob),
+        token_id: 1,
+    };
+
+    let _ = execute_approve(&mock_contract_context(alice), &mut state, &approve_msg);
+
+    let revoke_msg = RevokeMsg {
+        spender: mock_address(bob),
+        token_id: 1,
+    };
+
+    let _ = execute_revoke(&mock_contract_context(alice), &mut state, &revoke_msg);
+    assert_eq!(
+        *state.token_info(1).unwrap(),
+        TokenInfo {
+            owner: mock_address(alice),
+            approvals: vec![],
+            token_uri: None,
+        }
+    );
+}
+
+#[test]
+#[should_panic(expected = "Not found")]
+fn revoke_not_minted_token() {
+    let minter = 1u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: None,
+        name: "Cool Token".to_string(),
+        symbol: "CTC".to_string(),
+        base_uri: Some("ipfs://some.some".to_string()),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(2), &msg);
+
+    let revoke_msg = RevokeMsg {
+        spender: mock_address(bob),
+        token_id: 1,
+    };
+
+    let _ = execute_revoke(&mock_contract_context(alice), &mut state, &revoke_msg);
+}
+
+#[test]
+fn proper_owner_transfer() {
+    let minter = 1u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: None,
+        name: "Cool Token".to_string(),
+        symbol: "CTC".to_string(),
+        base_uri: Some("ipfs://some.some".to_string()),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(2), &msg);
+
+    let mint_msg = MintMsg {
+        token_id: 1,
+        to: mock_address(alice),
+        token_uri: None,
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let transfer_msg = TransferMsg {
+        to: mock_address(bob),
+        token_id: 1,
+    };
+
+    let _ = execute_transfer(&mock_contract_context(alice), &mut state, &transfer_msg);
+    assert_eq!(
+        *state.token_info(1).unwrap(),
+        TokenInfo {
+            owner: mock_address(bob),
+            approvals: vec![],
+            token_uri: None,
+        }
+    );
+}
+
+#[test]
+fn proper_approved_transfer() {
+    let minter = 1u8;
+    let alice = 10u8;
+    let bob = 11u8;
+
+    let msg = InitMsg {
+        owner: None,
+        name: "Cool Token".to_string(),
+        symbol: "CTC".to_string(),
+        base_uri: Some("ipfs://some.some".to_string()),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(2), &msg);
+
+    let mint_msg = MintMsg {
+        token_id: 1,
+        to: mock_address(alice),
+        token_uri: None,
+    };
+
+    let _ = execute_mint(&mock_contract_context(minter), &mut state, &mint_msg);
+
+    let approve_msg = ApproveMsg {
+        spender: mock_address(bob),
+        token_id: 1,
