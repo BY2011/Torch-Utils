@@ -168,3 +168,116 @@ impl MPC721ContractState {
             .operator_approvals
             .get_mut(owner)
             .unwrap_or_else(|| panic!("{}", ContractError::NotFound.to_string()));
+
+        owner_operators.remove(operator);
+
+        if owner_operators.is_empty() {
+            self.operator_approvals.remove(owner);
+        }
+    }
+
+    /// ## Description
+    /// Removes information about token
+    /// ## Params
+    /// * **owner** is an object of type [`Address`]
+    ///
+    /// * **token_id** is an object of type [`u128`]
+    pub fn remove_token(&mut self, owner: &Address, token_id: u128) {
+        let token = self.tokens.get(&token_id).unwrap();
+        assert!(
+            Self::allowed_to_transfer(owner, token, &self.operator_approvals),
+            "{}",
+            ContractError::Unauthorized
+        );
+
+        self.tokens.remove(&token_id);
+    }
+
+    /// ## Description
+    /// Says is token id minted or not
+    /// ## Params
+    /// * **token_id** is an object of type [`u128`]
+    pub fn is_minted(&self, token_id: u128) -> bool {
+        self.tokens.contains_key(&token_id)
+    }
+
+    /// ## Description
+    /// Checks that address is owner or not
+    /// ## Params
+    /// * **address** is an object of type [`Address`]
+    pub fn is_owner(&self, address: &Address) -> bool {
+        if let Some(owner) = self.owner {
+            owner.eq(address)
+        } else {
+            false
+        }
+    }
+
+    /// ## Description
+    /// Returns token info by token id
+    /// ## Params
+    /// * **token_id** is an object of type [`u128`]
+    pub fn token_info(&self, token_id: u128) -> Option<&TokenInfo> {
+        self.tokens.get(&token_id)
+    }
+
+    /// ## Description
+    /// Returns address token balance
+    /// ## Params
+    /// * **owner** is an object of type [`Address`]
+    pub fn balance_of(&self, owner: &Address) -> u128 {
+        self.tokens
+            .values()
+            .into_iter()
+            .filter(|ti| ti.owner == *owner)
+            .count() as u128
+    }
+
+    /// ## Description
+    /// Returns owner of specified token id
+    /// ## Params
+    /// * **token_id** is an object of type [`u128`]
+    pub fn owner_of(&self, token_id: u128) -> Address {
+        self.tokens.get(&token_id).unwrap().owner
+    }
+
+    fn allowed_to_transfer(
+        account: &Address,
+        token: &TokenInfo,
+        operator_approvals: &BTreeMap<Address, BTreeMap<Address, bool>>,
+    ) -> bool {
+        if token.owner == *account {
+            return true;
+        }
+
+        if token.approvals.iter().any(|spender| spender == account) {
+            return true;
+        }
+
+        if let Some(owner_approvals) = operator_approvals.get(&token.owner) {
+            if let Some(approved) = owner_approvals.get(account) {
+                return *approved;
+            }
+        }
+
+        false
+    }
+
+    fn allowed_to_approve(
+        account: &Address,
+        token: &TokenInfo,
+        operator_approvals: &BTreeMap<Address, BTreeMap<Address, bool>>,
+    ) -> bool {
+        if token.owner == *account {
+            return true;
+        }
+
+        if let Some(owner_approvals) = operator_approvals.get(&token.owner) {
+            if let Some(approved) = owner_approvals.get(account) {
+                return *approved;
+            }
+        }
+
+        false
+    }
+}
