@@ -1046,3 +1046,104 @@ fn test_multi_mint() {
         MintMsg {
             token_id: 2,
             to: mock_address(4),
+            token_uri: Some(String::from("Token2")),
+        },
+        MintMsg {
+            token_id: 3,
+            to: mock_address(5),
+            token_uri: Some(String::from("Token3")),
+        },
+        MintMsg {
+            token_id: 4,
+            to: mock_address(5),
+            token_uri: Some(String::from("Token4")),
+        },
+        MintMsg {
+            token_id: 5,
+            to: mock_address(6),
+            token_uri: Some(String::from("Token5")),
+        },
+    ];
+    execute_multi_mint(
+        &mock_contract_context(1),
+        &mut state,
+        &MultiMintMsg { mints: mint },
+    );
+
+    assert_eq!(state, test_state);
+}
+#[test]
+fn can_update_minter() {
+    let minter = 1u8;
+    let new_minter = 6u8;
+    let alice = 10u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(alice)),
+        name: "Cool Token".to_string(),
+        symbol: "CTC".to_string(),
+        base_uri: Some("ipfs://some.some".to_string()),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(2), &msg);
+
+    let _ = execute_update_minter(
+        &mock_contract_context(alice),
+        &mut state,
+        UpdateMinterMsg {
+            new_minter: mock_address(new_minter),
+        },
+    );
+    assert_eq!(mock_address(new_minter), state.minter);
+}
+#[test]
+#[should_panic(expected = "Unauthorized")]
+fn update_minter_fails_not_owner() {
+    let minter = 1u8;
+    let new_minter = 6u8;
+    let alice = 10u8;
+
+    let msg = InitMsg {
+        owner: Some(mock_address(alice)),
+        name: "Cool Token".to_string(),
+        symbol: "CTC".to_string(),
+        base_uri: Some("ipfs://some.some".to_string()),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(2), &msg);
+
+    let _ = execute_update_minter(
+        &mock_contract_context(minter),
+        &mut state,
+        UpdateMinterMsg {
+            new_minter: mock_address(new_minter),
+        },
+    );
+}
+#[test]
+#[should_panic(expected = "Unauthorized")]
+fn update_minter_fails_no_owner() {
+    let minter = 1u8;
+    let new_minter = 6u8;
+    let alice = 10u8;
+
+    let msg = InitMsg {
+        owner: None,
+        name: "Cool Token".to_string(),
+        symbol: "CTC".to_string(),
+        base_uri: Some("ipfs://some.some".to_string()),
+        minter: mock_address(minter),
+    };
+
+    let (mut state, events) = execute_init(&mock_contract_context(2), &msg);
+
+    let _ = execute_update_minter(
+        &mock_contract_context(minter),
+        &mut state,
+        UpdateMinterMsg {
+            new_minter: mock_address(new_minter),
+        },
+    );
+}
