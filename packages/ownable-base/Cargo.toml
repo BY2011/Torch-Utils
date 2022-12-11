@@ -21,4 +21,4 @@ pbc_contract_codegen = { git = "https://git@gitlab.com/partisiablockchain/langua
 thiserror = "1.0.31"
 
 [features]
-abi = ["pbc_contract_common/abi", "pbc_contract_co
+abi = ["pbc_contract_common/abi", "pbc_contract_codegen/abi", "pbc_traits/abi", "create_type_spec_derive/abi"]
