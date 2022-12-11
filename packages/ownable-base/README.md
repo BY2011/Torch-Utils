@@ -11,4 +11,12 @@ Creates new instance of `OwnableBaseState`.
 
 ## transfer_ownership
 
-Transferes ownersh
+Transferes ownership to specified address. Panic if `ctx.sender` is not the actual owner.
+
+## assert_only_owner
+
+Verifies that `ctx.sender` is an actual owner.
+
+## get_owner
+
+Returns
