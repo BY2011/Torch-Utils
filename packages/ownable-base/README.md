@@ -19,4 +19,4 @@ Verifies that `ctx.sender` is an actual owner.
 
 ## get_owner
 
-Returns
+Returns current owner address.
