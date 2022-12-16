@@ -4,4 +4,6 @@ use thiserror::Error;
 /// This enum describes ownable extension error
 #[derive(Error, Debug)]
 pub enum ContractError {
-    #[error("Owna
+    #[error("Ownable-base: caller is not the owner")]
+    CallerIsNotTheOwner,
+}
