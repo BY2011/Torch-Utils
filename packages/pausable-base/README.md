@@ -17,3 +17,13 @@ Sets pause flag to `true`. Panics if already paused.
 Sets pause flag to `false`. Panics if already unpaused.
 
 ## paused
+
+Returns current flag.
+
+## assert_paused
+
+Verifies that contract is paused.
+
+## assert_not_paused
+
+Verifies that contract is unpaused.
