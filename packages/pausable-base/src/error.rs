@@ -8,3 +8,5 @@ pub enum ContractError {
     Paused,
 
     #[error("Pausable-base: not paused")]
+    NotPaused,
+}
