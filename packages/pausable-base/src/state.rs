@@ -5,4 +5,12 @@ use crate::ContractError;
 
 /// ## Description
 /// This structure describes pausable extension state
-#[derive(ReadWriteState, Create
+#[derive(ReadWriteState, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct PausableBaseState {
+    /// paused or not
+    paused: bool,
+}
+
+impl PausableBaseState {
+    /// ## Description
+    //
