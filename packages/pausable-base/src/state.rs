@@ -20,4 +20,12 @@ impl PausableBaseState {
 
     /// ## Description
     /// Pauses contract
-    pub fn pause(&mut 
+    pub fn pause(&mut self) {
+        self.assert_not_paused();
+        self.paused = true
+    }
+
+    /// ## Description
+    /// Unpauses contract
+    pub fn unpause(&mut self) {
+        self.assert_pa
