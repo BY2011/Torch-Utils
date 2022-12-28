@@ -13,4 +13,11 @@ pub struct PausableBaseState {
 
 impl PausableBaseState {
     /// ## Description
-    //
+    /// Creates pausable extension state
+    pub fn new() -> Self {
+        Self { paused: false }
+    }
+
+    /// ## Description
+    /// Pauses contract
+    pub fn pause(&mut 
