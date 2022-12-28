@@ -35,4 +35,10 @@ impl PausableBaseState {
     /// ## Description
     /// Returns current pausable state
     pub fn paused(&self) -> bool {
-        self.p
+        self.paused
+    }
+
+    /// ## Description
+    /// Verifies that contract is paused
+    pub fn assert_paused(&self) {
+        assert!(self.paused(), "{}", ContractErro
