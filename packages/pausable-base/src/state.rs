@@ -41,4 +41,10 @@ impl PausableBaseState {
     /// ## Description
     /// Verifies that contract is paused
     pub fn assert_paused(&self) {
-        assert!(self.paused(), "{}", ContractErro
+        assert!(self.paused(), "{}", ContractError::NotPaused)
+    }
+
+    /// ## Description
+    /// Verifies that contract is not paused
+    pub fn assert_not_paused(&self) {
+        assert!(!self.pa
