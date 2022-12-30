@@ -59,4 +59,11 @@ impl Default for PausableBaseState {
 
 #[cfg(test)]
 mod tests {
-    use
+    use super::*;
+
+    #[test]
+    fn test_proper_pausable() {
+        let mut pausable_state = PausableBaseState::new();
+        assert_eq!(pausable_state.paused(), false);
+
+        pau
