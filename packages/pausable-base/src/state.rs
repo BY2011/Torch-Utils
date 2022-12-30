@@ -66,4 +66,8 @@ mod tests {
         let mut pausable_state = PausableBaseState::new();
         assert_eq!(pausable_state.paused(), false);
 
-        pau
+        pausable_state.pause();
+        assert_eq!(pausable_state.paused(), true);
+        pausable_state.assert_paused();
+
+        pausable_state.unpause()
