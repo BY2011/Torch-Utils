@@ -76,4 +76,9 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected = "Pausable-base: pa
+    #[should_panic(expected = "Pausable-base: paused")]
+    fn test_pause_when_already_paused() {
+        let mut pausable_state = PausableBaseState::new();
+        pausable_state.pause();
+
+        pausable_state
