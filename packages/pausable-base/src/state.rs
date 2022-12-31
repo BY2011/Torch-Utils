@@ -70,4 +70,10 @@ mod tests {
         assert_eq!(pausable_state.paused(), true);
         pausable_state.assert_paused();
 
-        pausable_state.unpause()
+        pausable_state.unpause();
+        assert_eq!(pausable_state.paused(), false);
+        pausable_state.assert_not_paused()
+    }
+
+    #[test]
+    #[should_panic(expected = "Pausable-base: pa
