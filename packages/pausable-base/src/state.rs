@@ -81,4 +81,11 @@ mod tests {
         let mut pausable_state = PausableBaseState::new();
         pausable_state.pause();
 
-        pausable_state
+        pausable_state.pause()
+    }
+
+    #[test]
+    #[should_panic(expected = "Pausable-base: not paused")]
+    fn test_unpause_when_already_unpaused() {
+        let mut pausable_state = PausableBaseState::new();
+  
