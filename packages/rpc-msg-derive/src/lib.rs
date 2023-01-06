@@ -12,4 +12,9 @@ struct RpcMsgOpts {
 
 #[proc_macro_derive(IntoShortnameRPCEvent, attributes(rpc_msg))]
 pub fn derive(input: TokenStream) -> TokenStream {
-    let input = parse_macro_input
+    let input = parse_macro_input!(input);
+    let action = get_action(&input);
+
+    let DeriveInput { ident, data, .. } = input;
+
+    let arguments_stream
