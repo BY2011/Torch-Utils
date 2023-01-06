@@ -17,4 +17,11 @@ pub fn derive(input: TokenStream) -> TokenStream {
 
     let DeriveInput { ident, data, .. } = input;
 
-    let arguments_stream
+    let arguments_stream = build_arguments(data);
+    quote! {
+        impl IntoShortnameRPCEvent for #ident {
+            fn action_shortname(&self) -> u32 {
+                #action
+            }
+
+        
