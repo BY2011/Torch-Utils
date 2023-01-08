@@ -33,3 +33,10 @@ pub fn derive(input: TokenStream) -> TokenStream {
                 #arguments_stream
                 interaction.done();
             }
+        }
+    }
+    .into()
+}
+
+#[proc_macro_derive(IntoShortnameRPCEventWithCost, attributes(rpc_msg))]
+pub fn derive_with_cost(input: TokenStream) -> TokenSt
