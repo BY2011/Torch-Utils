@@ -24,4 +24,9 @@ pub fn derive(input: TokenStream) -> TokenStream {
                 #action
             }
 
-        
+            fn as_interaction(
+                &self,
+                builder: &mut pbc_contract_common::events::EventGroupBuilder,
+                dest: &Address,
+            ) {
+           
