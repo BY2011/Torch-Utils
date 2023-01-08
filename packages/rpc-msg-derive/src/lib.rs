@@ -29,4 +29,7 @@ pub fn derive(input: TokenStream) -> TokenStream {
                 builder: &mut pbc_contract_common::events::EventGroupBuilder,
                 dest: &Address,
             ) {
-           
+                let mut interaction = builder.call(*dest, Shortname::from_u32(self.action_shortname()));
+                #arguments_stream
+                interaction.done();
+            }
