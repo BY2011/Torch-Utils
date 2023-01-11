@@ -39,4 +39,12 @@ pub fn derive(input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro_derive(IntoShortnameRPCEventWithCost, attributes(rpc_msg))]
-pub fn derive_with_cost(input: TokenStream) -> TokenSt
+pub fn derive_with_cost(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input);
+    let action = get_action(&input);
+
+    let DeriveInput { ident, data, .. } = input;
+
+    let arguments_stream = build_arguments(data);
+    quote! {
+  
