@@ -47,4 +47,9 @@ pub fn derive_with_cost(input: TokenStream) -> TokenStream {
 
     let arguments_stream = build_arguments(data);
     quote! {
-  
+        impl IntoShortnameRPCEventWithCost for #ident {
+            fn action_shortname(&self) -> u32 {
+                #action
+            }
+
+            
