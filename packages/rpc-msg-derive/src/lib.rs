@@ -69,4 +69,10 @@ pub fn derive_with_cost(input: TokenStream) -> TokenStream {
 
 fn get_action(input: &DeriveInput) -> u32 {
     RpcMsgOpts::from_derive_input(input)
-     
+        .expect("Options must be provided")
+        .action
+}
+
+fn build_arguments(data: Data) -> TokenStream2 {
+    let mut arguments_stream = TokenStream2::default();
+    if let syn
