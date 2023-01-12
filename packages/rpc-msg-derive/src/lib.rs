@@ -60,4 +60,13 @@ pub fn derive_with_cost(input: TokenStream) -> TokenStream {
             ) {
                 let mut interaction = builder.call(*dest, Shortname::from_u32(self.action_shortname())).with_cost(cost);
                 #arguments_stream
+                interaction.done();
+            }
+        }
+    }
+    .into()
+}
+
+fn get_action(input: &DeriveInput) -> u32 {
+    RpcMsgOpts::from_derive_input(input)
      
