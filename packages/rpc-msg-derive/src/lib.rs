@@ -75,4 +75,7 @@ fn get_action(input: &DeriveInput) -> u32 {
 
 fn build_arguments(data: Data) -> TokenStream2 {
     let mut arguments_stream = TokenStream2::default();
-    if let syn
+    if let syn::Data::Struct(s) = data {
+        if let syn::Fields::Named(FieldsNamed { named, .. }) = s.fields {
+            let fields = named.iter().map(|f| &f.ident);
+            let ftypes = named.iter()
