@@ -86,4 +86,11 @@ fn build_arguments(data: Data) -> TokenStream2 {
                 })
             }
         } else {
-            unimplemented!("This macro works only with named 
+            unimplemented!("This macro works only with named fields that belong to the struct.");
+        }
+    } else {
+        unimplemented!("This macro works only with structs.");
+    };
+
+    arguments_stream
+}
