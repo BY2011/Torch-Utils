@@ -52,4 +52,10 @@ pub fn derive_with_cost(input: TokenStream) -> TokenStream {
                 #action
             }
 
-            
+            fn as_interaction(
+                &self,
+                builder: &mut pbc_contract_common::events::EventGroupBuilder,
+                dest: &Address,
+                cost: u64,
+            ) {
+     
