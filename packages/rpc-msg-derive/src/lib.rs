@@ -58,4 +58,6 @@ pub fn derive_with_cost(input: TokenStream) -> TokenStream {
                 dest: &Address,
                 cost: u64,
             ) {
+                let mut interaction = builder.call(*dest, Shortname::from_u32(self.action_shortname())).with_cost(cost);
+                #arguments_stream
      
