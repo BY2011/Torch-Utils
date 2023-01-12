@@ -82,4 +82,8 @@ fn build_arguments(data: Data) -> TokenStream2 {
 
             for (field, _) in fields.into_iter().zip(ftypes.into_iter()) {
                 arguments_stream.extend::<TokenStream2>(quote! {
-             
+                    interaction = interaction.argument(self.#field.clone());
+                })
+            }
+        } else {
+            unimplemented!("This macro works only with named 
