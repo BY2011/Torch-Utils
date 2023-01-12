@@ -78,4 +78,8 @@ fn build_arguments(data: Data) -> TokenStream2 {
     if let syn::Data::Struct(s) = data {
         if let syn::Fields::Named(FieldsNamed { named, .. }) = s.fields {
             let fields = named.iter().map(|f| &f.ident);
-            let ftypes = named.iter()
+            let ftypes = named.iter().map(|f| &f.ty);
+
+            for (field, _) in fields.into_iter().zip(ftypes.into_iter()) {
+                arguments_stream.extend::<TokenStream2>(quote! {
+             
