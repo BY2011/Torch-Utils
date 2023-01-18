@@ -14,4 +14,5 @@ pbc_contract_common = { git = "https://git@gitlab.com/partisiablockchain/languag
 pbc_traits = { git = "https://git@gitlab.com/partisiablockchain/language/contract-sdk.git", tag = "9.1.1" }
 pbc_lib = { git = "https://git@gitlab.com/partisiablockchain/language/contract-sdk.git", tag = "9.1.1" }
 read_write_rpc_derive = { git = "https://git@gitlab.com/partisiablockchain/language/contract-sdk.git", tag = "9.1.1" }
-read_write_state_derive = { git = "
+read_write_state_derive = { git = "https://git@gitlab.com/partisiablockchain/language/contract-sdk.git", tag = "9.1.1" }
+create_type_spec_derive = { git = "https://git@gitlab.com/partisiablockchain
