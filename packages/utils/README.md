@@ -19,4 +19,11 @@ There is two ways how a contract call can be built using this API.
 ```rust
 #[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
 pub struct TestTransferMsg {
-    pub to: Addr
+    pub to: Address,
+    pub amount: u128,
+    pub memo: String,
+    pub amounts: Vec<u128>,
+}
+
+impl IntoShortnameRPCEvent for TestTransferMsg {
+    fn action_shor
