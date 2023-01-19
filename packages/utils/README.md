@@ -26,4 +26,10 @@ pub struct TestTransferMsg {
 }
 
 impl IntoShortnameRPCEvent for TestTransferMsg {
-    fn action_shor
+    fn action_shortname(&self) -> u32 {
+        0x01
+    }
+    fn as_interaction(
+        &self,
+        builder: &mut pbc_contract_common::events::EventGroupBuilder,
+        dest: &Address,
