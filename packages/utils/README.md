@@ -33,3 +33,9 @@ impl IntoShortnameRPCEvent for TestTransferMsg {
         &self,
         builder: &mut pbc_contract_common::events::EventGroupBuilder,
         dest: &Address,
+    ) {
+        builder
+            .call(*dest, Shortname::from_u32(self.action_shortname()))
+            .argument(self.to.clone())
+            .argument(self.amount.clone())
+       
