@@ -14,4 +14,9 @@ Provides API and Interfaces for building contract calls(interactions).
 
 There is two ways how a contract call can be built using this API.
 
-1. By implementing `IntoShortnameRPCEvent` trait 
+1. By implementing `IntoShortnameRPCEvent` trait on your own. Example:
+
+```rust
+#[derive(ReadWriteRPC, CreateTypeSpec, Clone, PartialEq, Eq, Debug)]
+pub struct TestTransferMsg {
+    pub to: Addr
