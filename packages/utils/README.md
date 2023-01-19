@@ -10,4 +10,8 @@ Provides `DecimalRatio` type, for on-chain floating point calculations.
 
 ## Events
 
-Provides A
+Provides API and Interfaces for building contract calls(interactions).
+
+There is two ways how a contract call can be built using this API.
+
+1. By implementing `IntoShortnameRPCEvent` trait 
