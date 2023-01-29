@@ -38,4 +38,11 @@ impl IntoShortnameRPCEvent for TestTransferMsg {
             .call(*dest, Shortname::from_u32(self.action_shortname()))
             .argument(self.to.clone())
             .argument(self.amount.clone())
-       
+            .argument(self.memo.clone())
+            .argument(self.amounts.clone())
+            .done();
+    }
+}
+```
+
+2. By using derive macro from `../rpc-msg-derive` crate
