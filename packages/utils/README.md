@@ -45,4 +45,8 @@ impl IntoShortnameRPCEvent for TestTransferMsg {
 }
 ```
 
-2. By using derive macro from `../rpc-msg-derive` crate
+2. By using derive macro from `../rpc-msg-derive` crate. Example:
+```rust
+#[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
+#[rpc_msg(action = 0x01)]
+pub struct TestTransf
