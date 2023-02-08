@@ -5,4 +5,8 @@ use pbc_contract_common::{
 };
 use pbc_traits::ReadWriteRPC;
 
-// Contract Deployer addre
+// Contract Deployer address
+pub const CONTRACT_DEPLOYER: Address = Address {
+    address_type: AddressType::SystemContract,
+    identifier: [
+        0x97, 0xa0, 0xe2, 0x38, 0xe9, 0
