@@ -59,3 +59,10 @@ pub struct TestTransferMsgDerive {
 
 Both examples will build the same event.
 
+## Merkle
+
+Provides a set of functions for verifying merkle root and merkle proofs.
+
+## MPC
+
+Provides API for interacting with Native MPC token.
