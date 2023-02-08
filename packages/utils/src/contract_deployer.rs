@@ -20,4 +20,11 @@ pub const CONTRACT_DEPLOYER: Address = Address {
 /// ## Params
 /// * **ctx** is an object of type [`ContractContext`]
 ///
-/// * **event_group** is an object
+/// * **event_group** is an object of type [`EventGroupBuilder`]
+///
+/// * **wasm** is an object of type [`&[u8]`]
+///
+/// * **abi** is an object of type [`&[u8]`]
+///
+/// * **init_msg** is an object of type [`T`]
+pub f
