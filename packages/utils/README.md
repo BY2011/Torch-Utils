@@ -49,4 +49,13 @@ impl IntoShortnameRPCEvent for TestTransferMsg {
 ```rust
 #[derive(ReadWriteRPC, CreateTypeSpec, IntoShortnameRPCEvent, Clone, PartialEq, Eq, Debug)]
 #[rpc_msg(action = 0x01)]
-pub struct TestTransf
+pub struct TestTransferMsgDerive {
+    pub to: Address,
+    pub amount: u128,
+    pub memo: String,
+    pub amounts: Vec<u128>,
+}
+```
+
+Both examples will build the same event.
+
