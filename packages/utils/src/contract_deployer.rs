@@ -15,4 +15,9 @@ pub const CONTRACT_DEPLOYER: Address = Address {
 };
 
 /// ## Description
-/// Creates event that will deploy a new c
+/// Creates event that will deploy a new contract.
+/// Returns newly deployed contract address
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **event_group** is an object
