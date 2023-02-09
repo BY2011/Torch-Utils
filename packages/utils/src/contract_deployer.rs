@@ -27,4 +27,10 @@ pub const CONTRACT_DEPLOYER: Address = Address {
 /// * **abi** is an object of type [`&[u8]`]
 ///
 /// * **init_msg** is an object of type [`T`]
-pub f
+pub fn add_contract_deploy_event_with_msg<T>(
+    ctx: &ContractContext,
+    event_group: &mut EventGroupBuilder,
+    wasm: &[u8],
+    abi: &[u8],
+    init_msg: &T,
+) 
