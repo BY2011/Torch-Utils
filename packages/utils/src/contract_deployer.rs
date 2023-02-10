@@ -33,4 +33,11 @@ pub fn add_contract_deploy_event_with_msg<T>(
     wasm: &[u8],
     abi: &[u8],
     init_msg: &T,
-) 
+) -> Address
+where
+    T: ReadWriteRPC,
+{
+    let mut raw_init_msg: Vec<u8> = vec![];
+    init_msg.rpc_write_to(&mut raw_init_msg).unwrap();
+
+    add_contract_deploy_event
