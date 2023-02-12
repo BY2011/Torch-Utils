@@ -6,4 +6,8 @@ use read_write_rpc_derive::ReadWriteRPC;
 use read_write_state_derive::ReadWriteState;
 
 /// ## Description
-/// This 
+/// This structure describes wasm compatible decimal wrapper.
+#[derive(
+    ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, Copy, Eq, PartialEq, Debug, Default,
+)]
+pub struct DecimalRat
