@@ -40,4 +40,10 @@ where
     let mut raw_init_msg: Vec<u8> = vec![];
     init_msg.rpc_write_to(&mut raw_init_msg).unwrap();
 
-    add_contract_deploy_event
+    add_contract_deploy_event(ctx, event_group, wasm, abi, &raw_init_msg)
+}
+
+/// ## Description
+/// Creates event that will deploy a new contract.
+/// Returns newly deployed contract address
+///
