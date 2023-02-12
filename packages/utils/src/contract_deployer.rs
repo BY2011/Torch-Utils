@@ -75,4 +75,11 @@ pub fn add_contract_deploy_event(
 
     Address {
         address_type: AddressType::PublicContract,
-        identifier: ctx.original_transaction[12..32].try_in
+        identifier: ctx.original_transaction[12..32].try_into().unwrap(),
+    }
+}
+
+#[inline]
+pub fn init_msg_signature() -> Vec<u8> {
+    vec![0xff, 0xff, 0xff, 0xff, 0x0f]
+}
