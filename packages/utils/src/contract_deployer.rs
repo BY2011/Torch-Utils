@@ -58,4 +58,10 @@ where
 /// * **init_msg** is an object of type [`&[u8]`]
 pub fn add_contract_deploy_event(
     ctx: &ContractContext,
-   
+    event_group: &mut EventGroupBuilder,
+    wasm: &[u8],
+    abi: &[u8],
+    init_msg: &[u8],
+) -> Address {
+    let mut msg: Vec<u8> = init_msg_signature();
+    msg.ex
