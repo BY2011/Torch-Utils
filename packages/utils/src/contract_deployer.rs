@@ -64,4 +64,10 @@ pub fn add_contract_deploy_event(
     init_msg: &[u8],
 ) -> Address {
     let mut msg: Vec<u8> = init_msg_signature();
-    msg.ex
+    msg.extend(init_msg);
+
+    event_group
+        .call(CONTRACT_DEPLOYER, Shortname::from_u32(1))
+        .argument(wasm.to_vec())
+        .argument(abi.to_vec())
+     
