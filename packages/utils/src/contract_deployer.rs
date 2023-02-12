@@ -51,4 +51,11 @@ where
 ///
 /// * **event_group** is an object of type [`EventGroupBuilder`]
 ///
-/// * **wasm** is an object of type [`
+/// * **wasm** is an object of type [`&[u8]`]
+///
+/// * **abi** is an object of type [`&[u8]`]
+///
+/// * **init_msg** is an object of type [`&[u8]`]
+pub fn add_contract_deploy_event(
+    ctx: &ContractContext,
+   
