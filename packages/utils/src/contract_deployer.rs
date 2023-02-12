@@ -46,4 +46,9 @@ where
 /// ## Description
 /// Creates event that will deploy a new contract.
 /// Returns newly deployed contract address
+/// ## Params
+/// * **ctx** is an object of type [`ContractContext`]
 ///
+/// * **event_group** is an object of type [`EventGroupBuilder`]
+///
+/// * **wasm** is an object of type [`
