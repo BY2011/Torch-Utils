@@ -10,4 +10,13 @@ use read_write_state_derive::ReadWriteState;
 #[derive(
     ReadWriteRPC, ReadWriteState, CreateTypeSpec, Clone, Copy, Eq, PartialEq, Debug, Default,
 )]
-pub struct DecimalRat
+pub struct DecimalRatio {
+    // numerator
+    numerator: u128,
+    // decimal number scale
+    scale: u32,
+}
+
+impl DecimalRatio {
+    /// ## Description
+    /// Creates new instance of [`DecimalR
