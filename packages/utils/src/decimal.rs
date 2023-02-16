@@ -24,4 +24,10 @@ impl DecimalRatio {
     /// * **numerator** is an object of type [`u128`]
     ///
     /// * **scale** is an object of type [`u32`]
-    pub fn new(numerator: u128, scale: 
+    pub fn new(numerator: u128, scale: u32) -> Self {
+        Self { numerator, scale }
+    }
+
+    /// ## Description
+    /// Returns [`DecimalRatio`] with value equals to 0
+    pub fn zero() -> Sel
