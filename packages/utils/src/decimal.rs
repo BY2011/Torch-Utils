@@ -37,4 +37,11 @@ impl DecimalRatio {
     /// ## Description
     /// Returns [`DecimalRatio`] with value equals to 1
     pub fn one() -> Self {
-        Dec
+        Decimal::ONE.into()
+    }
+
+    /// ## Description
+    /// Performes native decimal division and returns wrapped
+    /// [`DecimalRatio`] result
+    /// ## Params
+    /// * **numerator** is an ob
