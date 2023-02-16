@@ -30,4 +30,11 @@ impl DecimalRatio {
 
     /// ## Description
     /// Returns [`DecimalRatio`] with value equals to 0
-    pub fn zero() -> Sel
+    pub fn zero() -> Self {
+        Decimal::ZERO.into()
+    }
+
+    /// ## Description
+    /// Returns [`DecimalRatio`] with value equals to 1
+    pub fn one() -> Self {
+        Dec
