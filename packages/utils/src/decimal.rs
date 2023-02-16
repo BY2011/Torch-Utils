@@ -19,4 +19,9 @@ pub struct DecimalRatio {
 
 impl DecimalRatio {
     /// ## Description
-    /// Creates new instance of [`DecimalR
+    /// Creates new instance of [`DecimalRatio`] with initial values
+    /// ## Params
+    /// * **numerator** is an object of type [`u128`]
+    ///
+    /// * **scale** is an object of type [`u32`]
+    pub fn new(numerator: u128, scale: 
