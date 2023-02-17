@@ -44,4 +44,8 @@ impl DecimalRatio {
     /// Performes native decimal division and returns wrapped
     /// [`DecimalRatio`] result
     /// ## Params
-    /// * **numerator** is an ob
+    /// * **numerator** is an object of type [`u128`]
+    ///
+    /// * **denominator** is an object of type [`u129`]
+    pub fn from_ratio(numerator: u128, denominator: u128) -> Self {
+        let a = D
