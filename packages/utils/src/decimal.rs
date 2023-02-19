@@ -59,4 +59,14 @@ impl DecimalRatio {
     pub fn to_u128(&self) -> u128 {
         Decimal::from_i128_with_scale(self.numerator as i128, self.scale)
             .to_u128()
-            .u
+            .unwrap()
+    }
+}
+
+impl From<Decimal> for DecimalRatio {
+    fn from(mut num: Decimal) -> Self {
+        let scale = num.scale();
+        num.set_scale(0).unwrap();
+
+        Self {
+         
