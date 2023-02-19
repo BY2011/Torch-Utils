@@ -55,4 +55,8 @@ impl DecimalRatio {
     }
 
     /// ## Description
-    /// Returns [`u128`] converted va
+    /// Returns [`u128`] converted value with cutted decimals
+    pub fn to_u128(&self) -> u128 {
+        Decimal::from_i128_with_scale(self.numerator as i128, self.scale)
+            .to_u128()
+            .u
