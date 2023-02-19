@@ -48,4 +48,11 @@ impl DecimalRatio {
     ///
     /// * **denominator** is an object of type [`u129`]
     pub fn from_ratio(numerator: u128, denominator: u128) -> Self {
-        let a = D
+        let a = Decimal::from_u128(numerator).unwrap();
+        let b = Decimal::from_u128(denominator).unwrap();
+
+        a.checked_div(b).unwrap().into()
+    }
+
+    /// ## Description
+    /// Returns [`u128`] converted va
