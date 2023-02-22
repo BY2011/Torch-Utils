@@ -77,4 +77,12 @@ impl From<Decimal> for DecimalRatio {
 
 impl From<DecimalRatio> for Decimal {
     fn from(dr: DecimalRatio) -> Self {
-        Dec
+        Decimal::from_i128_with_scale(dr.numerator as i128, dr.scale)
+    }
+}
+
+impl Add for DecimalRatio {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self {
+  
