@@ -69,4 +69,12 @@ impl From<Decimal> for DecimalRatio {
         num.set_scale(0).unwrap();
 
         Self {
-         
+            numerator: num.to_u128().unwrap(),
+            scale,
+        }
+    }
+}
+
+impl From<DecimalRatio> for Decimal {
+    fn from(dr: DecimalRatio) -> Self {
+        Dec
