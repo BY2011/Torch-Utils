@@ -85,4 +85,12 @@ impl Add for DecimalRatio {
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self {
-  
+        let a: Decimal = self.into();
+        let b: Decimal = rhs.into();
+
+        a.checked_add(b).unwrap().into()
+    }
+}
+
+impl Sub for DecimalRatio {
+    type Output 
