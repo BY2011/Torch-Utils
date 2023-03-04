@@ -132,4 +132,12 @@ impl PartialOrd for DecimalRatio {
 }
 
 impl Ord for DecimalRatio {
-    fn cmp(&self, other: &Self) -
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        let a: Decimal = (*self).into();
+        let b: Decimal = (*other).into();
+
+        a.cmp(&b)
+    }
+}
+
+impl ToString 
