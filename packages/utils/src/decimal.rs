@@ -126,4 +126,10 @@ impl Div for DecimalRatio {
 }
 
 impl PartialOrd for DecimalRatio {
-    fn p
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for DecimalRatio {
+    fn cmp(&self, other: &Self) -
