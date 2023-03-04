@@ -99,4 +99,13 @@ impl Sub for DecimalRatio {
         let a: Decimal = self.into();
         let b: Decimal = rhs.into();
 
-        a.checked_sub(b).unwrap().into
+        a.checked_sub(b).unwrap().into()
+    }
+}
+
+impl Mul for DecimalRatio {
+    type Output = Self;
+
+    fn mul(self, rhs: Self) -> Self {
+        let a: Decimal = self.into();
+        let
