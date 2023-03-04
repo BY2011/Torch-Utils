@@ -93,4 +93,10 @@ impl Add for DecimalRatio {
 }
 
 impl Sub for DecimalRatio {
-    type Output 
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self {
+        let a: Decimal = self.into();
+        let b: Decimal = rhs.into();
+
+        a.checked_sub(b).unwrap().into
