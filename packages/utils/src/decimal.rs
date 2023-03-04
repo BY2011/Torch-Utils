@@ -118,3 +118,12 @@ impl Div for DecimalRatio {
     type Output = Self;
 
     fn div(self, rhs: Self) -> Self {
+        let a: Decimal = self.into();
+        let b: Decimal = rhs.into();
+
+        a.checked_div(b).unwrap().into()
+    }
+}
+
+impl PartialOrd for DecimalRatio {
+    fn p
