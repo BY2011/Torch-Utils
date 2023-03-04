@@ -108,4 +108,13 @@ impl Mul for DecimalRatio {
 
     fn mul(self, rhs: Self) -> Self {
         let a: Decimal = self.into();
-        let
+        let b: Decimal = rhs.into();
+
+        a.checked_mul(b).unwrap().into()
+    }
+}
+
+impl Div for DecimalRatio {
+    type Output = Self;
+
+    fn div(self, rhs: Self) -> Self {
