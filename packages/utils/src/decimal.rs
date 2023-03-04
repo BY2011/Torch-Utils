@@ -140,4 +140,13 @@ impl Ord for DecimalRatio {
     }
 }
 
-impl ToString 
+impl ToString for DecimalRatio {
+    fn to_string(&self) -> String {
+        let d: Decimal = (*self).into();
+        d.to_string()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use rust_decimal:
