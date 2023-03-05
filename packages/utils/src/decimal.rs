@@ -158,4 +158,8 @@ mod tests {
         let a = DecimalRatio::new(100, 3);
         let b = DecimalRatio::new(400, 0);
 
-        let res: Decima
+        let res: Decimal = (a / b).into();
+        assert_eq!(res.to_string(), "0.00025");
+
+        let dr_res: DecimalRatio = res.into();
+        assert_eq!(dr_res, Decimal
