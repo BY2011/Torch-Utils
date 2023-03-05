@@ -166,4 +166,7 @@ mod tests {
         assert_eq!(dr_res.to_u128(), 0);
 
         let ratio = DecimalRatio::from_ratio(1678, 909841);
-        assert_eq!(ratio, DecimalRatio::new(18442782
+        assert_eq!(ratio, DecimalRatio::new(18442782859862327593502601, 28));
+        assert_eq!(ratio.to_u128(), 0);
+        let dec_ratio: Decimal = ratio.into();
+        assert_eq!(dec_ratio.to_string(), "0.00
