@@ -172,4 +172,11 @@ mod tests {
         assert_eq!(dec_ratio.to_string(), "0.0018442782859862327593502601");
 
         let res = (DecimalRatio::new(123, 5) + DecimalRatio::new(4444, 2))
-            * (DecimalRatio::new(556436, 3) - Deci
+            * (DecimalRatio::new(556436, 3) - DecimalRatio::new(431, 0))
+            / DecimalRatio::new(489314, 4);
+        assert_eq!(res, DecimalRatio::new(11392541652762847578446559878, 26));
+    }
+
+    #[test]
+    fn test_cmp() {
+   
