@@ -149,4 +149,13 @@ impl ToString for DecimalRatio {
 
 #[cfg(test)]
 mod tests {
-    use rust_decimal:
+    use rust_decimal::prelude::*;
+
+    use super::*;
+
+    #[test]
+    fn test_decimal_math() {
+        let a = DecimalRatio::new(100, 3);
+        let b = DecimalRatio::new(400, 0);
+
+        let res: Decima
