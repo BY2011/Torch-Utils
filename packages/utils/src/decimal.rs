@@ -179,4 +179,10 @@ mod tests {
 
     #[test]
     fn test_cmp() {
-   
+        let a = DecimalRatio::new(100, 3);
+        let b = DecimalRatio::new(400, 0);
+
+        assert_eq!(b > a && b >= a, true);
+        assert_eq!(a < b && a <= b, true);
+
+       
