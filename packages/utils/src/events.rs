@@ -223,3 +223,38 @@ mod rpc_msg_with_cost_tests {
     #[test]
     fn test_derive_macro() {
         fn mock_address(le: u8) -> Address {
+            Address {
+                address_type: AddressType::Account,
+                identifier: [
+                    le, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                    0u8, 0u8, 0u8, 0u8,
+                ],
+            }
+        }
+
+        let msg = TestTransferMsgWithCost {
+            to: mock_address(1u8),
+            amount: 100,
+            memo: "memo".to_string(),
+            amounts: vec![10],
+        };
+
+        let derive_msg = TestTransferMsgWithCostDerive {
+            to: msg.to.clone(),
+            amount: msg.amount,
+            memo: msg.memo.clone(),
+            amounts: msg.amounts.clone(),
+        };
+
+        assert_eq!(msg.action_shortname(), derive_msg.action_shortname());
+
+        let dest = mock_address(10u8);
+        let mut eg = EventGroup::builder();
+        msg.as_interaction(&mut eg, &dest, 100);
+
+        let mut derive_eg = EventGroup::builder();
+        derive_msg.as_interaction(&mut derive_eg, &dest, 100);
+
+        assert_eq!(eg.build(), derive_eg.build());
+    }
+}
