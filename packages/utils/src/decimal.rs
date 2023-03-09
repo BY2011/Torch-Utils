@@ -185,4 +185,8 @@ mod tests {
         assert_eq!(b > a && b >= a, true);
         assert_eq!(a < b && a <= b, true);
 
-       
+        let eq1 = DecimalRatio::new(100, 3);
+        let eq2 = DecimalRatio::new(100, 3);
+        assert_eq!(eq1 == eq2, true);
+    }
+}
