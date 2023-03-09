@@ -22,4 +22,8 @@ pub const MIN_MPC_STAKE: u64 = 2000_0000;
 /// Creates event that will deploy a new zero-knowledge contract.
 /// Returns newly deployed contract address
 /// ## Params
-/// * *
+/// * **ctx** is an object of type [`ContractContext`]
+///
+/// * **event_group** is an object of type [`EventGroupBuilder`]
+///
+/// * **zkwa** is an object of type [`&[u8]`]
