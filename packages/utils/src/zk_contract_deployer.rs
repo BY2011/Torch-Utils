@@ -27,3 +27,10 @@ pub const MIN_MPC_STAKE: u64 = 2000_0000;
 /// * **event_group** is an object of type [`EventGroupBuilder`]
 ///
 /// * **zkwa** is an object of type [`&[u8]`]
+///
+/// * **abi** is an object of type [`&[u8]`]
+///
+/// * **init_msg** is an object of type [`T`]
+///
+/// * **mpc_token_stake** is an optional variable of type [`u64`]
+pub fn 
