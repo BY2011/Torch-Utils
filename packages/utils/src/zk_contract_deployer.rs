@@ -33,4 +33,10 @@ pub const MIN_MPC_STAKE: u64 = 2000_0000;
 /// * **init_msg** is an object of type [`T`]
 ///
 /// * **mpc_token_stake** is an optional variable of type [`u64`]
-pub fn 
+pub fn add_zk_contract_deploy_event_with_msg<T>(
+    ctx: &ContractContext,
+    event_group: &mut EventGroupBuilder,
+    zkwa: &[u8],
+    abi: &[u8],
+    init_msg: &T,
+    mpc_token_stake: Option<u64>,
