@@ -57,4 +57,8 @@ where
     )
 }
 
-/// ## Des
+/// ## Description
+/// Creates event that will deploy a new zero-knowledge contract.
+/// Returns newly deployed contract address
+/// ## Params
+/// * **ctx** is an object of type [`Contra
