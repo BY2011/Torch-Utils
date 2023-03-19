@@ -40,3 +40,11 @@ pub fn add_zk_contract_deploy_event_with_msg<T>(
     abi: &[u8],
     init_msg: &T,
     mpc_token_stake: Option<u64>,
+) -> Address
+where
+    T: ReadWriteRPC,
+{
+    let mut raw_init_msg: Vec<u8> = vec![];
+    init_msg.rpc_write_to(&mut raw_init_msg).unwrap();
+
+    add_zk_c
