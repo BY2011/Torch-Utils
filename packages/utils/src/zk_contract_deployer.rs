@@ -47,4 +47,14 @@ where
     let mut raw_init_msg: Vec<u8> = vec![];
     init_msg.rpc_write_to(&mut raw_init_msg).unwrap();
 
-    add_zk_c
+    add_zk_contract_deploy_event(
+        ctx,
+        event_group,
+        zkwa,
+        abi,
+        &raw_init_msg,
+        mpc_token_stake.unwrap_or(MIN_MPC_STAKE),
+    )
+}
+
+/// ## Des
