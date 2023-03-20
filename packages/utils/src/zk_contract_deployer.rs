@@ -69,4 +69,7 @@ where
 ///
 /// * **abi** is an object of type [`&[u8]`]
 ///
-/// 
+/// * **init_msg** is an object of type [`&[u8]`]
+///
+/// * **mpc_token_stake** is an optional variable of type [`u64`]
+pub fn add_zk_contract_deploy_eve
