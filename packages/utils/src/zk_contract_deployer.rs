@@ -72,4 +72,12 @@ where
 /// * **init_msg** is an object of type [`&[u8]`]
 ///
 /// * **mpc_token_stake** is an optional variable of type [`u64`]
-pub fn add_zk_contract_deploy_eve
+pub fn add_zk_contract_deploy_event(
+    ctx: &ContractContext,
+    event_group: &mut EventGroupBuilder,
+    zkwa: &[u8],
+    abi: &[u8],
+    init_msg: &[u8],
+    mpc_token_stake: u64,
+) -> Address {
+    let mut 
