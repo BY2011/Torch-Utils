@@ -85,4 +85,11 @@ pub fn add_zk_contract_deploy_event(
 
     event_group
         .call(ZK_CONTRACT_DEPLOYER, Shortname::from_u32(0x00))
-        .a
+        .argument(zkwa.to_vec())
+        .argument(msg.to_vec())
+        .argument(abi.to_vec())
+        .argument(mpc_token_stake)
+        .done();
+
+    Address {
+        address_ty
