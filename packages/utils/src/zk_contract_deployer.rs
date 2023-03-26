@@ -80,4 +80,9 @@ pub fn add_zk_contract_deploy_event(
     init_msg: &[u8],
     mpc_token_stake: u64,
 ) -> Address {
-    let mut 
+    let mut msg: Vec<u8> = init_msg_signature();
+    msg.extend(init_msg);
+
+    event_group
+        .call(ZK_CONTRACT_DEPLOYER, Shortname::from_u32(0x00))
+        .a
