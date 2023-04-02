@@ -92,4 +92,7 @@ pub fn add_zk_contract_deploy_event(
         .done();
 
     Address {
-        address_ty
+        address_type: AddressType::ZkContract,
+        identifier: ctx.original_transaction[12..32].try_into().unwrap(),
+    }
+}
